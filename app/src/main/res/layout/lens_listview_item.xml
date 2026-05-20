@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_lens_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/scaled_h_dp_10"
+        android:text=""
+        android:gravity="center"
+        android:textSize="@dimen/scaled_t_dp_28"
+        >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/tv_lens_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/gray"
+        android:gravity="center"
+        android:textSize="@dimen/scaled_t_dp_20"
+        android:paddingTop="@dimen/scaled_h_dp_3"
+        android:paddingBottom="@dimen/scaled_h_dp_10"/>
+
+</LinearLayout>

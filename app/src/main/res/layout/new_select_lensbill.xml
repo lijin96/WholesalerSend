@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottombar_back_button"
+        android:gravity="center_vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/scaled_h_dp_10"
+            android:paddingTop="@dimen/scaled_h_dp_10" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="@dimen/scaled_w_dp_10"
+                android:text="订单选择"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:textSize="@dimen/scaled_t_dp_30" />
+
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView1"
+                android:layout_centerHorizontal="true"
+                android:text="（共 0 条）"
+                android:textColor="@color/white"
+                android:textSize="@dimen/scaled_t_dp_26" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="@dimen/scaled_w_dp_450"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/scaled_w_dp_10"
+            android:hint="输入条件点击确定查找"
+            android:imeOptions="flagNoExtractUi"
+            android:layout_toLeftOf="@+id/btn_seach"
+            android:inputType="text"
+            android:textSize="@dimen/scaled_t_dp_26" />
+
+
+        <Button
+            android:id="@+id/btn_seach"
+            android:layout_width="@dimen/scaled_w_dp_90"
+            android:layout_height="@dimen/scaled_h_dp_50"
+            android:text="确定"
+            android:textSize="@dimen/scaled_t_sp_16"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/scaled_w_dp_10"
+            android:layout_centerVertical="true"
+            ></Button>
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/burlywood"
+        android:gravity="left" >
+
+        <TextView
+            android:id="@+id/txt_1"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"
+            android:padding="@dimen/scaled_o_dp_5"
+            android:text="出库单号"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="match_parent"
+            android:background="#AEAEAE" />
+
+        <TextView
+            android:id="@+id/txt_pur_2"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/scaled_o_dp_5"
+            android:text="单据日期"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="match_parent"
+            android:background="#AEAEAE" />
+
+        <LinearLayout
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txt_pur_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/scaled_o_dp_5"
+                android:layout_gravity="center_vertical"
+                android:text="客户名称"
+                android:textSize="@dimen/scaled_t_dp_30" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="（"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+
+                <TextView
+                    android:id="@+id/txt_pur_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分店ID"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="）"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="match_parent"
+            android:background="#AEAEAE" />
+
+        <LinearLayout
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txt_pur_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/scaled_o_dp_5"
+                android:layout_gravity="center_vertical"
+                android:text="单据数量"
+                android:textSize="@dimen/scaled_t_dp_30" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="（"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+
+                <TextView
+                    android:id="@+id/txt_pur_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="仓库ID"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="）"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+ <RelativeLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     >
+    <TextView
+        android:id="@+id/tv_choose_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="注:仅加载近3天的销售单，更多销售单请输入单号搜索"
+        android:textColor="@color/red"
+        android:textSize="@dimen/scaled_t_dp_24"
+        ></TextView>
+
+     <ListView
+         android:id="@+id/listView1"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_above="@+id/tv_choose_title"
+         ></ListView>
+ </RelativeLayout>
+
+</LinearLayout>

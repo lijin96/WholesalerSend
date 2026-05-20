@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText,dpUsage,InefficientWeight,UselessLeaf">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_50"
+        android:layout_gravity="center"
+        android:background="@drawable/titlebar_back"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择型号色号"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scaled_t_dp_20"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/scaled_w_dp_20"
+            android:layout_marginTop="@dimen/scaled_h_dp_8"
+            />
+        <TextView 
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="（共0条）"
+            android:layout_below="@id/tv_title"
+            android:layout_marginLeft="@dimen/scaled_w_dp_40"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scaled_t_dp_12"/>
+         <EditText
+            android:id="@+id/et_search"
+            android:layout_width="@dimen/scaled_w_dp_230"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+             android:layout_alignParentRight="true"
+             android:layout_marginRight="@dimen/scaled_w_dp_10"
+            android:imeOptions="flagNoExtractUi"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/burlywood"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/list_purcheck_detail"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+
+</LinearLayout>

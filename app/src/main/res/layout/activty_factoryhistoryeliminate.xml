@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relayout_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titlebackground" >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="历史装盒入库剔除"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scaled_t_dp_30" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cornflowerblue"
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/scaled_w_dp_20" >
+
+        <TextView
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:paddingBottom="@dimen/scaled_h_dp_15"
+            android:paddingTop="@dimen/scaled_h_dp_15"
+            android:text="盒标码"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="@dimen/scaled_w_dp_2"
+            android:layout_marginRight="@dimen/scaled_w_dp_2"
+            android:background="#696969" />
+
+        <EditText
+            android:id="@+id/et_box_barcode"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.4"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:hint="扫描盒标码获取明细"
+            android:inputType="text"
+            android:paddingLeft="@dimen/scaled_w_dp_10"
+            android:textSize="@dimen/scaled_t_dp_28" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_2"
+        android:background="#696969" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cornflowerblue"
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/scaled_w_dp_20" >
+
+        <TextView
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:paddingBottom="@dimen/scaled_h_dp_15"
+            android:paddingTop="@dimen/scaled_h_dp_15"
+            android:text="条\t\t码"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="@dimen/scaled_w_dp_2"
+            android:layout_marginRight="@dimen/scaled_w_dp_2"
+            android:background="#696969" />
+
+        <EditText
+            android:id="@+id/et_barcode"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.4"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:hint="扫描物流码进行剔除"
+            android:inputType="text"
+            android:paddingLeft="@dimen/scaled_w_dp_10"
+            android:textSize="@dimen/scaled_t_dp_28" >
+
+<!--            <requestFocus />-->
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D7D7D7"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/tv_model"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="@dimen/scaled_h_dp_10"
+            android:paddingTop="@dimen/scaled_h_dp_10"
+            android:text="型号"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="fill_parent"
+            android:background="#AAAAAA" />
+
+        <TextView
+            android:id="@+id/tv_colors"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="@dimen/scaled_h_dp_10"
+            android:paddingTop="@dimen/scaled_h_dp_10"
+            android:text="色号"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="fill_parent"
+            android:background="#AAAAAA" />
+
+        <TextView
+            android:id="@+id/tv_packingnum"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="盒装数"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="fill_parent"
+            android:background="#AAAAAA" />
+
+        <TextView
+            android:id="@+id/tv_actnum"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="实装数"
+            android:textSize="@dimen/scaled_t_dp_30" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_1"
+        android:background="#AAAAAA" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_0"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titlebackground"
+        android:padding="@dimen/scaled_o_dp_10" >
+
+        <Button
+            android:id="@+id/btn_finish"
+            android:layout_width="@dimen/scaled_w_dp_200"
+            android:layout_height="@dimen/scaled_h_dp_80"
+            android:layout_centerInParent="true"
+            android:text="完成"
+            android:textSize="@dimen/scaled_t_dp_30" />
+    </RelativeLayout>
+
+</LinearLayout>

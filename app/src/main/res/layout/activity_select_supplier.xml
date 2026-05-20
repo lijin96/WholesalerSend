@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/scaled_h_dp_10"
+            android:paddingTop="@dimen/scaled_h_dp_10"
+            android:background="@drawable/bottombar_back_button"
+            android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    >
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="请选择供应商"
+                            android:textColor="@color/white"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+
+                            android:layout_marginLeft="@dimen/scaled_w_dp_20"/>
+                        <!--                        <TextView-->
+                        <!--                            android:id="@+id/tv_total"-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:text="（共 0 条）"-->
+                        <!--                            android:layout_centerHorizontal="true"-->
+                        <!--                            android:textColor="@color/white"-->
+                        <!--                            android:textSize="@dimen/scaled_t_dp_12"-->
+                        <!--                            android:layout_alignParentBottom="true"/>-->
+
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/et_query_supplier"
+                    android:layout_width="@dimen/scaled_w_dp_450"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/scaled_w_dp_10"
+                    android:hint="输入条件点击确定查找"
+                    android:imeOptions="flagNoExtractUi"
+                    android:layout_toLeftOf="@+id/btn_seach"
+                    android:inputType="text"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+
+
+                <!--                <EditText-->
+                <!--                    android:id="@+id/et_query_supplier"-->
+                <!--                    android:layout_width="@dimen/scaled_w_dp_450"-->
+                <!--                    android:layout_height="fill_parent"-->
+                <!--                    android:hint="模糊查找，请输入查找条件"-->
+                <!--                    android:inputType="text"-->
+                <!--                    android:ems="18"-->
+                <!--                    android:focusableInTouchMode="true"-->
+                <!--                    android:gravity="center_vertical"-->
+                <!--                    android:imeOptions="flagNoExtractUi"-->
+                <!--                    android:textSize="@dimen/scaled_t_dp_26"-->
+                <!--                    android:layout_toLeftOf="@+id/btn_seach"-->
+                <!--                    android:layout_marginRight="@dimen/scaled_w_dp_10"-->
+                <!--                    android:layout_centerVertical="true">-->
+                <!--                        <requestFocus />-->
+                <!--                </EditText>-->
+
+
+                <Button
+                    android:id="@+id/btn_seach"
+                    android:layout_width="@dimen/scaled_w_dp_90"
+                    android:layout_height="@dimen/scaled_h_dp_50"
+                    android:text="确定"
+                    android:textSize="@dimen/scaled_t_sp_16"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/scaled_w_dp_10"
+                    android:layout_centerVertical="true"
+                    ></Button>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:background="@color/burlywood">
+
+                <include
+                    android:id="@+id/include1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_0"
+                    android:layout_marginTop="@dimen/scaled_h_dp_0"
+                    android:background="@color/red"
+                    layout="@layout/new_list_select_supplier"/>
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerView_supplier"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+</LinearLayout>

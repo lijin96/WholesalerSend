@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <RadioGroup
+        android:id="@+id/radio_group_set"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/scaled_h_dp_30"
+        android:paddingLeft="@dimen/scaled_w_dp_20"
+        android:paddingRight="@dimen/scaled_w_dp_20"
+        android:paddingBottom="@dimen/scaled_h_dp_10"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/radio_scs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/scaled_t_sp_16"
+            android:button="@drawable/radio_style"
+            android:text="SCS"></RadioButton>
+        <RadioButton
+            android:id="@+id/radio_ccs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/scaled_t_sp_16"
+            android:button="@drawable/radio_style"
+            android:text="CCS"></RadioButton>
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/scaled_h_dp_10"
+        android:paddingLeft="@dimen/scaled_w_dp_10"
+        android:paddingRight="@dimen/scaled_w_dp_10"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/scaled_t_sp_16"
+            android:text="当前IP">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_domainname"
+            android:textSize="@dimen/scaled_t_sp_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scaled_w_dp_20"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/scaled_h_dp_10"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="@dimen/scaled_w_dp_10"
+        android:paddingRight="@dimen/scaled_w_dp_10"
+        android:visibility="gone"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改IP"
+            android:textSize="@dimen/scaled_t_sp_16">
+        </TextView>
+
+        <EditText
+            android:id="@+id/ed_domainname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入要修改的IP地址"
+            android:layout_marginLeft="@dimen/scaled_w_dp_20"
+            android:textSize="@dimen/scaled_t_sp_16"
+            >
+            <requestFocus/>
+        </EditText>
+    </LinearLayout>
+
+</LinearLayout>

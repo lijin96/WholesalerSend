@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:gravity="left"
+        android:paddingLeft="@dimen/scaled_w_dp_10"
+        android:text="【选择产品】"
+        android:textColor="@color/white"
+        android:textSize="@dimen/scaled_t_dp_30" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titlebar_back"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/scaled_h_dp_15"
+        android:paddingTop="@dimen/scaled_h_dp_15" >
+
+        <RelativeLayout
+            android:id="@+id/relat_color"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/selected_model_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scaled_w_dp_10"
+                android:text="选择型号色号"
+                android:textColor="@color/white"
+                android:textSize="@dimen/scaled_t_dp_28" />
+
+            <TextView
+                android:id="@+id/selected_model_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/selected_model_name"
+                android:layout_marginLeft="@dimen/scaled_w_dp_5"
+                android:text="（已选：）"
+                android:textColor="#00FF00"
+                android:textSize="@dimen/scaled_t_dp_20" />
+        </RelativeLayout>
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_redownload"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="fill_parent"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_marginLeft="@dimen/scaled_w_dp_20"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="@dimen/scaled_o_dp_5"-->
+<!--            android:text="重新下载产品"-->
+<!--            android:textSize="@dimen/scaled_t_dp_22"-->
+<!--            android:visibility="visible" />-->
+
+        <EditText
+            android:id="@+id/select_model_et_search"
+            android:layout_width="@dimen/scaled_w_dp_550"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scaled_w_dp_30"
+            android:layout_toLeftOf="@+id/btn_seach"
+            android:ems="16"
+            android:hint="模糊查找"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="text"
+            android:textSize="@dimen/scaled_t_dp_28" 
+            android:padding="@dimen/scaled_o_dp_15" >
+        </EditText>
+
+<!--        <Button-->
+<!--            android:id="@+id/select_model_btn_filter"-->
+<!--            android:layout_width="@dimen/scaled_w_dp_150"-->
+<!--            android:layout_height="@dimen/scaled_h_dp_70"-->
+<!--            android:layout_marginLeft="@dimen/scaled_w_dp_30"-->
+<!--            android:layout_marginRight="@dimen/scaled_w_dp_10"-->
+<!--            android:text="筛 选"-->
+<!--            android:textSize="@dimen/scaled_t_dp_28" />-->
+
+        <Button
+            android:id="@+id/btn_seach"
+            android:layout_width="@dimen/scaled_w_dp_150"
+            android:layout_height="@dimen/scaled_h_dp_70"
+            android:layout_marginLeft="@dimen/scaled_w_dp_30"
+            android:layout_marginRight="@dimen/scaled_w_dp_10"
+            android:layout_alignParentRight="true"
+            android:text="确定"
+            android:textSize="@dimen/scaled_t_dp_26" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_0"
+        android:layout_weight="2.88"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/burlywood"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/scaled_w_dp_10" >
+
+            <RelativeLayout
+                android:layout_width="@dimen/scaled_w_dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/scaled_h_dp_8"
+                android:layout_marginBottom="@dimen/scaled_h_dp_8"
+                android:layout_weight="0.8" >
+
+                <TextView
+                    android:id="@+id/tv_goodstr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="产品ID"
+                    android:textSize="@dimen/scaled_t_dp_28" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_goodstr"
+                    android:text="（品类）-（品牌）"
+                    android:layout_marginTop="@dimen/scaled_h_dp_5"
+                    android:textSize="@dimen/scaled_t_dp_24" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="@dimen/scaled_w_dp_1"
+                android:layout_height="match_parent"
+                android:background="#AEAEAE" />
+
+            <TextView
+                android:layout_width="@dimen/scaled_w_dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:padding="@dimen/scaled_o_dp_5"
+                android:paddingLeft="@dimen/scaled_w_dp_10"
+                android:text="产品描述"
+                android:textSize="@dimen/scaled_t_dp_28" />
+
+            <View
+                android:layout_width="@dimen/scaled_w_dp_1"
+                android:layout_height="match_parent"
+                android:background="#AEAEAE" />
+
+            <TextView
+                android:layout_width="@dimen/scaled_w_dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:padding="@dimen/scaled_o_dp_5"
+                android:paddingLeft="@dimen/scaled_w_dp_10"
+                android:text="折射率"
+                android:textSize="@dimen/scaled_t_dp_28" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/select_model_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="#00000000" >
+        </ListView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titlebar_back"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/scaled_h_dp_10"
+        android:paddingTop="@dimen/scaled_h_dp_10" >
+
+
+        <TextView
+            android:id="@+id/select_model_tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/scaled_w_dp_20"
+            android:layout_alignParentLeft="true"
+            android:padding="@dimen/scaled_o_dp_10"
+            android:text="共计 0 条"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scaled_t_dp_26" />
+
+
+
+
+        <Button
+            android:id="@+id/select_model_btn_next"
+            android:layout_width="@dimen/scaled_w_dp_250"
+            android:layout_height="@dimen/scaled_h_dp_80"
+            android:layout_marginRight="@dimen/scaled_w_dp_50"
+            android:layout_toLeftOf="@id/select_model_btn_cancel"
+            android:text="下一页"
+            android:visibility="gone"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <Button
+            android:id="@+id/select_model_btn_cancel"
+            android:layout_width="@dimen/scaled_w_dp_250"
+            android:layout_height="@dimen/scaled_h_dp_80"
+            android:layout_marginRight="@dimen/scaled_w_dp_50"
+            android:layout_toLeftOf="@id/select_model_btn_ok"
+            android:text="返回"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <Button
+            android:id="@+id/select_model_btn_ok"
+            android:layout_width="@dimen/scaled_w_dp_250"
+            android:layout_height="@dimen/scaled_h_dp_80"
+            android:layout_marginRight="@dimen/scaled_w_dp_100"
+            android:layout_alignParentRight="true"
+            android:text="确 定"
+            android:textSize="@dimen/scaled_t_dp_30" />
+    </RelativeLayout>
+
+</LinearLayout>

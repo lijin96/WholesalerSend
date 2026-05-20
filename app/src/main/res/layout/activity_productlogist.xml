@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/linelayout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titlebar_back"
+        android:orientation="horizontal"
+        android:padding="@dimen/scaled_o_dp_10" >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="物流查询"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_logistics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/scaled_w_dp_20"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rb_scslogistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/scaled_w_dp_20"
+                android:textColor="@color/white"
+                android:checked="true"
+                android:text="SCS物流查询"></RadioButton>
+            <RadioButton
+                android:id="@+id/rb_ccslogistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="CCS物流查询"></RadioButton>
+
+        </RadioGroup>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/Relative_SCSLogistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/scaled_h_dp_10"
+        android:paddingTop="@dimen/scaled_h_dp_10" >
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radio_logistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scaled_w_dp_20"
+                android:checked="true"
+                android:text="物流码"
+                android:textSize="@dimen/scaled_t_dp_26" />
+
+            <RadioButton
+                android:id="@+id/radio_security"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scaled_w_dp_20"
+                android:text="防伪码"
+                android:textSize="@dimen/scaled_t_dp_26" />
+
+            <RadioButton
+                android:id="@+id/radio_integral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scaled_w_dp_20"
+                android:text="积分码"
+                android:textSize="@dimen/scaled_t_dp_26" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/et_barcode"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scaled_w_dp_10"
+            android:layout_marginRight="@dimen/scaled_w_dp_10"
+            android:layout_toRightOf="@+id/radio_group"
+            android:hint="请选择再扫描条码"
+            android:imeOptions="actionSend"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:singleLine="true"
+            android:textSize="@dimen/scaled_t_dp_26" >
+
+            <requestFocus />
+        </EditText>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/Relative_CCSLogistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:paddingBottom="@dimen/scaled_h_dp_10"
+        android:paddingTop="@dimen/scaled_h_dp_10" >
+
+        <RadioGroup
+            android:id="@+id/ccsradio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/ccsradio_logistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scaled_w_dp_20"
+                android:checked="true"
+                android:text="物流码"
+                android:textSize="@dimen/scaled_t_dp_26" />
+
+            <RadioButton
+                android:id="@+id/ccsradio_security"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scaled_w_dp_20"
+                android:text="防伪码"
+                android:textSize="@dimen/scaled_t_dp_26" />
+
+            <RadioButton
+                android:id="@+id/ccsradio_integral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scaled_w_dp_20"
+                android:text="积分码"
+                android:textSize="@dimen/scaled_t_dp_26" />
+        </RadioGroup>
+
+
+        <LinearLayout
+            android:id="@+id/lin_ccsbrand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/scaled_w_dp_20"
+            >
+            <TextView
+                android:id="@+id/tv_brand_name"
+                android:text=""
+                android:textSize="@dimen/scaled_t_dp_26"
+                android:layout_marginRight="@dimen/scaled_w_dp_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></TextView>
+            <TextView
+                android:id="@+id/choose_brand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择品牌"
+                android:textSize="@dimen/scaled_t_dp_26"
+                ></TextView>
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/et_ccsbarcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scaled_w_dp_10"
+            android:layout_marginRight="@dimen/scaled_w_dp_10"
+            android:layout_toRightOf="@+id/ccsradio_group"
+            android:layout_toLeftOf="@+id/lin_ccsbrand"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="请选择再扫描条码"
+            android:imeOptions="actionSend"
+            android:singleLine="true"
+            android:textSize="@dimen/scaled_t_dp_26">
+
+            <requestFocus />
+        </EditText>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_1"
+        android:background="#AEAEAE" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/scaled_o_dp_20" >
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/scaled_t_dp_28" />
+    </ScrollView>
+
+</LinearLayout>

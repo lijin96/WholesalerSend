@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="@dimen/scaled_h_dp_10"
+        >
+       <TextView
+           android:layout_width="@dimen/scaled_w_dp_120"
+           android:layout_height="wrap_content"
+           android:text="球镜"
+           android:textSize="@dimen/scaled_t_dp_24"
+           >
+       </TextView>
+        <EditText
+            android:id="@+id/ed_sphericalmirror"
+            android:layout_width="@dimen/scaled_w_dp_200"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scaled_w_dp_20"
+            android:text=""
+            android:textSize="@dimen/scaled_t_sp_24"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="numberSigned|numberDecimal"
+            ></EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/scaled_h_dp_10"
+        >
+        <TextView
+            android:layout_width="@dimen/scaled_w_dp_120"
+            android:layout_height="wrap_content"
+            android:text="柱镜"
+            android:textSize="@dimen/scaled_t_dp_24"
+            >
+        </TextView>
+        <EditText
+            android:id="@+id/ed_cylinder"
+            android:layout_width="@dimen/scaled_w_dp_200"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scaled_w_dp_20"
+            android:text=""
+            android:textSize="@dimen/scaled_t_sp_24"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="numberSigned|numberDecimal"
+            ></EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/scaled_h_dp_10"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="@dimen/scaled_w_dp_120"
+            android:layout_height="wrap_content"
+            android:text="采购订单数"
+            android:textSize="@dimen/scaled_t_dp_24"
+            >
+        </TextView>
+        <EditText
+            android:id="@+id/ed_addprocure_num"
+            android:layout_width="@dimen/scaled_w_dp_200"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scaled_w_dp_20"
+            android:text=""
+            android:textSize="@dimen/scaled_t_sp_24"
+            android:inputType="number"
+            android:imeOptions="flagNoExtractUi"
+            ></EditText>
+    </LinearLayout>
+
+
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:paddingTop="@dimen/scaled_h_dp_10"
+        android:paddingBottom="@dimen/scaled_h_dp_10"
+        android:text="*请注意球柱镜小数点后两位\n请以00、25、50、75来进行规范输入"
+        android:textSize="@dimen/scaled_t_sp_16">
+
+    </TextView>
+
+</LinearLayout>

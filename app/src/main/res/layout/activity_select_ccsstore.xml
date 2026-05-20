@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titlebar_back"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/scaled_o_dp_10" >
+
+        <LinearLayout
+            android:id="@+id/lin_ccscustomer_d1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/scaled_w_dp_5"
+                android:text="CCS门店选择"
+                android:textColor="@color/white"
+                android:textSize="@dimen/scaled_t_dp_20" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_2"
+                    android:text="（共 0 条）"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/scaled_t_dp_20" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_synchronous"
+            android:layout_width="@dimen/scaled_w_dp_200"
+            android:padding="@dimen/scaled_o_dp_10"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/lin_ccscustomer_d1"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/scaled_w_dp_30"
+            android:textSize="@dimen/scaled_t_dp_20"
+            android:layout_centerVertical="true"
+            android:text="同步至CCS" />
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="@dimen/scaled_w_dp_350"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/scaled_w_dp_10"
+            android:layout_toLeftOf="@+id/btn_search"
+            android:hint="请先输入搜索条件后查询"
+            android:imeOptions="flagNoExtractUi"
+            android:paddingLeft="@dimen/scaled_w_dp_10"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="@dimen/scaled_w_dp_100"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/scaled_w_dp_10"
+            android:text="确定" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/burlywood"
+        android:gravity="left" >
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/select_ccsstore_item" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listview_ccsstore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#AEAEAE"
+        android:visibility="gone"
+        android:dividerHeight="@dimen/scaled_o_dp_0_1" >
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/relat_search_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/scaled_t_dp_30"
+            android:layout_centerInParent="true"
+            android:textColor="@color/gray"
+            android:text="请先在右上角输入搜索条件后查询"
+            ></TextView>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    >
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/scaled_o_dp_15"
+        android:background="@drawable/titlebar_back" >
+
+        <TextView
+            android:id="@+id/tv_menu_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="功能菜单"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scaled_t_dp_25" />
+    </RelativeLayout>
+
+    <ExpandableListView
+        android:id="@+id/menu_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/meny_list_Bottom"
+        android:layout_below="@id/title_layout"
+        android:background="#ffffff"
+        android:cacheColorHint="#00000000" >
+    </ExpandableListView>
+
+    <RelativeLayout
+        android:id="@+id/meny_list_Bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/titlebar_back"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/scaled_w_dp_200"
+            android:layout_height="@dimen/scaled_h_dp_80"
+            android:layout_margin="@dimen/scaled_o_dp_10"
+            android:text="返回"
+            android:textSize="@dimen/scaled_t_dp_28" />
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="@dimen/scaled_w_dp_90"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@id/btn_back"
+            android:text="确定"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

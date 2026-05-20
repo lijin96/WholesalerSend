@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_1"
+        android:background="#AEAEAE" />
+
+    <TextView
+        android:id="@+id/new_scanorder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/scaled_t_dp_24"
+        android:padding="@dimen/scaled_o_dp_15"
+        android:text="请选择要换绑的数据">
+    </TextView>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_1"
+        android:background="#AEAEAE" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="当前绑定的客户或门店名称"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/scaled_o_dp_10"
+            >
+        </TextView>
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="match_parent"
+            android:background="#AEAEAE" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="操作"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/scaled_o_dp_10"
+            >
+        </TextView>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_1"
+        android:background="#AEAEAE" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_ccscustname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="客户名称"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/scaled_t_dp_24"
+            android:padding="@dimen/scaled_o_dp_10"
+            >
+        </TextView>
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="match_parent"
+            android:background="#AEAEAE" />
+        <TextView
+            android:id="@+id/tv_changeccscust"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="点击换绑客户"
+            android:layout_weight="1"
+            android:textSize="@dimen/scaled_t_dp_24"
+
+            android:gravity="center"
+            android:padding="@dimen/scaled_o_dp_10"
+            >
+        </TextView>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_1"
+        android:background="#AEAEAE" />
+
+
+    <LinearLayout
+        android:id="@+id/lin_store"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_ccsstorename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="门店名称"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/scaled_o_dp_10"
+            android:textSize="@dimen/scaled_t_dp_24"
+            >
+        </TextView>
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="match_parent"
+            android:background="#AEAEAE" />
+        <TextView
+            android:id="@+id/tv_changeccsstore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="点击换绑门店"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/scaled_o_dp_10"
+            android:textSize="@dimen/scaled_t_dp_24"
+            >
+        </TextView>
+    </LinearLayout>
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_1"
+        android:background="#AEAEAE" />
+
+    <TextView
+        android:id="@+id/tv_scancode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/scaled_t_dp_24"
+        android:padding="@dimen/scaled_o_dp_15"
+        android:text="直接扫码">
+    </TextView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_1"
+        android:background="#AEAEAE" />
+
+
+
+</LinearLayout>

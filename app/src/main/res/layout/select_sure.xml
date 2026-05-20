@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/settingback"
+    tools:ignore="HardcodedText" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:text="确定要发当前配货单：Dx-000001 的产品吗？"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/scaled_t_dp_50" />
+
+    <ImageView
+        android:id="@+id/iv_brand"
+        android:layout_width="@dimen/scaled_w_dp_200"
+        android:layout_height="@dimen/scaled_h_dp_100"
+        android:layout_below="@id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/scaled_h_dp_10"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/scaled_h_dp_50"
+        android:gravity="center" >
+
+        <!-- android:background="@drawable/buttonback2" -->
+
+        <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="@dimen/scaled_w_dp_250"
+            android:layout_height="@dimen/scaled_h_dp_80"
+            android:text="取\t消"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="@dimen/scaled_w_dp_250"
+            android:layout_height="@dimen/scaled_h_dp_80"
+            android:layout_marginLeft="@dimen/scaled_w_dp_100"
+            android:text="确\t定"
+            android:textSize="@dimen/scaled_t_dp_30" />
+    </LinearLayout>
+
+</RelativeLayout>

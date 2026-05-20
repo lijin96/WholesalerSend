@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText" >
+
+    <RelativeLayout
+        android:id="@+id/relayout_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottombar_back_button"
+        android:paddingBottom="@dimen/scaled_h_dp_10"
+        android:paddingTop="@dimen/scaled_h_dp_10" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"
+            android:paddingLeft="@dimen/scaled_w_dp_10"
+            android:text="订单选择"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView1"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"
+            android:text="（共 0 条）"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scaled_t_dp_26" />
+
+        <Button
+            android:id="@+id/btn_seach"
+            android:layout_width="@dimen/scaled_w_dp_90"
+            android:layout_height="@dimen/scaled_h_dp_50"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/scaled_w_dp_10"
+            android:text="确定"
+            android:textSize="@dimen/scaled_t_sp_16" />
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="@dimen/scaled_w_dp_450"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/scaled_w_dp_10"
+            android:layout_toLeftOf="@+id/btn_seach"
+            android:hint="输入条件点击确定查找"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="text"
+            android:textSize="@dimen/scaled_t_dp_26" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/burlywood"
+        android:gravity="left" >
+
+        <TextView
+            android:id="@+id/txt_1"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"
+            android:padding="@dimen/scaled_o_dp_5"
+            android:text="订单单号"
+            android:textSize="@dimen/scaled_t_dp_30" />
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="match_parent"
+            android:background="#AEAEAE" />
+
+        <LinearLayout
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txt_pur_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/scaled_w_dp_2"
+                android:text="代理商"
+                android:textSize="@dimen/scaled_t_dp_30" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="（"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+
+                <TextView
+                    android:id="@+id/txt_pur_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="代理商ID"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="）"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="match_parent"
+            android:background="#AEAEAE" />
+
+        <LinearLayout
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txt_retail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/scaled_w_dp_2"
+                android:text="零售商"
+                android:textSize="@dimen/scaled_t_dp_30" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="（"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+
+                <TextView
+                    android:id="@+id/txt_retail_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="零售商ID"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="）"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="match_parent"
+            android:background="#AEAEAE" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</LinearLayout>

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_50"
+        android:layout_gravity="center"
+        android:background="@drawable/titlebar_back"
+
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择镜片球镜柱镜"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scaled_t_dp_20"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/scaled_w_dp_20"
+            android:layout_marginTop="@dimen/scaled_h_dp_8"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_listview_title"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="球镜"
+            android:textSize="@dimen/scaled_t_dp_26"
+            android:paddingTop="@dimen/scaled_h_dp_10"
+            android:paddingBottom="@dimen/scaled_h_dp_10"
+            android:gravity="center"
+            >
+        </TextView>
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="match_parent"
+            android:background="@color/gray">
+        </View>
+<!--        <TextView-->
+<!--            android:id="@+id/tv_gridview_title"-->
+<!--            android:layout_width="@dimen/scaled_w_dp_0"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="8"-->
+<!--            android:text="柱镜"-->
+<!--            android:textSize="@dimen/scaled_t_dp_26"-->
+<!--            android:paddingTop="@dimen/scaled_h_dp_10"-->
+<!--            android:paddingBottom="@dimen/scaled_h_dp_10"-->
+<!--            android:gravity="center"-->
+<!--            ></TextView>-->
+
+
+        <RelativeLayout
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            >
+
+            <TextView
+                android:id="@+id/tv_gridview_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/scaled_h_dp_10"
+                android:paddingBottom="@dimen/scaled_h_dp_10"
+                android:text="柱镜"
+                android:textSize="@dimen/scaled_t_dp_26"></TextView>
+
+            <!--            <Button-->
+            <!--                android:id="@+id/btn_SwitchDirection"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginRight="@dimen/scaled_w_dp_10"-->
+            <!--                android:layout_alignParentRight="true"-->
+            <!--                android:text="切换球柱镜方向展示"-->
+            <!--                android:textSize="@dimen/scaled_t_dp_20"></Button>-->
+
+            <RadioGroup
+                android:id="@+id/lens_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/scaled_w_dp_10"
+                android:visibility="gone"
+                >
+                <RadioButton
+                    android:id="@+id/radio_mirror"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="球镜在前"
+                    android:layout_marginRight="@dimen/scaled_w_dp_10"
+                    >
+                </RadioButton>
+                <RadioButton
+                    android:id="@+id/radio_cylinder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="柱镜在前"
+                    >
+                </RadioButton>
+
+            </RadioGroup>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_1"
+        android:background="@color/gray"></View>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/Listview_Cyl"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+        </ListView>
+        <View
+            android:layout_width="@dimen/scaled_w_dp_1"
+            android:layout_height="match_parent"
+            android:background="@color/gray">
+        </View>
+        <GridView
+            android:id="@+id/Gridview_Sph"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:listSelector= "@android:color/transparent"
+            android:numColumns="8"></GridView>
+    </LinearLayout>
+
+</LinearLayout>

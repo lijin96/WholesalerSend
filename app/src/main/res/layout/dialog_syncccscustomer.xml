@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_store_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请确认要同步的数据内容"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/scaled_h_dp_10"
+        android:layout_marginTop="@dimen/scaled_h_dp_10"
+        ></TextView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/Linear_Bottom"
+        android:layout_below="@+id/tv_store_title"
+        android:fadeScrollbars="false"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scaled_w_dp_20"
+                android:layout_marginRight="@dimen/scaled_w_dp_20"
+                android:background="@drawable/linear_stroke"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linear_stroke_title"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/scaled_w_dp_10"
+                    android:paddingTop="@dimen/scaled_h_dp_10"
+                    android:paddingBottom="@dimen/scaled_h_dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SCS零售商信息"
+                        android:textColor="@color/red"></TextView>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_30"
+                    android:layout_marginTop="@dimen/scaled_h_dp_10"
+                    android:layout_marginRight="@dimen/scaled_w_dp_30"
+                    android:orientation="horizontal">
+
+                    <!--                    <TextView-->
+                    <!--                        android:layout_width="@dimen/scaled_w_dp_100"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:text="零售商名称"></TextView>-->
+                    <LinearLayout
+                        android:layout_width="@dimen/scaled_w_poptitle"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="零售商名称"></TextView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/scaled_w_dp_3"
+                            android:text="*"
+                            android:textColor="@color/red"></TextView>
+                    </LinearLayout>
+
+
+                    <EditText
+                        android:id="@+id/ed_tradername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="flagNoExtractUi"
+                        android:textSize="@dimen/scaled_t_dp_30"></EditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_30"
+                    android:layout_marginTop="@dimen/scaled_h_dp_10"
+                    android:layout_marginRight="@dimen/scaled_w_dp_30"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/scaled_w_poptitle"
+                        android:layout_height="wrap_content"
+                        android:text="零售商联系人"></TextView>
+
+                    <EditText
+                        android:id="@+id/ed_traderlink"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="flagNoExtractUi"
+                        android:textSize="@dimen/scaled_t_dp_30"></EditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_30"
+                    android:layout_marginTop="@dimen/scaled_h_dp_10"
+                    android:layout_marginRight="@dimen/scaled_w_dp_30"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/scaled_w_poptitle"
+                        android:layout_height="wrap_content"
+                        android:text="零售商联系电话"></TextView>
+
+                    <EditText
+                        android:id="@+id/ed_tradertel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="flagNoExtractUi"
+                        android:textSize="@dimen/scaled_t_dp_30"></EditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_30"
+                    android:layout_marginTop="@dimen/scaled_h_dp_10"
+                    android:layout_marginRight="@dimen/scaled_w_dp_30"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/scaled_w_poptitle"
+                        android:layout_height="wrap_content"
+                        android:text="零售商联系地址"></TextView>
+
+                    <EditText
+                        android:id="@+id/ed_tradercorpaddr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="flagNoExtractUi"
+                        android:textSize="@dimen/scaled_t_dp_30"></EditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_30"
+                    android:layout_marginTop="@dimen/scaled_h_dp_10"
+                    android:layout_marginRight="@dimen/scaled_w_dp_30"
+                    android:orientation="horizontal">
+
+                    <!--                    <TextView-->
+                    <!--                        android:layout_width="@dimen/scaled_w_dp_100"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:text="零售商省份"></TextView>-->
+
+                    <LinearLayout
+                        android:layout_width="@dimen/scaled_w_poptitle"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="零售商省份"></TextView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/scaled_w_dp_3"
+                            android:text="*"
+                            android:textColor="@color/red"></TextView>
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_traderprovicename"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/linear_stroke"
+                        android:paddingLeft="@dimen/scaled_w_dp_10"
+                        android:paddingTop="@dimen/scaled_h_dp_10"
+                        android:paddingBottom="@dimen/scaled_h_dp_10"
+                        android:text=""></TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_30"
+                    android:layout_marginTop="@dimen/scaled_h_dp_20"
+                    android:layout_marginRight="@dimen/scaled_w_dp_30"
+                    android:layout_marginBottom="@dimen/scaled_h_dp_20"
+                    android:orientation="horizontal">
+
+                    <!--                    <TextView-->
+                    <!--                        android:layout_width="@dimen/scaled_w_dp_100"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:text="零售商城市"></TextView>-->
+
+                    <LinearLayout
+                        android:layout_width="@dimen/scaled_w_poptitle"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="零售商城市"></TextView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/scaled_w_dp_3"
+                            android:text="*"
+                            android:textColor="@color/red"></TextView>
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_tradercityname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/linear_stroke"
+                        android:paddingLeft="@dimen/scaled_w_dp_10"
+                        android:paddingTop="@dimen/scaled_h_dp_10"
+                        android:paddingBottom="@dimen/scaled_h_dp_10"></TextView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/Linear_Bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:paddingBottom="@dimen/scaled_h_dp_10"
+        android:paddingTop="@dimen/scaled_h_dp_10"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="@dimen/scaled_w_dp_200"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            >
+
+        </Button>
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="@dimen/scaled_w_dp_200"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scaled_w_dp_100"
+            android:text="确定"
+            >
+        </Button>
+
+    </LinearLayout>
+
+</RelativeLayout>

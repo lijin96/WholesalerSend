@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/scaled_h_dp_10"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="@dimen/scaled_w_dp_100"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/scaled_t_sp_20"
+            android:text="当前IP">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_domainname"
+            android:textSize="@dimen/scaled_t_sp_20"
+            android:layout_width="@dimen/scaled_w_dp_300"
+            android:layout_height="wrap_content"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/scaled_h_dp_10"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="@dimen/scaled_w_dp_100"
+            android:layout_height="wrap_content"
+            android:text="条码"
+            android:textSize="@dimen/scaled_t_sp_20">
+        </TextView>
+
+        <EditText
+            android:id="@+id/ed_revoke_code"
+            android:layout_width="@dimen/scaled_w_dp_400"
+            android:layout_height="wrap_content"
+            android:hint="请扫描或输入要撤销的条码"
+            android:textSize="@dimen/scaled_t_sp_20"
+            ></EditText>
+    </LinearLayout>
+
+</LinearLayout>

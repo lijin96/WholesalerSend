@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:installLocation="auto"
+    package="com.example.wholesalersend">
+
+    <!-- android中获取设备的型号、手机厂商以及手机唯一标识符IMEI -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 获取网络信息状态，如当前的网络连接是否有效 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 访问网络连接，可能产生GPRS流量- -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取当前WiFi接入的状态以及WLAN热点的信息 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 访问电话状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 允许振动- -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 修改声音设置信息 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- 允许程序写入外部存储，如SD卡上写文件 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 挂载、反挂载外部文件系统 -->
+    <permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 安装卸载软件,这个一般会报错，要修改错误报错级别 -->
+    <permission android:name="android.permission.INSTALL_PACKAGES" />
+    <!-- 读取系统底层日志 -->
+    <permission android:name="android.permission.READ_LOGS" />
+    <!--  -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 允许读写系统设置项 -->
+    <!--    <permission android:name="android.permission.WRITE_SETTINGS" />-->
+    <!-- 修改Activity已经关闭而diloag还在运行中。所以导致bug -->
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <!-- 清除内存，杀掉没用的进程 -->
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <!-- 修改设置 -->
+    <permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 开机启动 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 获取当前任务权限 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!-- 蓝牙权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <application
+        android:allowBackup="true"
+        android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:testOnly="false"
+        android:screenOrientation="landscape"
+        android:requestLegacyExternalStorage="true"
+        android:theme="@android:style/Theme.Light.NoTitleBar"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="adjustUnspecified|stateHidden"
+        >
+        <activity
+            android:name=".activity.LoginActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.wholesalersend.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+
+        <activity
+            android:name=".activity.MenuListActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+
+        <activity
+            android:name=".activity.P_ProductLogist"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+
+        <activity
+            android:name=".activity.other.OtherMenuListActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+        <activity
+            android:name=".activity.other.P_Dv_ReturnedPurchase_D_L_NoBill_Fleeing"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+        <activity
+            android:name=".activity.ccsother.CCSOtherMenuListActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            tools:ignore="MissingClass">
+        </activity>
+
+        <activity
+            android:name=".activity.ccsother.P_Dv_CCSBarcodeStatusWrite"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            >
+        </activity>
+
+
+        <activity
+            android:name=".activity.select.SelectSupplier"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+
+        <!--绑定CCS客户-->
+        <activity
+            android:name=".activity.select.SelectCCScustomer"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+
+        <!--绑定CCS门店-->
+        <activity
+            android:name=".activity.select.SelectCCSstore"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+
+
+        <!-- 确认选择 -->
+        <activity
+            android:name=".activity.select.SelectSureConfirm"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 选择仓库 -->
+        <activity
+            android:name=".activity.select.SelectStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 选择调出仓库 -->
+        <activity
+            android:name=".activity.select.SelectOutStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 选择调入仓库 -->
+        <activity
+            android:name=".activity.select.SelectInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 选择型号色号 -->
+        <activity
+            android:name=".activity.select.SelectProductModelColor"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 扫描明细 -->
+        <activity
+            android:name=".activity.select.QueryScanDetail"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 选择有单入库的验收单-->
+        <activity
+            android:name=".activity.select.SelectPurcheck"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 有单有明细入库扫码-->
+        <activity
+            android:name=".activity.instock_in.P_Dv_InStock_Bill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 有单无明细入库扫码-->
+        <activity
+            android:name=".activity.instock_in.P_Dv_InStock_Bill_NoDetail"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+
+
+        <!-- 查看单据的商品-->
+        <activity
+            android:name=".activity.select.SelectBillProduct"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 查看镜片单据的商品-->
+        <activity
+            android:name=".activity.select.SelectLensBillProduct"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+
+        <!-- 无单入库扫码-->
+        <activity
+            android:name=".activity.instock_in.P_Dv_InStock_NoBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 无单镜片入库扫码-->
+        <activity
+            android:name=".activity.instock_in.P_Dv_Lens_InStock_NoBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 装盒入库品牌商-->
+        <activity
+            android:name=".activity.instock_in.P_Dv_InStock_PackBox_List_NoBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 蓝牙连接列表 -->
+        <activity
+            android:name=".lib.bluetooth.DeviceListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+
+        <!-- 剔除-->
+        <activity
+            android:name=".activity.instock_in.FactoryEliminateActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 历史盒剔除-->
+        <activity
+            android:name=".activity.instock_in.FactoryHistoryEliminateActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 有单入库撤销-->
+        <activity
+            android:name=".activity.instock_in.P_Dv_InStock_Bill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 镜片有单入库撤销-->
+        <activity
+            android:name=".activity.instock_in.P_Dv_InStock_Lens_Bill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 镜片无单入库撤销-->
+        <activity
+            android:name=".activity.instock_in.P_Dv_InStock_Lens_NoBill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 无单入库撤销-->
+        <activity
+            android:name=".activity.instock_in.P_Dv_InStock_NoBill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 无单入库退回-->
+        <activity
+            android:name=".activity.instock_back.P_Dv_ReturnedPurchase_Z_G_NoBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 无单镜片入库退回-->
+        <activity
+            android:name=".activity.instock_back.P_Dv_ReturnedPurchase_Lens_Z_G_NoBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+
+
+        <!-- 无单入库退回撤销-->
+        <activity
+            android:name=".activity.instock_back.P_Dv_ReturnedPurchase_Z_G_NoBill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 无单镜片入库退回撤销-->
+        <activity
+            android:name=".activity.instock_back.P_Dv_ReturnedPurchase_Lens_Z_G_NoBill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 选择总分店配货单-->
+        <activity
+            android:name=".activity.select.SelectPeiBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 销售单镜片绑码，选择近三天的销售单-->
+        <activity
+            android:name=".activity.select.SelectLensBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 选择镜片产品-->
+        <activity
+            android:name=".activity.select.SelectLensProduct"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 总店有单有入库发货-->
+        <activity
+            android:name=".activity.sendgoods_zd.P_Dv_OutStock_Z_D_Bill_BeInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 总店有单无入库发货-->
+        <activity
+            android:name=".activity.sendgoods_zd.P_Dv_OutStock_Z_D_Bill_NoInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 镜片有单有入库总店发货-->
+        <activity
+            android:name=".activity.sendgoods_zd.P_Dv_OutStock_Lens_Z_D_Bill_BeInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 镜片无单有入库发货-->
+        <activity
+            android:name=".activity.sendgoods_zd.P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 总店无单有入库发货-->
+        <activity
+            android:name=".activity.sendgoods_zd.P_Dv_OutStock_Z_D_NoBill_BeInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 总店无单无入库发货-->
+        <activity
+            android:name=".activity.sendgoods_zd.P_Dv_OutStock_Z_D_NoBill_NoInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!--定制发货-->
+        <activity
+            android:name=".activity.other.P_Dv_OutStock_Z_D_L_Bill_BeInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+
+        <!-- 总店有单发货撤销-->
+        <activity
+            android:name=".activity.sendgoods_zd.P_Dv_OutStock_Z_D_Bill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 总店无单发货撤销-->
+        <activity
+            android:name=".activity.sendgoods_zd.P_Dv_OutStock_Z_D_NoBill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 镜片总店有单发货撤销-->
+        <activity
+            android:name=".activity.sendgoods_zd.P_Dv_OutStock_Lens_Z_D_Bill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 镜片总店无单发货撤销-->
+        <activity
+            android:name=".activity.sendgoods_zd.P_Dv_OutStock_Lens_Z_D_NoBill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 总店无单退货-->
+        <activity
+            android:name=".activity.backgoods_zd.P_Dv_ReturnedPurchase_Z_D_NoBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 镜片无单退货-->
+        <activity
+            android:name=".activity.backgoods_zd.P_Dv_ReturnedPurchase_Lens_Z_D_NoBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 总店无单退货撤销-->
+        <activity
+            android:name=".activity.backgoods_zd.P_Dv_ReturnedPurchase_Z_D_NoBill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 镜片总店无单退货撤销-->
+        <activity
+            android:name=".activity.backgoods_zd.P_Dv_ReturnedPurchase_Lens_Z_D_NoBill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 分店有单有入库有明细发货-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Z_L_Bill_BeInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 分店有单有入库无明细发货-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Z_L_Bill_BeInStock_NoDetail"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+
+        <!-- 镜片有单有入库分店发货-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Lens_Z_L_Bill_BeInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 镜片有单有入库分店发货-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Lens_Z_L_NoBill_BeInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 分店有单无入库发货-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Z_L_Bill_NoInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 分店无单有入库发货-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Z_L_NoBill_BeInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 分店无单无入库发货-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Z_L_NoBill_NoInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 镜片绑码-->
+        <activity
+            android:name=".activity.sendgoods_fd.ReplaceLabCode"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- (销售单)镜片绑码-->
+        <activity
+            android:name=".activity.sendgoods_fd.SalesReplaceLabCode"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 定制镜架出库-->
+        <activity
+            android:name=".activity.sendgoods_fd.SunLensReplaceLabCode"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 分店有单发货撤销-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Z_L_Bill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 分店镜片有单发货撤销-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Lens_Z_L_Bill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 分店镜片无单发货撤销-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Lens_Z_L_NoBill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 分店无单发货撤销-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Z_L_NoBill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 分店无单退货-->
+        <activity
+            android:name=".activity.backgoods_fd.P_Dv_ReturnedPurchase_Z_L_NoBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!--  镜片无单选客退货-->
+        <activity
+            android:name=".activity.backgoods_fd.P_Dv_ReturnedPurchase_Lens_Z_L_NoBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 分店无单退货撤销-->
+        <activity
+            android:name=".activity.backgoods_fd.P_Dv_ReturnedPurchase_Z_L_NoBill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 分店无单退货撤销-->
+        <activity
+            android:name=".activity.backgoods_fd.P_Dv_ReturnedPurchase_Lens_Z_L_NoBill_Cancel"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 选择代理商-->
+        <activity
+            android:name=".activity.select.SelectCompanyRetailer"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 选择零售店-->
+        <activity
+            android:name=".activity.select.SelectRetailer"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 选择分销店-->
+        <activity
+            android:name=".activity.select.SelectCompanyStoreInfor"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <activity
+            android:name=".activity.select.SelectAllots"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!--选择有单定制发货（零售商）-->
+        <activity
+            android:name=".activity.select.SelectAllPeiBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!--查看有单定制发货商品明细-->
+        <activity
+            android:name=".activity.select.SelectAllBillProduct"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+        <!-- 有单调拨-->
+        <activity
+            android:name=".activity.other.P_Dv_InStock_Z_ChangeStock_Bill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 无单调拨-->
+        <activity
+            android:name=".activity.other.P_Dv_InStock_Z_ChangeStock_NoBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 仓库补标-->
+        <activity
+            android:name=".activity.other.P_Dv_MendLable_Z"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 补打盒标-->
+        <activity
+            android:name=".activity.other.P_Dv_InStock_PackBox_Search"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 关于界面-->
+        <activity
+            android:name=".activity.AboutActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 选择球镜柱镜界面-->
+        <activity
+            android:name=".activity.select.CheckLensDegree"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 选择折射率界面-->
+        <activity
+            android:name=".activity.select.SelectPurOrderLensDetail"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 镜片有单入库-->
+        <activity
+            android:name=".activity.instock_in.P_Dv_InStock_Lens_Bill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 无单盒标入库-->
+        <activity
+            android:name=".activity.instock_in.Holyes_Dv_Box_InStock_NoBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 镜片扫描明细-->
+        <activity
+            android:name=".activity.select.QueryScanLensDetail"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 补标扫描明细-->
+        <activity
+            android:name=".activity.select.QueryScanMakeLabelDetail"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 品牌码采购入库单-->
+        <activity
+            android:name=".activity.select.SelectBrandInStockBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+        <!-- 品牌码采购入库选择CCS品牌-->
+        <activity
+            android:name=".activity.select.SelectCCSBrand"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 品牌码采购入库扫码-->
+        <activity
+            android:name=".activity.instock_in.P_Dv_BrandCode_InStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+
+
+    </application>
+
+</manifest>

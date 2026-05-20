@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/relat_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scaled_h_dp_50"
+        android:layout_gravity="center"
+        android:background="@drawable/titlebar_back"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/scaled_w_dp_20"
+            android:layout_marginTop="@dimen/scaled_h_dp_8"
+            android:text="选择镜片折射率"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scaled_t_dp_20" />
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_marginLeft="@dimen/scaled_w_dp_40"
+            android:text="（共0条）"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scaled_t_dp_12" />
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="@dimen/scaled_w_dp_230"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/scaled_w_dp_10"
+            android:layout_toLeftOf="@+id/btn_seach"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btn_seach"
+            android:layout_width="@dimen/scaled_w_dp_90"
+            android:layout_height="@dimen/scaled_h_dp_50"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/scaled_w_dp_10"
+            android:text="确定"
+            android:textSize="@dimen/scaled_t_sp_16"></Button>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/listview_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_below="@+id/relat_title"
+        android:background="@color/burlywood"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/list_purcheck_lens_detail"/>
+    </LinearLayout>
+
+    <ListView
+
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/listview_title"
+        android:layout_above="@+id/Linear_Bottom"
+        android:layout_height="wrap_content">
+    </ListView>
+
+
+    <LinearLayout
+        android:id="@+id/Linear_Bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_ChooseLensGoods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/scaled_o_dp_20"
+            android:textSize="@dimen/scaled_t_sp_20"
+            android:text="选择要添加的产品">
+        </Button>
+    </LinearLayout>
+
+</RelativeLayout>

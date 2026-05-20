@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/scaled_w_dp_30"
+        android:layout_marginRight="@dimen/scaled_w_dp_30"
+        android:background="@color/white"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/scaled_h_dp_50"
+        android:paddingTop="@dimen/scaled_h_dp_50" >
+
+        <EditText
+            android:id="@+id/ed_code"
+            android:layout_width="@dimen/scaled_w_dp_500"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="请扫描选择客户的条码"
+            android:imeOptions="actionSend"
+            android:maxLines="1"
+            android:inputType="text"
+            android:textSize="@dimen/scaled_t_dp_30"
+            android:padding="@dimen/scaled_o_dp_10" />
+
+        <Button
+            android:id="@+id/bt_pop_ok"
+            android:layout_width="@dimen/scaled_w_dp_150"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scaled_w_dp_30"
+            android:textSize="@dimen/scaled_t_dp_30"
+            android:text="确定" />
+
+
+        <Button
+            android:id="@+id/bt_cancel"
+            android:layout_width="@dimen/scaled_w_dp_150"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scaled_w_dp_30"
+            android:textSize="@dimen/scaled_t_dp_30"
+            android:text="取消" />
+    </LinearLayout>
+
+</RelativeLayout>
