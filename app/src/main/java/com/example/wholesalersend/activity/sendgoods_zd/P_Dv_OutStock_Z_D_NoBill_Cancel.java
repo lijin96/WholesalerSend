@@ -38,7 +38,7 @@ import java.util.Map;
 
 /**
  * @ClassName: P_Dv_OutStock_Z_D_NoBill_Cancel
- * @Description: 无单总店发货撤销
+ * @Description: 无单代销发货撤销
  * @Author: lijin
  * @Date: 2021/3/10 14:02
  */
@@ -105,7 +105,7 @@ public class P_Dv_OutStock_Z_D_NoBill_Cancel extends Activity {
         tv_billno = (TextView) findViewById(R.id.tv_billno);
         tv_model_colors = (TextView) findViewById(R.id.tv_model_colors);
         tv_title = (TextView) findViewById(R.id.tv_title);
-        tv_title.setText("【无单总店发货撤销】");
+        tv_title.setText("【无单代销发货撤销】");
         tv_goodsid = (TextView) findViewById(R.id.tv_goodsid);
 
         tv_show_code = (TextView) findViewById(R.id.tv_show_code);

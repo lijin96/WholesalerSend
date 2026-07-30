@@ -184,7 +184,7 @@ public class SelectBillProduct extends Activity {
 //                else if (lsv_aim.equals("P_Dv_ReturnedPurchase_Z_G_Bill")) {
 //                    dataList = accWeb.GetDowLoadPurOutDetail(orderno);
 //                }
-                //配货单（总店）明细下载
+                //配货单（代销）明细下载
                 else if (lsv_aim.equals("P_Dv_OutStock_Z_D_Bill_BeInStock")) {
                     dataList = accWeb.GetDownLoadScsSaleOrderDetail(orderno);
                 }

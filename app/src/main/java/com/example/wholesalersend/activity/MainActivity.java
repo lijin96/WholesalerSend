@@ -133,8 +133,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             btn_sendgoods_d.setBackgroundResource(R.drawable.btn_sendgoods_d_background);//代销发货
             btn_backgoods_d.setBackgroundResource(R.drawable.btn_backgoods_d_background);//代销退货
         }else{
-            btn_sendgoods_d.setBackgroundResource(R.drawable.btn_new_sendgoods_d_background);//代销发货
-            btn_backgoods_d.setBackgroundResource(R.drawable.btn_new_backgoods_d_background);//代销退货
+            btn_sendgoods_d.setBackgroundResource(R.drawable.btn_new_sendgoods_d_background);//总店发货
+            btn_backgoods_d.setBackgroundResource(R.drawable.btn_new_backgoods_d_background);//总店退货
         }
 
         tv_update=findViewById(R.id.tv_update);
@@ -170,17 +170,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 isGoToNext = isHasFunctions(parentCode);
                 break;
             case R.id.btn_sendgoods_d:
-                intent.putExtra("aim", "sendgoods_d");
-                parentCode = "03";
-                isGoToNext = isHasFunctions(parentCode);
+                if (sysUserInfo.getLoginType().equals("CCS")) {
+                    intent.putExtra("aim", "sendgoods_d");
+                    parentCode = "03";
+                    isGoToNext = isHasFunctions(parentCode);
+                } else{
+                    ShowMessage.Show(mContext,"请前往分店发货菜单进行发货操作");
+                }
+
 //                isGoToNext=false;
 //                Toast.makeText(mContext,"请前往分店发货菜单进行发货操作",Toast.LENGTH_SHORT).show();
 //                ShowMessage.Show(mContext,"请前往分店发货菜单进行发货操作");
                 break;
             case R.id.btn_backgoods_d:
-                intent.putExtra("aim", "backgoods_d");
-                parentCode = "04";
-                isGoToNext = isHasFunctions(parentCode);
+                if (sysUserInfo.getLoginType().equals("CCS")) {
+                    intent.putExtra("aim", "backgoods_d");
+                    parentCode = "04";
+                    isGoToNext = isHasFunctions(parentCode);
+                } else{
+                    ShowMessage.Show(mContext,"请前往分店发货菜单进行发货操作");
+                }
 //                isGoToNext=false;
 //                Toast.makeText(mContext,"请前往分店退货菜单进行退货操作",Toast.LENGTH_SHORT).show();
 //                ShowMessage.Show(mContext,"请前往分店退货菜单进行退货操作");

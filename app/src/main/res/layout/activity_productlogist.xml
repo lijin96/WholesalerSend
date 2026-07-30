@@ -198,16 +198,27 @@
         android:background="#AEAEAE" />
 
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/scaled_o_dp_20" >
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
-        <TextView
-            android:id="@+id/tv_message"
+        <ScrollView
+            android:id="@+id/scroll_message"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/scaled_t_dp_28" />
-    </ScrollView>
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/scaled_o_dp_20" >
+
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/scaled_t_dp_28" />
+        </ScrollView>
+
+        <include
+            layout="@layout/include_scs_logist_result"
+            android:visibility="gone" />
+    </FrameLayout>
 
 </LinearLayout>

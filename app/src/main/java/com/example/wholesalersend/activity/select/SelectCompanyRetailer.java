@@ -40,8 +40,11 @@ import com.example.wholesalersend.R;
 import com.example.wholesalersend.activity.backgoods_fd.P_Dv_ReturnedPurchase_Z_L_NoBill;
 import com.example.wholesalersend.activity.backgoods_zd.P_Dv_ReturnedPurchase_Lens_Z_D_NoBill;
 import com.example.wholesalersend.activity.backgoods_zd.P_Dv_ReturnedPurchase_Z_D_NoBill;
+import com.example.wholesalersend.activity.other.P_Dv_ReturnedPurchase_L_D_Z_Frame;
+import com.example.wholesalersend.activity.other.P_Dv_ReturnedPurchase_L_D_Z_Lens;
 import com.example.wholesalersend.activity.sendgoods_fd.P_Dv_OutStock_Z_L_NoBill_BeInStock;
 import com.example.wholesalersend.activity.sendgoods_zd.P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock;
+import com.example.wholesalersend.activity.sendgoods_zd.P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock;
 import com.example.wholesalersend.activity.sendgoods_zd.P_Dv_OutStock_Z_D_NoBill_BeInStock;
 import com.example.wholesalersend.adapter.ScanOrderAdapter;
 import com.example.wholesalersend.entity.ScanOrder;
@@ -52,6 +55,10 @@ import com.example.wholesalersend.utils.MyProgressDialog;
 import com.example.wholesalersend.utils.ShowMessage;
 import com.example.wholesalersend.utils.SomeUtils;
 import com.example.wholesalersend.utils.SysUserInfo;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -234,26 +241,90 @@ public class SelectCompanyRetailer extends Activity {
                     initListView();
                     break;
                 case ShowMessage.HandScanSuccess://扫描单号列表返回数据
+//                    MyProgressDialog.close();
+//                    if (scanOrderlist.size()>0){
+//                        ShowScanOrderList();
+//                    }else {
+//                        Intent sureIntent = new Intent(SelectCompanyRetailer.this, SelectSureConfirm.class);
+//                        sureIntent.putExtra("title", "确定选择客户：" + (String) item.get("TraderName") + "？");
+//                        startActivityForResult(sureIntent, Lic_SelectSure);
+//                    }
                     MyProgressDialog.close();
                     if (scanOrderlist.size()>0){
                         ShowScanOrderList();
                     }else {
-                        Intent sureIntent = new Intent(SelectCompanyRetailer.this, SelectSureConfirm.class);
-                        sureIntent.putExtra("title", "确定选择客户：" + (String) item.get("TraderName") + "？");
-                        startActivityForResult(sureIntent, Lic_SelectSure);
+                        JumpInterface();
                     }
                     break;
                 case ShowMessage.HandFailed: //扫描单号返回报错
                     MyProgressDialog.close();
-                    Intent sureIntent = new Intent(SelectCompanyRetailer.this, SelectSureConfirm.class);
-                    sureIntent.putExtra("title", "确定选择客户：" + (String) item.get("TraderName") + "？");
-                    startActivityForResult(sureIntent, Lic_SelectSure);
+                    JumpInterface();
+//                    Intent sureIntent = new Intent(SelectCompanyRetailer.this, SelectSureConfirm.class);
+//                    sureIntent.putExtra("title", "确定选择客户：" + (String) item.get("TraderName") + "？");
+//                    startActivityForResult(sureIntent, Lic_SelectSure);
+                    break;
+                case 5:
+                    //验证客户可用性
+                    MyProgressDialog.close();
+                    try {
+                        JSONObject rootObject = new JSONObject(msg.obj.toString());
+                        String tStatus = rootObject.optString("status");
+                        String tMessage= rootObject.optString("message");
+                        //状态为【可用】 (Status: 1)  状态为【不可用】 (Status: 0) 状态为【提醒】 (Status: 2)
+                        if (tStatus.equals("1")){
+                            //状态为【可用】 (Status: 1)
+                            String ScanType="OutStock";
+                            if ("P_Dv_ReturnedPurchase_Z_D_NoBill".equals(lsv_aim)||"P_Dv_ReturnedPurchase_Lens_Z_D_NoBill".equals(lsv_aim)) {
+                                ScanType="OutReturn";
+                            }
+                            String tordertype="普通";
+                            if (lsv_aim.equals("P_Dv_ReturnedPurchase_Lens_Z_D_NoBill")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock")) {
+                                tordertype="镜片";
+                            }
+
+                            DownLoadScanOrder(item.get("CustSysCode").toString(),"",ScanType,tordertype);
+                        }else if (tStatus.equals("2")){
+                            //状态为【提醒】 (Status: 2) 弹窗功能，用于非强制性的风险提示
+                            ShowMessage.MessageBox(mContext, "温馨提示", tMessage, "确定", "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    String ScanType="OutStock";
+                                    if ("P_Dv_ReturnedPurchase_Z_D_NoBill".equals(lsv_aim)||"P_Dv_ReturnedPurchase_Lens_Z_D_NoBill".equals(lsv_aim)||"P_Dv_ReturnedPurchase_L_D_Z_Lens".equals(lsv_aim)
+                                            ||"P_Dv_ReturnedPurchase_L_D_Z_Frame".equals(lsv_aim)) {
+                                        ScanType="OutReturn";
+                                    }
+                                    String tordertype="普通";
+                                    if (lsv_aim.equals("P_Dv_ReturnedPurchase_Lens_Z_D_NoBill")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock")||lsv_aim.equals("P_Dv_ReturnedPurchase_L_D_Z_Lens")) {
+                                        tordertype="镜片";
+                                    }
+                                    DownLoadScanOrder(item.get("CustSysCode").toString(),"",ScanType,tordertype);
+                                }
+                            }, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            });
+
+                        }else if (tStatus.equals("0")){
+                            //状态为【不可用】 (Status: 0)  阻断操作
+                            ShowMessage.MessageBox(mContext, "提示", tMessage, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            });
+                        }
+                    } catch (JSONException e) {
+                        ShowMessage.Show(mContext,"JSON解析报错："+e.getMessage());
+                        e.printStackTrace();
+                    }
                     break;
                 default:
-                    // MyProgressDialog.close();
                     // ShowMessage.Show(Xundian.this,msg.obj.toString());
                     break;
             }
+            MyProgressDialog.close();
             super.handleMessage(msg);
         }
     }
@@ -276,9 +347,10 @@ public class SelectCompanyRetailer extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // TODO Auto-generated method stub
-                        Intent sureIntent = new Intent(SelectCompanyRetailer.this, SelectSureConfirm.class);
-                        sureIntent.putExtra("title", "确定选择客户：" + (String) item.get("TraderName") + "？");
-                        startActivityForResult(sureIntent, Lic_SelectSure);
+//                        Intent sureIntent = new Intent(SelectCompanyRetailer.this, SelectSureConfirm.class);
+//                        sureIntent.putExtra("title", "确定选择客户：" + (String) item.get("TraderName") + "？");
+//                        startActivityForResult(sureIntent, Lic_SelectSure);
+                        JumpInterface();
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -303,9 +375,10 @@ public class SelectCompanyRetailer extends Activity {
         tv_new_scanorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent sureIntent = new Intent(SelectCompanyRetailer.this, SelectSureConfirm.class);
-                sureIntent.putExtra("title", "确定选择客户：" + (String) item.get("TraderName") + "？");
-                startActivityForResult(sureIntent, Lic_SelectSure);
+//                Intent sureIntent = new Intent(SelectCompanyRetailer.this, SelectSureConfirm.class);
+//                sureIntent.putExtra("title", "确定选择客户：" + (String) item.get("TraderName") + "？");
+//                startActivityForResult(sureIntent, Lic_SelectSure);
+                JumpInterface();
                 alertDialog6.dismiss();
             }
         });
@@ -314,30 +387,44 @@ public class SelectCompanyRetailer extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = null;
-                //无单无入库总店发货
+                //无单无入库代销发货
                 if ("P_Dv_OutStock_Z_D_NoBill_NoInStock".equals(lsv_aim)) {
                     intent = new Intent(mContext, SelectStock.class);
                 }
-                //镜架总店有入库无单发货/无单有入库的不用选仓库了》》》
+                //镜架代销有入库无单发货/无单有入库的不用选仓库了》》》
                 else if ("P_Dv_OutStock_Z_D_NoBill_BeInStock".equals(lsv_aim)) {
                     //					intent = new Intent(SelectCompanyD.this,SelectStock.class);
                     intent = new Intent(mContext, P_Dv_OutStock_Z_D_NoBill_BeInStock.class);
                 }else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock")){
                     //镜片无单有入库发货
                     intent = new Intent(mContext, P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock.class);
+                }else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock")){
+                    intent = new Intent(mContext, P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock.class);
                 }else if ("P_Dv_ReturnedPurchase_Z_D_NoBill".equals(lsv_aim)) {
                     //代销镜架无单退货
                     intent = new Intent(mContext, P_Dv_ReturnedPurchase_Z_D_NoBill.class);
-                    intent.putExtra("stock_id", item.get("StockCode").toString());
-                    intent.putExtra("stock_name", item.get("StockName").toString());
+                    intent.putExtra("stock_id", scanOrderlist.get(i).getStockCode());
+                    intent.putExtra("stock_name",scanOrderlist.get(i).getStockName());
 //                    scanOrder.setStockCode(jsonObject2.getString("StockCode"));
 //                    scanOrder.setStockName(jsonObject2.getString("StockName"));
                 }else if ("P_Dv_ReturnedPurchase_Lens_Z_D_NoBill".equals(lsv_aim)){
                     //代销镜片无单退货
                     intent = new Intent(mContext, P_Dv_ReturnedPurchase_Lens_Z_D_NoBill.class);
 
-                    intent.putExtra("stock_id", item.get("StockCode").toString());
-                    intent.putExtra("stock_name", item.get("StockName").toString());
+                    intent.putExtra("stock_id", scanOrderlist.get(i).getStockCode());
+                    intent.putExtra("stock_name",scanOrderlist.get(i).getStockName());
+                }else if("P_Dv_ReturnedPurchase_L_D_Z_Frame".equals(lsv_aim)){
+                    //镜架退货直通车
+                    intent = new Intent(mContext, P_Dv_ReturnedPurchase_L_D_Z_Frame.class);
+                    intent.putExtra("company_syscode", item.get("CustSysCode").toString());
+                    intent.putExtra("stock_id", scanOrderlist.get(i).getStockSysCode());
+                    intent.putExtra("stock_name",  scanOrderlist.get(i).getStockName());
+                }else if("P_Dv_ReturnedPurchase_L_D_Z_Lens".equals(lsv_aim)){
+                    //镜片退货直通车
+                    intent = new Intent(mContext, P_Dv_ReturnedPurchase_L_D_Z_Lens.class);
+                    intent.putExtra("company_syscode", item.get("CustSysCode").toString());
+                    intent.putExtra("stock_id", scanOrderlist.get(i).getStockSysCode());
+                    intent.putExtra("stock_name",  scanOrderlist.get(i).getStockName());
                 }
                 intent.putExtra("aim", lsv_aim);
 
@@ -351,6 +438,47 @@ public class SelectCompanyRetailer extends Activity {
                 finish();
             }
         });
+    }
+
+    private void JumpInterface(){
+        Intent intent = null;
+        //无单无入库总店发货
+        if ("P_Dv_OutStock_Z_D_NoBill_NoInStock".equals(lsv_aim)) {
+            intent = new Intent(mContext, SelectStock.class);
+        }
+        //总店有入库无单发货/无单有入库的不用选仓库了》》》2018-04-25
+        else if ("P_Dv_OutStock_Z_D_NoBill_BeInStock".equals(lsv_aim)) {
+            intent = new Intent(mContext, P_Dv_OutStock_Z_D_NoBill_BeInStock.class);
+        }else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock")){
+            //无单有入库镜片发货
+            intent = new Intent(mContext, P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock.class);
+        }else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock")){
+            //无单无入库镜片发货
+            intent = new Intent(mContext, SelectStock.class);
+        }
+        //总店无单退货
+        else if ("P_Dv_ReturnedPurchase_Z_D_NoBill".equals(lsv_aim)) {
+            intent = new Intent(mContext, SelectStock.class);
+        }else if ("P_Dv_ReturnedPurchase_Lens_Z_D_NoBill".equals(lsv_aim)) {
+            //总店镜片无单退货
+            intent = new Intent(mContext, SelectStock.class);
+        }else if ("P_Dv_OutStock_ComboLabel_Z_D_NoBill".equals(lsv_aim)){
+            //无单套标有入库发货
+//            intent = new Intent(mContext, P_Dv_OutStock_ComboLabel_Z_D_NoBill.class);
+        }else if ("P_Dv_OutStock_D_F_NoBill_NoInStock".equals(lsv_aim)){
+            intent = new Intent(mContext, SelectStock.class);
+        }else if("P_Dv_ReturnedPurchase_L_D_Z_Frame".equals(lsv_aim)||"P_Dv_ReturnedPurchase_L_D_Z_Lens".equals(lsv_aim)){
+            //镜架/镜片退货直通车
+            intent = new Intent(mContext, SelectStock.class);
+            intent.putExtra("company_syscode", item.get("CustSysCode").toString());
+        }
+
+        intent.putExtra("aim", lsv_aim);
+        intent.putExtra("company_name", item.get("TraderName").toString());
+        intent.putExtra("company_id", item.get("TraderId").toString());
+        intent.putExtra("alias_name", item.get("Alias").toString());
+
+        startActivity(intent);
     }
 
 
@@ -458,19 +586,49 @@ public class SelectCompanyRetailer extends Activity {
             ListView listView = (ListView) parent;
 
             item = (Map<String, Object>) listView.getItemAtPosition(position);
-
-            String ScanType="OutStock";
-            if ("P_Dv_ReturnedPurchase_Lens_Z_D_NoBill".equals(lsv_aim)||"P_Dv_ReturnedPurchase_Z_D_NoBill".equals(lsv_aim)) {
-                ScanType="OutReturn";
-            }
-            String tordertype="普通";
-            if (lsv_aim.equals("P_Dv_ReturnedPurchase_Lens_Z_D_NoBill")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock")) {
-                tordertype="镜片";
-            }
-
-            DownLoadScanOrder(item.get("CustSysCode").toString(),"",ScanType,tordertype);
-
+//
+//            String ScanType="OutStock";
+//            if ("P_Dv_ReturnedPurchase_Lens_Z_D_NoBill".equals(lsv_aim)||"P_Dv_ReturnedPurchase_Z_D_NoBill".equals(lsv_aim)
+//                    ||"P_Dv_ReturnedPurchase_L_D_Z_Lens".equals(lsv_aim)
+//                    ||"P_Dv_ReturnedPurchase_L_D_Z_Frame".equals(lsv_aim)) {
+//                ScanType="OutReturn";
+//            }
+//            String tordertype="普通";
+//            if (lsv_aim.equals("P_Dv_ReturnedPurchase_Lens_Z_D_NoBill")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock")) {
+//                tordertype="镜片";
+//            }
+//
+//            DownLoadScanOrder(item.get("CustSysCode").toString(),"",ScanType,tordertype);
+            CheckCustomerStatus(item.get("CustSysCode").toString());
         }
+    }
+
+    //验证客户可用性
+    private void CheckCustomerStatus(String tCustSysCode){
+        MyProgressDialog.show(mContext, "正在验证客户...", true, false);
+        Thread sendVerify = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    Gson gson = new Gson();
+                    Map<String, String> map = new HashMap<>();
+                    map.put("CustSysCode", tCustSysCode);
+
+                    Map<String, String> requestdata=new HashMap<>();
+                    requestdata.put("CustSysCode", tCustSysCode);
+                    // 返回信息
+                    String multiresponse = accWeb.PostAPIStringInterface("CustomerInfor/CheckCustomerStatus",gson.toJson(map) );
+//                    Log.d("main", multiresponse);
+                    //不用实体类，直接解析
+                    ShowMessage.ShowMsg(hand, 5, multiresponse);
+
+                } catch (Exception e) {
+                    ShowMessage.ShowMsg(hand, ShowMessage.HandShowMessage, "服务器："+e.getMessage());
+                }
+            }
+        });
+        sendVerify.start();
     }
 
     @Override
@@ -479,22 +637,25 @@ public class SelectCompanyRetailer extends Activity {
             switch (requestCode) {
                 case Lic_SelectSure:
                     Intent intent = null;
-                    //无单无入库总店发货
+                    //无单无入库代销发货
                     if ("P_Dv_OutStock_Z_D_NoBill_NoInStock".equals(lsv_aim)) {
                         intent = new Intent(mContext, SelectStock.class);
                     }
-                    //总店有入库无单发货/无单有入库的不用选仓库了》》》2018-04-25
+                    //代销有入库无单发货/无单有入库的不用选仓库了》》》2018-04-25
                     else if ("P_Dv_OutStock_Z_D_NoBill_BeInStock".equals(lsv_aim)) {
                         //					intent = new Intent(SelectCompanyD.this,SelectStock.class);
                         intent = new Intent(mContext, P_Dv_OutStock_Z_D_NoBill_BeInStock.class);
                     }else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock")){
-                        //无单无入库镜片发货
+                        //无单有入库镜片发货
                         intent = new Intent(mContext, P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock.class);
-                    }//总店无单退货
+                    }else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock")){
+                        //无单有入库镜片发货
+                        intent = new Intent(mContext, SelectStock.class);
+                    }//代销无单退货
                     else if ("P_Dv_ReturnedPurchase_Z_D_NoBill".equals(lsv_aim)) {
                         intent = new Intent(mContext, SelectStock.class);
                     }else if ("P_Dv_ReturnedPurchase_Lens_Z_D_NoBill".equals(lsv_aim)) {
-                        //总店镜片无单退货
+                        //代销镜片无单退货
                         intent = new Intent(mContext, SelectStock.class);
                     }
 

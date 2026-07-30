@@ -32,6 +32,7 @@ import com.example.wholesalersend.R;
 import com.example.wholesalersend.activity.select.QueryScanDetail;
 import com.example.wholesalersend.activity.select.SelectCCSBrand;
 import com.example.wholesalersend.activity.select.SelectCCScustomer;
+import com.example.wholesalersend.activity.select.SelectCCScustomerstore;
 import com.example.wholesalersend.activity.select.SelectCCSstore;
 import com.example.wholesalersend.activity.select.SelectProductModelColor;
 import com.example.wholesalersend.entity.ApiResponse;
@@ -123,6 +124,8 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
     private final int Lic_SelectCCSBrand=10;//选择CCS品牌
     private final int Lic_SelectCCSStore=11;//选择CCS门店
     private final int Lic_SelectCCSCustomer=12;//选择CCS客户
+    private final int Lic_SelectCCSCustomerStore=13;//先选择CCS客户在选择门店绑定，没有同步功能
+
 
     private String BrandingCode="",AgentCode="",BrandingCustCode="",BrandingStoreCode="";
     private Boolean IsBindCCS=false,IsBindCCScust=false,IsBindCCSstore=false,IsSendToStore=false;
@@ -235,13 +238,18 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
                     ShowMessage.ShowMsg(handler, "请先选择品牌");
                 }else{
                     Intent bindIntent=new Intent();
-                    if (IsSendToStore){
-                        //如果可以选择到门店，直接跳转到选择门店界面
-                        bindIntent=new Intent(mContext, SelectCCSstore.class);
+                    if (BrandingCode.equals("01")) {
+                        //雅瑞接口必须先搜索客户后，再去选择门店绑定
+                        bindIntent = new Intent(mContext, SelectCCScustomerstore.class);
+                    }else {
+                        if (IsSendToStore) {
+                            //如果可以选择到门店，直接跳转到选择门店界面
+                            bindIntent = new Intent(mContext, SelectCCSstore.class);
 
-                    }else{
-                        //否则就只能跳转CCS客户界面
-                        bindIntent=new Intent(mContext, SelectCCScustomer.class);
+                        } else {
+                            //否则就只能跳转CCS客户界面
+                            bindIntent = new Intent(mContext, SelectCCScustomer.class);
+                        }
                     }
                     bindIntent.putExtra("aim", "");
                     bindIntent.putExtra("Agent_Code", AgentCode);
@@ -249,17 +257,18 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
                     bindIntent.putExtra("CCSCuts_Code", BrandingCustCode);
                     bindIntent.putExtra("trader_sysid", TraderSysId);
                     bindIntent.putExtra("store_sysid", StoreSysId);
+                    bindIntent.putExtra("LinkName", SearchBindName);
+//                    }
                     if (BrandingCode.equals("01")){
-                        bindIntent.putExtra("LinkName", LinkName);
-                    }else{
-                        bindIntent.putExtra("LinkName", SearchBindName);
-                    }
-                    if (IsSendToStore){
-                        //如果可以选择到门店，直接跳转到选择门店界面
-                        startActivityForResult(bindIntent, Lic_SelectCCSStore);
-                    }else{
-                        //否则就只能跳转CCS客户界面
-                        startActivityForResult(bindIntent, Lic_SelectCCSCustomer);
+                        startActivityForResult(bindIntent, Lic_SelectCCSCustomerStore);
+                    }else {
+                        if (IsSendToStore) {
+                            //如果可以选择到门店，直接跳转到选择门店界面
+                            startActivityForResult(bindIntent, Lic_SelectCCSStore);
+                        } else {
+                            //否则就只能跳转CCS客户界面
+                            startActivityForResult(bindIntent, Lic_SelectCCSCustomer);
+                        }
                     }
                 }
             }
@@ -716,6 +725,11 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
                     CcsCustName=data.getStringExtra("CCScustName");
                     tv_ccsstore_name.setText(CcsCustName);
                     break;
+                case Lic_SelectCCSCustomerStore:
+                    CcsCustName=data.getStringExtra("CCScustName");
+                    CcsStoreName=data.getStringExtra("CCSstoreName");
+                    tv_ccsstore_name.setText(CcsStoreName);
+                    break;
             }
         }
 
@@ -737,11 +751,14 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
                         IsBindCCSstore = (Boolean) data.get(0).get("StoreBind");
                         IsSendToStore = (Boolean) data.get(0).get("IsSendToStore");
 
-                        //需要绑定到ccs门店
-                        if (IsSendToStore){
-                            SearchBindName=(String) data.get(0).get("StoreAlias");
-                        }else{
-                            SearchBindName=(String) data.get(0).get("TraderAlias");
+                        if (BrandingCode.equals("01")){
+                            SearchBindName = (String) data.get(0).get("TraderAlias");
+                        }else {
+                            if (IsSendToStore) {
+                                SearchBindName = (String) data.get(0).get("StoreAlias");
+                            } else {
+                                SearchBindName = (String) data.get(0).get("TraderAlias");
+                            }
                         }
 
 //                        BrandingCode= (String) data.get(0).get("BrandingCode");
@@ -802,24 +819,26 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
     // 请求服务
     private void access_send(final String contents) {
 
-//        if (BrandCode.equals("")){
-//            ShowMessage.ShowMsg(handler, "请先选择品牌");
-//            return;
-//        }
+        if (!sysUserInfo.getLoginType().equals("CCS")&&!sysUserInfo.getMainAccount().equals("U_1000820")){
+            if (BrandCode.equals("")){
+                ShowMessage.ShowMsg(handler, "请先选择品牌");
+                return;
+            }
 
-//        if (IsBindCCS&&(!IsBindCCScust||!IsBindCCSstore)){
-//            if (IsSendToStore){
-//                if (CcsStoreName.equals("")){
-//                    ShowMessage.ShowMsg(handler, "请先绑定CCS客户门店");
-//                    return;
-//                }
-//            }else{
-//                if (CcsCustName.equals("")){
-//                    ShowMessage.ShowMsg(handler, "请先绑定CCS客户");
-//                    return;
-//                }
-//            }
-//        }
+            if (IsBindCCS&&(!IsBindCCScust||!IsBindCCSstore)){
+                if (IsSendToStore){
+                    if (CcsStoreName.equals("")){
+                        ShowMessage.ShowMsg(handler, "请先绑定CCS客户门店");
+                        return;
+                    }
+                }else{
+                    if (CcsCustName.equals("")){
+                        ShowMessage.ShowMsg(handler, "请先绑定CCS客户");
+                        return;
+                    }
+                }
+            }
+        }
 
 
         if (goodsid.equals("")) {
@@ -980,8 +999,6 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
 
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
-
-
 
                     String tBarcode = et_barcode.getText().toString().trim();
                     if (et_barcode.getText().toString().trim().indexOf("=") != -1||et_barcode.getText().toString().trim().indexOf("http") != -1) {

@@ -144,8 +144,6 @@ public class SelectAllBillProduct extends Activity {
                 para.add(map);
                 String tListData = accWeb.GetAPIStringInterface("AndroidDv/GetSaleOrderDetail",para);
 
-//                Log.d("main", tListData);
-
                 JSONArray listjson = new JSONArray(tListData);
                 for (int i = 0; i < listjson.length(); i++) {
                     JSONObject jsonObject2 = (JSONObject) listjson.opt(i);
@@ -159,6 +157,7 @@ public class SelectAllBillProduct extends Activity {
                     map1.put("modelm", jsonObject2.optString("modelm"));
                     map1.put("colors", jsonObject2.optString("colors"));
                     map1.put("saleOrderQty", jsonObject2.optString("saleOrderQty"));
+                    map1.put("unShipNum", jsonObject2.optString("unShipNum"));
                     map1.put("diopter", jsonObject2.optString("diopter"));
                     map1.put("astigmatism", jsonObject2.optString("astigmatism"));
                     map1.put("eyeDirection", jsonObject2.optString("eyeDirection"));
@@ -200,10 +199,8 @@ public class SelectAllBillProduct extends Activity {
 
     public void initListView(List<Map<String, Object>> list) {
 //        Collections.sort(list, new SortListMapComparator("goodsid"));
-
-
         SimpleAdapter adapter = new SimpleAdapter(SelectAllBillProduct.this, list,
-                R.layout.list_all_lens_detail, new String[]{"brandName","goodsCode", "refractiveIndex","eyeDirection", "modelm", "colors","diopter","astigmatism", "saleOrderQty"},
+                R.layout.list_all_lens_detail, new String[]{"brandName","goodsCode", "refractiveIndex","eyeDirection", "modelm", "colors","diopter","astigmatism", "unShipNum"},
                 new int[]{R.id.txt_brand,R.id.txt_list1,R.id.txt_refractive,R.id.txt_remark, R.id.txt_model,R.id.txt_color,R.id.txt_list2, R.id.txt_list3, R.id.txt_list4});
         listview.setAdapter(adapter);
         MyProgressDialog.close();

@@ -231,6 +231,14 @@ public class SysUserInfo {
         return ReadConfigString("mobile");
     }
 
+
+
+    public String getUserMobile()
+    {
+        return ReadConfigString("userMobile");
+    }
+
+
     public String getProvince()
     {
         return ReadConfigString("province");
@@ -456,7 +464,11 @@ public class SysUserInfo {
         SaveConfigString("mobile", mobile);
     }
 
-
+    //    设置用户电话
+    public void setUserMobile(String mobile)
+    {
+        SaveConfigString("userMobile", mobile);
+    }
 
     /**
      * 获取是否球镜在前
@@ -729,6 +741,46 @@ public class SysUserInfo {
         return ReadConfigString("ccsloginmode");
     }
 
+    //写入登录的主账号（品牌固定值）
+    public void setMainAccount(String tmainAccount)
+    {
+        SaveConfigString("mainAccount", tmainAccount);
+    }
+
+    //获取登录的主账号（品牌固定值）
+    public String getMainAccount()
+    {
+        String rest = ReadConfigString("mainAccount").trim();
+        return rest;
+    }
+
+    /**
+     * 写入服务器名称
+     * @param tdataBaseName
+     */
+    public void setDataBaseName(String tdataBaseName)
+    {
+        SaveConfigString("dataBaseName", tdataBaseName);
+    }
+
+    //获取服务器名称
+    public String getDataBaseName()
+    {
+        String rest = ReadConfigString("dataBaseName").trim();
+        rest = rest.isEmpty() ? "" : rest;
+        return rest;
+    }
+
+    public String getUserType()
+    {
+        return ReadConfigString("usertype");
+    }
+
+
+    public void setUserType(String UserType)
+    {
+        SaveConfigString("usertype", UserType);
+    }
 
 }
 

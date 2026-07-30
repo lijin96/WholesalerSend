@@ -37,7 +37,7 @@ import java.util.Map;
 
 /**
  * @ClassName: P_Dv_ReturnedPurchase_Z_D_NoBill_Cancel
- * @Description: 无单(总店)退货撤消
+ * @Description: 无单(代销)退货撤消
  * @Author: lijin
  * @Date: 2021/3/10 10:22
  */
@@ -170,11 +170,11 @@ public class P_Dv_ReturnedPurchase_Z_D_NoBill_Cancel extends Activity {
 
                     if (sysUserInfo.getOldVersion().equals("T8")) {
 
-                        printbill.prints("     无单总店退货撤销", mark, sacnDataList, sysUserInfo.getUserid());
+                        printbill.prints("     无单代销退货撤销", mark, sacnDataList, sysUserInfo.getUserid());
 
                     } else {
 
-                        printbill.print(P_Dv_ReturnedPurchase_Z_D_NoBill_Cancel.this, "     无单总店退货撤销", mark, sacnDataList, sysUserInfo.getUserid());
+                        printbill.print(P_Dv_ReturnedPurchase_Z_D_NoBill_Cancel.this, "     无单代销退货撤销", mark, sacnDataList, sysUserInfo.getUserid());
 
                     }
                     break;

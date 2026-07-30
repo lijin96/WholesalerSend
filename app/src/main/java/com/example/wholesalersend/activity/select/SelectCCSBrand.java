@@ -283,7 +283,7 @@ public class SelectCCSBrand extends Activity {
             public void run() {
                 try {
                     brandlist = accWeb.GetBrandInfor(et_query_supplier.getText().toString(),tIsSytemBrand);
-                    Log.d("main",brandlist.toString());
+//                    Log.d("main",brandlist.toString());
 //                    Collections.sort(Requestedlist, new SortListSupplierComparator());
                     ShowMessage.ShowMsg(hand, ShowMessage.HandSuccess, "success");
                 } catch (Exception e) {

@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -530,18 +531,15 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
 
                         packBoxResultList.add(map1);
 
-
                         if (packBoxResultList.size()>0){
                             nSize++;
                             BoxNoCode=packBoxResultList.get(0).get("BoxNo").toString();//盒标码
-
                             OneCount=packBoxResultList.get(0).get("GoodsNum").toString();//当前型号数量
                             AllCount=packBoxResultList.get(0).get("TotalNum").toString();//合计数
                             AllBox=packBoxResultList.get(0).get("BoxNum").toString();//当前装盒成功数
                             BoxActNum=packBoxResultList.get(0).get("ActNum").toString();
 
                             ShowMessage.ShowMsg(mHandler, HandPackBoxSuccess, "");
-
                         }else{
                             ShowMessage.ShowMsg(mHandler, HandToaskErrorMsg, "【装盒入库】失败：扫描返回无数据" +multiresponse);
                         }
@@ -557,13 +555,11 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
         sendCode.start();
     }
 
-
     /**
      * 设置盒装数
      */
     public void SetFillBoxNum(final String tBoxBarcode,final String tPackingNum) {
         MyProgressDialog.show(mContext, "正在设置盒装数", true, true);
-
         Thread sendCode = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -573,7 +569,6 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
                     headers.put("Authorization", "Bearer "+sysUserInfo.getLoginid());
                     HttpPostMultipart multipart = new HttpPostMultipart("http://"+sysUserInfo.getServerip()+":9521/"+sysUserInfo.getAPIEndpoint()+"/AndroidDv/SetFillBoxNum", "utf-8", headers);
 //                    Log.d("main","http://"+sysUserInfo.getServerip()+":9521/"+sysUserInfo.getAPIEndpoint()+"/AndroidDv/UDIScan");
-
                     // post参数
                     multipart.addFormField("BoxNo", tBoxBarcode);
                     multipart.addFormField("PackingNum", tPackingNum);
@@ -585,10 +580,10 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
                     requestdata.put("PackingNum", tPackingNum);
                     requestdata.put("SoCompId",Supplierid);//供应商编码
                     requestdata.put("OaSuserId",sysUserInfo.getUserCode());
-//                    Log.d("main", requestdata.toString());
+                    //Log.d("main", requestdata.toString());
                     // 返回信息
                     String multiresponse = multipart.finish(requestdata);
-//                    Log.d("main", multiresponse);
+                    //Log.d("main", multiresponse);
                     Gson gson = new GsonBuilder().create();
                     ScanApiResponse response = gson.fromJson(multiresponse, ScanApiResponse.class);
                     if (response.isSuccess()==true){
@@ -609,7 +604,6 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
                             map1.put("GoodsId", jsonObject2.optString("goodsId"));
                             unFillBoxList.add(map1);
                         }
-
                         if (unFillBoxList.size()>0){
                             BoxNoNum=unFillBoxList.get(0).get("SetNum").toString();
                             BoxActNum=unFillBoxList.get(0).get("ActNum").toString();
@@ -620,7 +614,6 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
                     }else{
                         ShowMessage.ShowMsg(mHandler, HandToaskErrorMsg, "修改盒装数接口报错："+multiresponse);
                     }
-
                 } catch (Exception e) {
                     ShowMessage.ShowMsg(mHandler, HandToaskErrorMsg, e.getMessage());
                 }
@@ -747,7 +740,14 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
                         ShowMessage.Show(mContext,"正在打印盒标，请稍后！！！");
 
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-                        boxTag = new BoxTag(BoxNoCode, GoodsBrand, GoodsSeries, GoodsModelm, GoodsColor, BoxNoNum, sysUserInfo.getUserName(), simpleDateFormat.format(new Date()).substring(0, 10),StockName);
+
+                        String UserName= sysUserInfo.getUserName();
+                        if (sysUserInfo.getEnterpriseId().toString().equals("53")){
+                            //帕兰德显示手机号后四位
+                            UserName= SomeUtils.getLastFourDigits(sysUserInfo.getUserMobile());
+                        }
+
+                        boxTag = new BoxTag(BoxNoCode, GoodsBrand, GoodsSeries, GoodsModelm, GoodsColor, BoxNoNum, UserName, simpleDateFormat.format(new Date()).substring(0, 10),StockName);
 
                         printBoxCode(boxTag);
 
@@ -782,8 +782,14 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
 
                         ShowMessage.Show(mContext,"正在打印盒标，请稍后！！！");
 
+                        String UserName= sysUserInfo.getUserName();
+                        if (sysUserInfo.getEnterpriseId().toString().equals("53")){
+                            //帕兰德显示手机号后四位
+                            UserName= SomeUtils.getLastFourDigits(sysUserInfo.getUserMobile());
+                        }
+
                         SimpleDateFormat  simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-                        boxTag = new BoxTag(BoxNoCode, GoodsBrand, GoodsSeries, GoodsModelm, GoodsColor, BoxNoNum, sysUserInfo.getUserName(), simpleDateFormat.format(new Date()).substring(0, 10),StockName);
+                        boxTag = new BoxTag(BoxNoCode, GoodsBrand, GoodsSeries, GoodsModelm, GoodsColor, BoxNoNum, UserName, simpleDateFormat.format(new Date()).substring(0, 10),StockName);
                         printBoxCode(boxTag);
 
                         BoxNoCode="";
@@ -956,7 +962,7 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
 //                    Log.d("main", data.getStringExtra("GoodsId"));
                     if (!GoodsId.equals(data.getStringExtra("goodsid"))){
                         GoodsBrand=data.getStringExtra("brandName");
-                        GoodsSeries=data.getStringExtra("prodType");
+                        GoodsSeries=data.getStringExtra("seriesname");
                         GoodsModelm=data.getStringExtra("modelm");
                         GoodsColor=data.getStringExtra("colors");
                         GoodsId=data.getStringExtra("goodsid");
@@ -1224,7 +1230,7 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
         }
         if (isFileExists("lab_" + sysUserInfo.getEnterpriseId().toString() + ".txt")) {
             //52万新  53帕兰德
-            if (sysUserInfo.getEnterpriseId().toString().equals("52")||sysUserInfo.getEnterpriseId().toString().equals("53")){
+            if (sysUserInfo.getEnterpriseId().toString().equals("52")){
                 message = message.replace("%BOX", boxTag.getBoxNo());
                 message = message.replace("%U", boxTag.getUserCode());
                 message = message.replace("%B", boxTag.getBrandName());
@@ -1233,6 +1239,16 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
                 message = message.replace("%C", boxTag.getColor());
                 message = message.replace("%N", boxTag.getNum());
 //                message = message.replace("%D", boxTag.getPackDate());
+            }else if (sysUserInfo.getEnterpriseId().toString().equals("53")){
+                //帕兰德
+                message = message.replace("%BOX", boxTag.getBoxNo());
+                message = message.replace("%U", boxTag.getUserCode());
+                message = message.replace("%B", boxTag.getBrandName());
+                message = message.replace("%S", boxTag.getSerialName());
+                message = message.replace("%M", boxTag.getModel());
+                message = message.replace("%C", boxTag.getColor());
+                message = message.replace("%N", boxTag.getNum());
+                message = message.replace("%D", boxTag.getPackDate());
             }else if (sysUserInfo.getEnterpriseId().toString().equals("12")){
 //                12邦维 用汉印IT4S打印机打印
                 message = message.replace("%BOX", boxTag.getBoxNo());

@@ -47,7 +47,7 @@ import java.util.Map;
 
 /**
  * @ClassName: P_Dv_OutStock_Z_D_NoBill_NoInStock
- * @Description: 无单无入库总店/代销发货
+ * @Description: 无单无入库代销/代销发货
  * @Author: lijin
  * @Date: 2021/3/10 14:02
  */

@@ -45,7 +45,7 @@ import java.util.Map;
 
 /**
  * @ClassName: P_Dv_OutStock_Lens_Z_D_Bill_BeInStock
- * @Description: 镜片有单有入库总店发货
+ * @Description: 镜片有单有入库代销发货
  * @Author: lijin
  * @Date: 2024年3月27日14:56:26
  */
@@ -292,11 +292,11 @@ public class P_Dv_OutStock_Lens_Z_D_Bill_BeInStock extends Activity {
 
                     if (sysUserInfo.getOldVersion().equals("T8")) {
 
-                        printbill.prints("    有单有入库总店发货", mark, sacnDataList, sysUserInfo.getUserid());
+                        printbill.prints("    有单有入库代销发货", mark, sacnDataList, sysUserInfo.getUserid());
 
                     } else {
 
-                        printbill.print(P_Dv_OutStock_Lens_Z_D_Bill_BeInStock.this, "    有单有入库总店发货", mark, sacnDataList, sysUserInfo.getUserid());
+                        printbill.print(P_Dv_OutStock_Lens_Z_D_Bill_BeInStock.this, "    有单有入库代销发货", mark, sacnDataList, sysUserInfo.getUserid());
 
                     }
                     break;

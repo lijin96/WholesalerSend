@@ -49,7 +49,7 @@ import java.util.Map;
 
 /**
  * @ClassName: P_Dv_OutStock_Z_D_Bill_NoInStock
- * @Description: 有单无入库总店发货
+ * @Description: 有单无入库代销发货
  * @Author: lijin
  * @Date: 2021/3/10 14:02
  */
@@ -118,7 +118,7 @@ public class P_Dv_OutStock_Z_D_Bill_NoInStock extends Activity {
 //            e.printStackTrace();
 //        }
         tv_title = (TextView) findViewById(R.id.tv_title);
-        tv_title.setText("【有单无入库总店发货】");
+        tv_title.setText("【有单无入库代销发货】");
         ((Button) findViewById(R.id.btn_list))
                 .setOnClickListener(new BtnListClick());
         ((Button) findViewById(R.id.btn_print))

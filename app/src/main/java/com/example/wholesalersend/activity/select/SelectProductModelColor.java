@@ -62,7 +62,7 @@ public class SelectProductModelColor extends Activity implements View.OnClickLis
     private String lsv_aim = "";
 
     int tPage=1;
-    private String pagegoodsid = "", pagemodelm = "", pagecolors = "",pagerefractivity="",pagesysgoodsid="",pagegoodscategory="",pagegoodsbrand="";//产品id 产品型号 产品色号 产品折射率 产品系统id 产品品类
+    private String pagegoodsid = "", pagemodelm = "", pagecolors = "",pagerefractivity="",pagesysgoodsid="",pagegoodscategory="",pagegoodsbrand="",pagegoodsseriesname="";//产品id 产品型号 产品色号 产品折射率 产品系统id 产品品类 产品系列
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,6 +136,7 @@ public class SelectProductModelColor extends Activity implements View.OnClickLis
                     }else {
                         searchList = accWeb.GetDownSCSLoadGoodsInfor(et_search.getText().toString(), tPage, tGoodsTypeName);
                     }
+//                    Log.d("main", searchList.toString());
                     ShowMessage.ShowMsg(hand, ShowMessage.HandSuccess, "success");
                 } catch (Exception e) {
                     ShowMessage.ShowMsg(hand, ShowMessage.HandShowMessage,"下载出错" + e.getMessage());
@@ -209,6 +210,8 @@ public class SelectProductModelColor extends Activity implements View.OnClickLis
                     intent.putExtra("goodssyscode", pagesysgoodsid);
                     intent.putExtra("goodscategory", pagegoodscategory);
 
+                    intent.putExtra("seriesname", pagegoodsseriesname);
+
                     intent.putExtra("prodType", pagegoodscategory);
                     intent.putExtra("brandName", pagegoodsbrand);
 
@@ -277,6 +280,9 @@ public class SelectProductModelColor extends Activity implements View.OnClickLis
         pagerefractivity= (String) itemMap.get("RefractiveIndex");
         pagegoodscategory= (String) itemMap.get("ProdType");
         pagegoodsbrand=(String) itemMap.get("BrandName");
+        pagegoodsseriesname=(String) itemMap.get("SeriesName");
+
+
 
         if (!pagegoodscategory.equals("镜片")){
             pagemodelm = (String) itemMap.get("Modelm");

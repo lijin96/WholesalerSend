@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_scs_result"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/scaled_o_dp_10">
+
+        <!-- 产品信息 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_logist_card"
+            android:orientation="vertical"
+            android:padding="@dimen/scaled_o_dp_10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/bg_logist_title_bar" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_10"
+                    android:text="产品信息"
+                    android:textColor="@color/logist_text_value"
+                    android:textSize="@dimen/scaled_t_dp_26"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- 第一行：产品、条码、品牌、产品系列 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/scaled_h_dp_5"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="产品"
+                        android:textColor="@color/logist_text_label"
+                        android:textSize="@dimen/scaled_t_dp_22" />
+
+                    <TextView
+                        android:id="@+id/tv_product_display"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scaled_o_dp_4"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:textColor="@color/logist_text_value"
+                        android:textSize="@dimen/scaled_t_dp_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="条码"
+                        android:textColor="@color/logist_text_label"
+                        android:textSize="@dimen/scaled_t_dp_22" />
+
+                    <TextView
+                        android:id="@+id/tv_barcode_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scaled_o_dp_4"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:textColor="@color/logist_text_value"
+                        android:textSize="@dimen/scaled_t_dp_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="品牌"
+                        android:textColor="@color/logist_text_label"
+                        android:textSize="@dimen/scaled_t_dp_22" />
+
+                    <TextView
+                        android:id="@+id/tv_brand_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scaled_o_dp_4"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/logist_text_value"
+                        android:textSize="@dimen/scaled_t_dp_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="系列"
+                        android:textColor="@color/logist_text_label"
+                        android:textSize="@dimen/scaled_t_dp_22" />
+
+                    <TextView
+                        android:id="@+id/tv_product_series"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scaled_o_dp_4"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/logist_text_value"
+                        android:textSize="@dimen/scaled_t_dp_24" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 第二行：产品年份、库龄、兑换、黑名单 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/scaled_h_dp_5"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="年份"
+                        android:textColor="@color/logist_text_label"
+                        android:textSize="@dimen/scaled_t_dp_22" />
+
+                    <TextView
+                        android:id="@+id/tv_product_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scaled_o_dp_4"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/logist_text_value"
+                        android:textSize="@dimen/scaled_t_dp_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="库龄"
+                        android:textColor="@color/logist_text_label"
+                        android:textSize="@dimen/scaled_t_dp_22" />
+
+                    <TextView
+                        android:id="@+id/tv_stock_age"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scaled_o_dp_4"
+                        android:textColor="@color/logist_text_value"
+                        android:textSize="@dimen/scaled_t_dp_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="兑换"
+                        android:textColor="@color/logist_text_label"
+                        android:textSize="@dimen/scaled_t_dp_22" />
+
+                    <TextView
+                        android:id="@+id/tv_exchange"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scaled_o_dp_4"
+                        android:textColor="@color/logist_text_value"
+                        android:textSize="@dimen/scaled_t_dp_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="黑名单"
+                        android:textColor="@color/logist_text_label"
+                        android:textSize="@dimen/scaled_t_dp_22" />
+
+                    <TextView
+                        android:id="@+id/tv_blacklist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scaled_o_dp_4"
+                        android:textColor="@color/logist_text_value"
+                        android:textSize="@dimen/scaled_t_dp_24" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 物流轨迹 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scaled_h_dp_12"
+            android:background="@drawable/bg_logist_card"
+            android:orientation="vertical"
+            android:padding="@dimen/scaled_o_dp_10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/bg_logist_title_bar" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_10"
+                    android:text="物流轨迹"
+                    android:textColor="@color/logist_text_value"
+                    android:textSize="@dimen/scaled_t_dp_26"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_logistics_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_10"
+                    android:textColor="@color/logist_text_label"
+                    android:textSize="@dimen/scaled_t_dp_22" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_logistics_timeline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/scaled_h_dp_12"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

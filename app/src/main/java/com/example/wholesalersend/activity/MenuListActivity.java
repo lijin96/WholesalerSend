@@ -32,6 +32,9 @@ import com.example.wholesalersend.activity.instock_in.P_Dv_InStock_Lens_Bill_Can
 import com.example.wholesalersend.activity.instock_in.P_Dv_InStock_Lens_NoBill_Cancel;
 import com.example.wholesalersend.activity.instock_in.P_Dv_InStock_NoBill_Cancel;
 import com.example.wholesalersend.activity.other.P_Dv_InStock_PackBox_Search;
+import com.example.wholesalersend.activity.other.P_Dv_InStock_Z_ChangeCode;
+import com.example.wholesalersend.activity.other.P_Dv_InStock_Z_ChangeProduct;
+import com.example.wholesalersend.activity.other.P_Dv_RecoverScan_Z;
 import com.example.wholesalersend.activity.select.CheckLensDegree;
 import com.example.wholesalersend.activity.select.SelectAllPeiBill;
 import com.example.wholesalersend.activity.select.SelectAllots;
@@ -229,7 +232,7 @@ public class MenuListActivity extends Activity {
         else if ("020203".equals(menucode)) {
             intent = new Intent(mContext, P_Dv_ReturnedPurchase_Lens_Z_G_NoBill_Cancel.class);
         }
-//        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---总店发货--->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---代销发货--->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         //镜架有单有入库发货
         else if ("030101".equals(menucode)) {
             intent = new Intent(mContext, SelectPeiBill.class);
@@ -246,30 +249,43 @@ public class MenuListActivity extends Activity {
             intent.putExtra("aim", "P_Dv_OutStock_Z_D_NoBill_BeInStock");
         }
 //镜架无单无入库发货 030104
-//
-        //镜片有单有入库总店发货
+
+        //镜片有单有入库代销发货
         else if ("030105".equals(menucode)) {
             intent = new Intent(mContext, SelectPeiBill.class);
             intent.putExtra("aim", "P_Dv_OutStock_Lens_Z_D_Bill_BeInStock");
         }
-
+//        else if ("030106".equals(menucode)){
+//            //镜片代销有单无入库总店发货
+//            intent = new Intent(mContext, SelectPeiBill.class);
+//            intent.putExtra("aim", "P_Dv_OutStock_Lens_Z_D_Bill_NoInStock");
+//        }
         //镜片无单有入库发货
         else if ("030107".equals(menucode)) {
             intent = new Intent(mContext, SelectCompanyRetailer.class);
             intent.putExtra("aim", "P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock");
         }
-//
-        //有单总店发货撤销
+//        //镜片代销无单无入库发货
+//        else if ("030108".equals(menucode)) {
+//            intent = new Intent(mContext, SelectCompanyRetailer.class);
+//            intent.putExtra("aim", "P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock");//测试跳转到镜片无单无入库的界面
+//        }
+        else if("030109".equals(menucode)){
+            //有单直发零售商
+            intent = new Intent(mContext, SelectAllPeiBill.class);
+            intent.putExtra("aim", "OutStock_Z_D_L_BillBeInStock");
+        }
+        //有单代销发货撤销
         else if ("030201".equals(menucode)) {
             intent = new Intent(mContext, P_Dv_OutStock_Z_D_Bill_Cancel.class);
             intent.putExtra("aim", "P_Dv_OutStock_Z_D_Bill_Cancel");
         }
 //
-        //无单总店发货撤消
+        //无单代销发货撤消
         else if ("030202".equals(menucode)) {
             intent = new Intent(mContext, P_Dv_OutStock_Z_D_NoBill_Cancel.class);
         }
-        //镜片有单总店发货撤销
+        //镜片有单代销发货撤销
         else if ("030203".equals(menucode)) {
             intent = new Intent(mContext, P_Dv_OutStock_Lens_Z_D_Bill_Cancel.class);
             intent.putExtra("aim", "P_Dv_OutStock_Lens_Z_D_Bill_Cancel");
@@ -389,7 +405,6 @@ public class MenuListActivity extends Activity {
             intent.putExtra("aim", "SunLensReplaceLabCode");
         }
 
-
 //        else if ("050106".equals(menucode)){
 //            intent = new Intent(mContext, SelectPeiBill.class);
 //            intent.putExtra("aim", "P_Dv_OutStock_Z_L_S_HaveBill_BeInStock");
@@ -505,6 +520,27 @@ public class MenuListActivity extends Activity {
             //定制发货
             intent = new Intent(mContext, SelectAllPeiBill.class);
             intent.putExtra("aim", "SelectAllPeiBill");;
+        }else  if ("070109".equals(menucode)){
+            //产品换标
+            intent = new Intent(mContext, P_Dv_InStock_Z_ChangeCode.class);
+            intent.putExtra("aim", "P_Dv_InStock_Z_ChangeCode");
+        } else  if ("070110".equals(menucode)){
+            //吊牌回收
+            intent = new Intent(mContext, P_Dv_RecoverScan_Z.class);
+            intent.putExtra("aim", "P_Dv_RecoverScan_Z");
+        }else if ("070115".equals(menucode)){
+            //镜架入库换型号
+            intent = new Intent(mContext, P_Dv_InStock_Z_ChangeProduct.class);
+            intent.putExtra("aim", "P_Dv_InStock_Z_ChangeProduct");
+        } else if ("070116".equals(menucode)){
+            //镜架退货直通车
+            intent = new Intent(mContext, SelectCompanyRetailer.class);
+            intent.putExtra("aim", "P_Dv_ReturnedPurchase_L_D_Z_Frame");
+        }
+        else if ("070117".equals(menucode)){
+            //镜片退货直通车
+            intent = new Intent(mContext, SelectCompanyRetailer.class);
+            intent.putExtra("aim", "P_Dv_ReturnedPurchase_L_D_Z_Lens");
         }
         else if ("070201".equals(menucode)){
             //CCS换货补扫
@@ -591,7 +627,7 @@ public class MenuListActivity extends Activity {
             if (sysUserInfo.getLoginType().equals("CCS")){
                 title = "代销发货";
             }else{
-                title = "总店发货";
+                title = "代销发货";
             }
             parentCode = "03";
         } else if ("backgoods_d".equals(aim)) {
@@ -599,7 +635,7 @@ public class MenuListActivity extends Activity {
             if (sysUserInfo.getLoginType().equals("CCS")){
                 title = "代销退货";
             }else{
-                title = "总店退货";
+                title = "代销退货";
             }
             parentCode = "04";
 

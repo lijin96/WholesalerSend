@@ -2,6 +2,9 @@ package com.example.wholesalersend.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -12,8 +15,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.util.Xml;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +65,7 @@ public class AboutActivity extends Activity {
     private Thread updateThread;
     private Loading loading = null;
     private Handler hand;
+    private Context mContext;
 
     private final int HandUpdateNewVer = 1;
     private final int HandUpdateOriginalVer = 2;
@@ -67,6 +74,7 @@ public class AboutActivity extends Activity {
 
     private TextView tv_changeaddress;
 
+    private TextView tv_set_brandcode;//设置品牌
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +82,7 @@ public class AboutActivity extends Activity {
         super.onCreate(savedInstanceState);
         DisplayUtil.setDefaultDisplay(this);
         setContentView(R.layout.about);
+        mContext=this;
         sysinfo = new SysUserInfo(getApplicationContext());
         hand = new handShowMsg();
         initView("关于");
@@ -126,6 +135,13 @@ public class AboutActivity extends Activity {
             tv_changeaddress.setText("正式地址");
         }
 
+        tv_set_brandcode=findViewById(R.id.tv_set_brandcode);
+        tv_set_brandcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowModifyBrandCode();
+            }
+        });
 
 
 //        btnRepair.setText("维护");
@@ -220,6 +236,52 @@ public class AboutActivity extends Activity {
         });
     }
 
+
+    //修改品牌代号
+    private void ShowModifyBrandCode(){
+        final View selectview = LayoutInflater.from(mContext).inflate(R.layout.dialog_brandcode_layout,null);
+
+        TextView tv_domainname= selectview.findViewById(R.id.tv_domainname);
+        final EditText ed_domainname= selectview.findViewById(R.id.ed_domainname);
+        tv_domainname.setText(sysinfo.getEnterpriseId());
+
+        final AlertDialog alertDialog6 = new AlertDialog.Builder(mContext,R.style.Base_Theme_AppCompat_Light_Dialog)
+                .setTitle("请输入要修改的品牌代号")
+                .setIcon(R.mipmap.scs)
+                .setView(selectview)
+                .setPositiveButton("确定修改", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        ///< 隐藏就显示，显示就隐藏 - 这种有时候再逻辑上会给你带来困扰，如果要强制隐藏，建议用别的方式；不要靠什么Boolean状态来做..
+                        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                }).create();
+        alertDialog6.show();
+
+        alertDialog6.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ed_domainname.getText().toString().trim().equals("")){
+                    Toast.makeText(mContext,"请输入要修改的品牌代号",Toast.LENGTH_SHORT).show();
+                }else{
+                    sysinfo.setEnterpriseId(ed_domainname.getText().toString().trim());
+                    alertDialog6.dismiss();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    ///< 隐藏就显示，显示就隐藏 - 这种有时候再逻辑上会给你带来困扰，如果要强制隐藏，建议用别的方式；不要靠什么Boolean状态来做..
+                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+            }
+
+        });
+    }
 
 
     /**

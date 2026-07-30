@@ -37,7 +37,7 @@ import java.util.Map;
 
 /**
  * @ClassName: P_Dv_ReturnedPurchase_Z_D_NoBill_Cancel
- * @Description: 无单(总店)退货撤消
+ * @Description: 无单(代销)退货撤消
  * @Author: lijin
  * @Date: 2021/3/10 10:22
  */

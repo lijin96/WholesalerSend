@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -82,7 +83,7 @@ public class P_Dv_OutStock_Z_D_L_Bill_BeInStock extends Activity {
     private List<Map<String, Object>> sacnDataList = new ArrayList<Map<String, Object>>();
 
     private String scanBillno = "", mBillNo = "", company_id = "",company_sys_id = "",company_name="", mAgentBillNo="";
-    private String retailer_Name = "",retailer_Code = "",retailer_SysCode="";//零售商数据
+    private String retailer_Name = "",retailer_Code = "",retailer_SysCode="",is_SendToRetail="";;//零售商数据
     private String curcount = "0", goodsid = "", stock_id = "", stock_name="", sourceBillNo="";
     private String lastSuccessBarcode = "", lStar = "";
     private String modelm = "", colors = "",batchno="";//批号
@@ -111,9 +112,12 @@ public class P_Dv_OutStock_Z_D_L_Bill_BeInStock extends Activity {
 //
 //	Thread send ;
 
+    private TextView tv_title;//标题
     private Button btn_revoke;//撤销
     private Button choose_retailer;//选择零售商
+    private RelativeLayout relayout_retail;//零售商行
 
+    private String lsv_aim = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +176,8 @@ public class P_Dv_OutStock_Z_D_L_Bill_BeInStock extends Activity {
         tv_retail_name=findViewById(R.id.tv_retail_name);
         choose_retailer=findViewById(R.id.btn_chooseretail);
 
+        relayout_retail=findViewById(R.id.relayout_retail);
+
         tv_show_code = (TextView) findViewById(R.id.tv_show_code);
 
         et_barcode = (EditText) findViewById(R.id.et_barcode);
@@ -198,6 +204,7 @@ public class P_Dv_OutStock_Z_D_L_Bill_BeInStock extends Activity {
         retailer_Name = gIntent.getStringExtra("retailerName");
         retailer_Code =gIntent.getStringExtra("retailerCode");
         retailer_SysCode=gIntent.getStringExtra("retailerSysCode");
+        is_SendToRetail=gIntent.getStringExtra("isSendToRetail");
 
 //        stock_id = gIntent.getStringExtra("stock_id");
 //        stock_name = gIntent.getStringExtra("stock_name");
@@ -211,8 +218,27 @@ public class P_Dv_OutStock_Z_D_L_Bill_BeInStock extends Activity {
 //            tv_instock_batch.setVisibility(View.VISIBLE);
 //            tv_text_batch.setVisibility(View.VISIBLE);
 //        }
-        if (retailer_Code.equals("")){
-            choose_retailer.setVisibility(View.VISIBLE);
+//        if (retailer_Code.equals("")){
+//            choose_retailer.setVisibility(View.VISIBLE);
+//        }
+        //如果要选零售店的话，就要显示出来
+        if (Boolean.valueOf(is_SendToRetail)){
+            relayout_retail.setVisibility(View.VISIBLE);
+            if (retailer_Code.equals("")) {
+                choose_retailer.setVisibility(View.VISIBLE);
+            }
+        }
+
+        if (getIntent().getStringExtra("aim")!=null){
+            lsv_aim = getIntent().getStringExtra("aim");
+        }
+
+        tv_title=findViewById(R.id.tv_title);
+        if (lsv_aim.equals("OutStock_Z_D_L_BillBeInStock")){
+            tv_title.setText("【有单直发零售商】 "+sysUserInfo.getAccountSetName());
+        }else{
+            tv_title.setText("【定制发货】 "+sysUserInfo.getAccountSetName());
+
         }
 
         tv_totalqty.setText("0");
@@ -537,12 +563,11 @@ public class P_Dv_OutStock_Z_D_L_Bill_BeInStock extends Activity {
     // 请求服务
     private void access_send(final String contents) {
 
-        if (retailer_Code.equals("")){
+        if (Boolean.valueOf(is_SendToRetail)&&retailer_Code.equals("")){
             MySound.errorSound();
             ShowMessage.ShowMsg(handler, "请先选择零售商");
             return;
         }
-
 
         Thread sendCode = new Thread(new Runnable() {
             @Override

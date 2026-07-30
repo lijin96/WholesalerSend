@@ -317,4 +317,11 @@
     <color name="black">#000000</color><!--黑色-->
 
     <color name ="mycolor">#DCDCDC</color>
+
+    <!-- 物流查询结果页 -->
+    <color name="logist_accent">#2DB5A8</color>
+    <color name="logist_tag_bg">#E8F6F4</color>
+    <color name="logist_text_label">#888888</color>
+    <color name="logist_text_value">#333333</color>
+    <color name="logist_timeline_line">#D8D8D8</color>
 </resources>

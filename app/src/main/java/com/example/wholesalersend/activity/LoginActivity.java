@@ -432,8 +432,10 @@ public class LoginActivity extends Activity {
                                     try {
                                         JSONObject rootObject = new JSONObject(LoginData);
                                         JSONObject dataObject = rootObject.getJSONObject("data");
+                                        sysUserInfo.setMainAccount(dataObject.optString("mainAccount",""));
                                         sysUserInfo.setUserid(et_username.getText().toString().trim());
                                         sysUserInfo.setLoginid(dataObject.optString("userLoginId", ""));
+                                        sysUserInfo.setUserMobile(dataObject.optString("userMobile", ""));
                                         sysUserInfo.setUsername(dataObject.optString("userName", ""));
                                         sysUserInfo.setStock(dataObject.optString("userDept", ""));
                                         sysUserInfo.setMobile(dataObject.optString("userMobile", ""));
@@ -444,6 +446,8 @@ public class LoginActivity extends Activity {
                                         sysUserInfo.setAccountSetId(dataObject.optString("priAccountId", ""));
                                         sysUserInfo.setAccountSetName(dataObject.optString("accountSetName", ""));
                                         sysUserInfo.setUserCode(dataObject.optString("userCode", ""));
+                                        sysUserInfo.setUserType(dataObject.optString("userType", ""));
+                                        sysUserInfo.setDataBaseName(dataObject.optString("dataBaseName", ""));
                                         ShowMessage.ShowMsg(hand, ShowMessage.HandSuccess,"ok");
                                     } catch (JSONException e) {
                                         ShowMessage.ShowMsg(hand, ShowMessage.HandShowMessage, "解析登录返回格式报错: " + e.getMessage());
@@ -1194,38 +1198,38 @@ public class LoginActivity extends Activity {
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
                 "('镜片无单退回撤消','1','P_Dv_ReturnedPurchase_Lens_Z_G_NoBill_Cancel','0202','020203')");
 
-        //总店发货
+        //代销发货
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
-                "('总店发货','1','','','03')");
+                "('代销发货','1','','','03')");
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
                 "('发货','1','','03','0301')");
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
-                "('镜架有单有入库总店发货','1','','0301','030101')");
+                "('镜架有单有入库代销发货','1','','0301','030101')");
 
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
-                "('镜架无单有入库总店发货','1','','0301','030103')");
+                "('镜架无单有入库代销发货','1','','0301','030103')");
 
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
                 "('撤消','1','','03','0302')");
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
-                "('镜架有单总店发货撤消','1','','0302','030201')");
+                "('镜架有单代销发货撤消','1','','0302','030201')");
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
-                "('镜架无单总店发货撤消','1','','0302','030202')");
+                "('镜架无单代销发货撤消','1','','0302','030202')");
 //        sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
-//                "('镜片有单总店发货撤销','1','P_Dv_OutStock_Lens_Z_D_NoBill_Cancel','0302','030203')");
+//                "('镜片有单代销发货撤销','1','P_Dv_OutStock_Lens_Z_D_NoBill_Cancel','0302','030203')");
 
 
-        //总店退货
+        //代销退货
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
-                "('总店退货','1','','','04')");
+                "('代销退货','1','','','04')");
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
                 "('退货','1','','04','0401')");
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
-                "('镜架无单总店退货','1','','0401','040103')");
+                "('镜架无单代销退货','1','','0401','040103')");
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
                 "('撤消','1','','04','0402')");
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +
-                "('镜架无单总店退货撤消','1','','0402','040203')");
+                "('镜架无单代销退货撤消','1','','0402','040203')");
 
         //分店发货
         sqlList.add("insert into menus(menuname,showstatus,procedurename,parentcode,menucode)values" +

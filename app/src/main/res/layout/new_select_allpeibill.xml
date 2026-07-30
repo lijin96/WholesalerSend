@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/scaled_w_dp_2"
-                android:text="代理商"
+                android:text="代理商/直营店"
                 android:textSize="@dimen/scaled_t_dp_30" />
 
             <LinearLayout
@@ -109,7 +109,7 @@
                     android:id="@+id/txt_pur_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="代理商ID"
+                    android:text="代理商/直营店ID"
                     android:textSize="@dimen/scaled_t_dp_26" />
 
                 <TextView

@@ -322,6 +322,7 @@ public class SelectCompanyStoreInfor extends Activity {
                     MyRequest request = new MyRequest();
                     //请求的域名地址GET
                     String requestUrl="http://"+sysUserInfo.getServerip()+":9521/"+sysUserInfo.getAPIEndpoint()+"/AndroidDv/GetCustByBarCode?Barcode="+tBarcode+"&CodeType=1";
+//                    Log.d("main", requestUrl);
                     String result = request.getV1(requestUrl,sysUserInfo.getLoginid(),"text/plain");//调用我们写的Get方法
 //                    Log.d("main", result);
                     Gson gson=new Gson();

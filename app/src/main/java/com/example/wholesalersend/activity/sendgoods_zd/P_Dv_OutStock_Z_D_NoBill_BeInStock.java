@@ -48,7 +48,7 @@ import java.util.Map;
 
 /**
  * @ClassName: P_Dv_OutStock_Z_D_NoBill_BeInStock
- * @Description: 无单有入库总店发货
+ * @Description: 无单有入库代销发货
  * @Author: lijin
  * @Date: 2021/3/10 14:02
  */
@@ -278,12 +278,10 @@ public class P_Dv_OutStock_Z_D_NoBill_BeInStock extends Activity {
                     //mark[2] = "仓   库 ："+tv_stock_name.getText().toString();
 
                     if (sysUserInfo.getOldVersion().equals("T8")) {
-
-                        printbill.prints("    无单有入库总店发货", mark, sacnDataList, sysUserInfo.getUserName());
-
+                        printbill.prints("    无单有入库代销发货", mark, sacnDataList, sysUserInfo.getUserName());
                     } else {
 
-                        printbill.print(P_Dv_OutStock_Z_D_NoBill_BeInStock.this, "    无单有入库总店发货", mark, sacnDataList, sysUserInfo.getUserName());
+                        printbill.print(P_Dv_OutStock_Z_D_NoBill_BeInStock.this, "    无单有入库代销发货", mark, sacnDataList, sysUserInfo.getUserName());
 
                     }
                     break;
@@ -294,6 +292,7 @@ public class P_Dv_OutStock_Z_D_NoBill_BeInStock extends Activity {
                 default:
                     break;
             }
+            MyProgressDialog.close();
             super.handleMessage(msg);
         }
 
@@ -537,6 +536,10 @@ public class P_Dv_OutStock_Z_D_NoBill_BeInStock extends Activity {
 
     // 请求服务
     private void access_send(final String contents) {
+
+        if ((contents.startsWith("P")||contents.startsWith("A"))&&nSize==0){
+            MyProgressDialog.show(mContext,"正在请求数据",false,true);
+        }
 
         sysUserInfo.setChange(checkBox.isChecked());
         Thread sendCode = new Thread(new Runnable() {

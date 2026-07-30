@@ -364,9 +364,15 @@ public class P_Dv_InStock_PackBox_Search extends Activity implements View.OnClic
                     PackDate = jsonObject.getString("PackDate");
                     StockName = jsonObject.getString("StockName");
                     PackDate = PackDate.replace("/", ".");//把日期格式转换一下
-                    boxTag = new BoxTag(BoxNo, BrandName, SerialName, Model, color, Num, UserCode, PackDate,StockName);
-                    boxMessage = "盒标：" + BoxNo + "\n品牌：" + BrandName + "\n系列：" + SerialName + "\n型号："
-                            + Model + "\n色号：" + color + "\n数量：" + Num + "\n工号：" + UserCode + "\n日期：" + PackDate;
+
+                    String UserName= sysUserInfo.getUserName();
+                    if (sysUserInfo.getEnterpriseId().toString().equals("53")){
+                        //帕兰德显示手机号后四位
+                        UserName= SomeUtils.getLastFourDigits(sysUserInfo.getUserMobile());
+                    }
+
+                    boxTag = new BoxTag(BoxNo, BrandName, SerialName, Model, color, Num, UserName, PackDate,StockName);
+                    boxMessage = "盒标：" + BoxNo + "\n品牌：" + BrandName + "\n系列：" + SerialName + "\n型号：" + Model + "\n色号：" + color + "\n数量：" + Num + "\n工号：" + UserName + "\n日期：" + PackDate;
                     ShowMessage.ShowMsg(mHandler, HandSuccessUpdateTextUi, boxMessage);
 
                 } catch (Exception e) {
@@ -590,7 +596,7 @@ public class P_Dv_InStock_PackBox_Search extends Activity implements View.OnClic
                 message = message.replace("%B", boxTag.getUserCode());
                 message = message.replace("%N", boxTag.getNum());
                 message = message.replace("%D", boxTag.getPackDate());
-            }else  if (sysUserInfo.getEnterpriseId().toString().equals("52")||sysUserInfo.getEnterpriseId().toString().equals("53")){
+            }else  if (sysUserInfo.getEnterpriseId().toString().equals("52")){
                 message = message.replace("%BOX", boxTag.getBoxNo());
                 message = message.replace("%U", boxTag.getUserCode());
                 message = message.replace("%B", boxTag.getBrandName());
@@ -599,6 +605,16 @@ public class P_Dv_InStock_PackBox_Search extends Activity implements View.OnClic
                 message = message.replace("%C", boxTag.getColor());
                 message = message.replace("%N", boxTag.getNum());
 //                message = message.replace("%D", boxTag.getPackDate());
+            }else if (sysUserInfo.getEnterpriseId().toString().equals("53")){
+                //帕兰德
+                message = message.replace("%BOX", boxTag.getBoxNo());
+                message = message.replace("%U", boxTag.getUserCode());
+                message = message.replace("%B", boxTag.getBrandName());
+                message = message.replace("%S", boxTag.getSerialName());
+                message = message.replace("%M", boxTag.getModel());
+                message = message.replace("%C", boxTag.getColor());
+                message = message.replace("%N", boxTag.getNum());
+                message = message.replace("%D", boxTag.getPackDate());
             }else if (sysUserInfo.getEnterpriseId().toString().equals("12")){
 //                12邦维 用汉印IT4S打印机打印
                 message = message.replace("%BOX", boxTag.getBoxNo());

@@ -55,7 +55,6 @@
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:testOnly="false"
         android:screenOrientation="landscape"
         android:requestLegacyExternalStorage="true"
         android:theme="@android:style/Theme.Light.NoTitleBar"
@@ -164,6 +163,15 @@
         <!--绑定CCS门店-->
         <activity
             android:name=".activity.select.SelectCCSstore"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+
+        <!--绑定CCS门店-->
+        <activity
+            android:name=".activity.select.SelectCCScustomerstore"
             android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Light.NoTitleBar"
@@ -426,6 +434,13 @@
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
+        <!-- 镜片有单有入库总店发货-->
+        <activity
+            android:name=".activity.sendgoods_zd.P_Dv_OutStock_Lens_Z_D_Bill_NoInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
         <!-- 镜片无单有入库发货-->
         <activity
             android:name=".activity.sendgoods_zd.P_Dv_OutStock_Lens_Z_D_NoBill_BeInStock"
@@ -433,6 +448,14 @@
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
+        <!-- 镜片无单无入库发货-->
+        <activity
+            android:name=".activity.sendgoods_zd.P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
 
 
         <!-- 总店无单有入库发货-->
@@ -747,6 +770,42 @@
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
+
+        <!--产品换标-->
+        <activity
+            android:name=".activity.other.P_Dv_InStock_Z_ChangeCode"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+
+        <!--换标明细-->
+        <activity
+            android:name=".activity.select.QueryChangeCodeDetail"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+
+        <!--产品换型号-->
+        <activity
+            android:name=".activity.other.P_Dv_InStock_Z_ChangeProduct"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+
+        <!--吊牌回收-->
+        <activity
+            android:name=".activity.other.P_Dv_RecoverScan_Z"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
         <!-- 关于界面-->
         <activity
             android:name=".activity.AboutActivity"
@@ -823,7 +882,22 @@
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
 
-
+        <!--镜架退货直通车-->
+        <activity
+            android:name=".activity.other.P_Dv_ReturnedPurchase_L_D_Z_Frame"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+        <!--镜片退货直通车-->
+        <activity
+            android:name=".activity.other.P_Dv_ReturnedPurchase_L_D_Z_Lens"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
 
 
     </application>

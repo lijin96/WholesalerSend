@@ -42,6 +42,7 @@ import com.example.wholesalersend.activity.sendgoods_fd.P_Dv_OutStock_Z_L_Bill_B
 import com.example.wholesalersend.activity.sendgoods_fd.P_Dv_OutStock_Z_L_Bill_NoInStock;
 import com.example.wholesalersend.activity.sendgoods_fd.P_Dv_OutStock_Z_L_NoBill_BeInStock;
 import com.example.wholesalersend.activity.sendgoods_zd.P_Dv_OutStock_Lens_Z_D_Bill_BeInStock;
+import com.example.wholesalersend.activity.sendgoods_zd.P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock;
 import com.example.wholesalersend.activity.sendgoods_zd.P_Dv_OutStock_Z_D_Bill_BeInStock;
 import com.example.wholesalersend.activity.sendgoods_zd.P_Dv_OutStock_Z_D_Bill_NoInStock;
 import com.example.wholesalersend.adapter.ScanOrderAdapter;
@@ -114,13 +115,13 @@ public class SelectPeiBill extends Activity implements View.OnClickListener {
         }
         tv_trade = (TextView) findViewById(R.id.txt_pur_3);
         tv_code = (TextView) findViewById(R.id.txt_pur_5);
-        if (lsv_aim.equals("P_Dv_OutStock_Z_D_Bill_BeInStock")||lsv_aim.equals("P_Dv_OutStock_Z_D_Bill_NoInStock")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_Bill_BeInStock")) {
+        if (lsv_aim.equals("P_Dv_OutStock_Z_D_Bill_BeInStock")||lsv_aim.equals("P_Dv_OutStock_Z_D_Bill_NoInStock")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_Bill_BeInStock")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_Bill_NoInStock")) {
             if (sysUserInfo.getLoginType().equals("CCS")){
                 tv_trade.setText("代理商");
                 tv_code.setText("代理商ID");
             }else{
-                tv_trade.setText("总店");
-                tv_code.setText("总店ID");
+                tv_trade.setText("代销");
+                tv_code.setText("代销ID");
             }
         }
         //有单有入库直销分店
@@ -240,7 +241,7 @@ public class SelectPeiBill extends Activity implements View.OnClickListener {
             @Override
             public void run() {
                 try {
-                    //有单有入库总店发货和有单无入库总店发货
+                    //有单有入库代销发货和有单无入库代销发货
                     if (lsv_aim.equals("P_Dv_OutStock_Z_D_Bill_BeInStock") || lsv_aim.equals("P_Dv_OutStock_Z_D_Bill_NoInStock")) {
                         list = accWeb.GetDownLoadScsRetailSaleOrder(et_search.getText().toString(),1,"普通");
 //                        Log.i("main", list.toString());
@@ -252,8 +253,8 @@ public class SelectPeiBill extends Activity implements View.OnClickListener {
                     }//有单有入库无明细分店发货
                     else if (lsv_aim.equals("P_Dv_OutStock_Z_L_Bill_BeInStock_NoDetail")) {
                         list = accWeb.GetDownLoadScsBranchSaleOrder(et_search.getText().toString(),"普通",1,true);
-                    }else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_Bill_BeInStock")){
-                        //镜片有单有入库总店发货
+                    }else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_Bill_BeInStock")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock")){
+                        //镜片有单有入库代销发货
                         list = accWeb.GetDownLoadScsRetailSaleOrder(et_search.getText().toString(),1,"镜片");
                     }else  if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_L_Bill_BeInStock")){
                         //镜片有单有入库分店发货
@@ -430,7 +431,7 @@ public class SelectPeiBill extends Activity implements View.OnClickListener {
             }
             if (requestCode == 0) {
                 Intent intent = null;
-                //有单有入库总店发货
+                //有单有入库代销发货
                 if (lsv_aim.equals("P_Dv_OutStock_Z_D_Bill_BeInStock")) {
 
 //                    if (item.get("StockId")== null || item.get("StockId").equals("")){
@@ -439,7 +440,7 @@ public class SelectPeiBill extends Activity implements View.OnClickListener {
                     intent = new Intent(mContext, P_Dv_OutStock_Z_D_Bill_BeInStock.class);
 //                    }
                 }
-                //有单无入库总店发货
+                //有单无入库代销发货
                 else if (lsv_aim.equals("P_Dv_OutStock_Z_D_Bill_NoInStock")) {
                     if (item.get("StockId")== null || item.get("StockId").equals("")){
                         intent = new Intent(mContext, SelectStock.class);
@@ -470,9 +471,11 @@ public class SelectPeiBill extends Activity implements View.OnClickListener {
                         intent = new Intent(mContext, P_Dv_OutStock_Z_L_Bill_NoInStock.class);
                     }
                 }
-                //镜片有单有入库总店发货
+                //镜片有单有入库代销发货
                 else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_Bill_BeInStock")) {
                     intent = new Intent(SelectPeiBill.this, P_Dv_OutStock_Lens_Z_D_Bill_BeInStock.class);
+                }else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock")){
+                    intent = new Intent(SelectPeiBill.this, P_Dv_OutStock_Lens_Z_D_NoBill_NoInStock.class);
                 }else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_L_Bill_BeInStock")){
                     //镜片有单有入库分店发货
                     intent = new Intent(SelectPeiBill.this, P_Dv_OutStock_Lens_Z_L_Bill_BeInStock.class);

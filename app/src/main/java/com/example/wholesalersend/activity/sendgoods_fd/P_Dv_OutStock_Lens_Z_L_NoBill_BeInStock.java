@@ -725,24 +725,26 @@ public class P_Dv_OutStock_Lens_Z_L_NoBill_BeInStock extends Activity {
     // 请求服务
     private void access_send(final String contents) {
 
-        if (BrandCode.equals("")){
-            ShowMessage.ShowMsg(handler, "请先选择品牌");
-            return;
-        }
-        if (IsBindCCS&&(!IsBindCCScust||!IsBindCCSstore)){
-            if (IsSendToStore){
-                if (CcsStoreName.equals("")){
-                    ShowMessage.ShowMsg(handler, "请先绑定CCS客户门店");
-                    return;
-                }
-            }else{
-                if (CcsCustName.equals("")){
-                    ShowMessage.ShowMsg(handler, "请先绑定CCS客户");
-                    return;
+        if (!sysUserInfo.getLoginType().equals("CCS")&&!sysUserInfo.getMainAccount().equals("U_1000820")){
+            if (BrandCode.equals("")){
+                ShowMessage.ShowMsg(handler, "请先选择品牌");
+                return;
+            }
+
+            if (IsBindCCS&&(!IsBindCCScust||!IsBindCCSstore)){
+                if (IsSendToStore){
+                    if (CcsStoreName.equals("")){
+                        ShowMessage.ShowMsg(handler, "请先绑定CCS客户门店");
+                        return;
+                    }
+                }else{
+                    if (CcsCustName.equals("")){
+                        ShowMessage.ShowMsg(handler, "请先绑定CCS客户");
+                        return;
+                    }
                 }
             }
         }
-
         Thread sendCode = new Thread(new Runnable() {
             @Override
             public void run() {

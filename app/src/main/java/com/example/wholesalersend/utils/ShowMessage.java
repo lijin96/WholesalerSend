@@ -193,6 +193,37 @@ public class ShowMessage {
     /**自定义信息显示框
      * @param context 上下文菜单
      * @param title 发送消息标题
+     * @param msg 消息
+     * @param OkClick  确定按钮事件
+     * */
+    public static void MessageBox(Context context,String title,String msg,DialogInterface.OnClickListener OkClick,int MessageWidth)
+    {
+        Dialog builder = new AlertDialog.Builder(context,R.style.Base_Theme_AppCompat_Light_Dialog)
+                .setIcon(R.mipmap.scs)
+                .setTitle(title)
+                .setMessage(msg)
+                .setPositiveButton("确定",OkClick).setCancelable(false)
+                .create();
+        builder.show();
+        if (builder.getWindow() != null) {
+
+            WindowManager.LayoutParams lp = builder.getWindow().getAttributes();
+            lp.width = MessageWidth; // 宽度，可根据屏幕宽度进行计算
+            lp.gravity = Gravity.CENTER;
+            builder.getWindow().setAttributes(lp);
+        }
+//        if (builder.getWindow() != null) {
+//            WindowManager.LayoutParams lp = builder.getWindow().getAttributes();
+//            lp.width = 600; // 宽度，可根据屏幕宽度进行计算
+//            lp.gravity = Gravity.CENTER;
+//            builder.getWindow().setAttributes(lp);
+//        }
+    }
+
+
+    /**自定义信息显示框
+     * @param context 上下文菜单
+     * @param title 发送消息标题
      * @param OkClick  确定按钮事件
      * @param EscClick 取消按钮事件   */
     public static void MessageBox(Context context, String title,String msg,String suretitle,String canceltitle, DialogInterface.OnClickListener OkClick, DialogInterface.OnClickListener EscClick)

@@ -25,6 +25,18 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true" />
 
+    <TextView
+        android:id="@+id/tv_set_brandcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:layout_below="@+id/include1"
+        android:textSize="@dimen/scaled_t_dp_22"
+        android:text="设置品牌代号"></TextView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

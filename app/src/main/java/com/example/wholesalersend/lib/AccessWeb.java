@@ -188,17 +188,19 @@ public class AccessWeb {
         for (int i = 0; i < listjson.length(); i++) {
             JSONObject jsonObject2 = (JSONObject) listjson.opt(i);
             Map<String, Object> map1 = new HashMap<String, Object>();
-            map1.put("BrandName", jsonObject2.getString("BrandName"));//品牌
-            map1.put("GoodsId", jsonObject2.getString("GoodsId"));//产品id
-            map1.put("GoodsSysCode", jsonObject2.getString("GoodsSysCode"));//产品系统id
-            map1.put("GoodsDescription", jsonObject2.getString("GoodsDescription"));//描述
-            map1.put("Modelm", jsonObject2.getString("Modelm"));//型号
-            map1.put("Colors", jsonObject2.getString("Colors"));//色号
-            map1.put("GoodsYear", jsonObject2.getString("GoodsYear"));//年份
-            map1.put("ProdType", jsonObject2.getString("ProdType"));//品类
-            map1.put("Uprecndate", jsonObject2.getString("Uprecndate"));
-            map1.put("RefractiveIndex", jsonObject2.getString("RefractiveIndex"));//折射率
-            map1.put("Breed", jsonObject2.getString("Breed"));//品种
+            map1.put("BrandName", jsonObject2.optString("BrandName"));//品牌
+            map1.put("GoodsId", jsonObject2.optString("GoodsId"));//产品id
+            map1.put("GoodsSysCode", jsonObject2.optString("GoodsSysCode"));//产品系统id
+            map1.put("GoodsDescription", jsonObject2.optString("GoodsDescription"));//描述
+            map1.put("Modelm", jsonObject2.optString("Modelm"));//型号
+            map1.put("Colors", jsonObject2.optString("Colors"));//色号
+            map1.put("GoodsYear", jsonObject2.optString("GoodsYear"));//年份
+            map1.put("ProdType", jsonObject2.optString("ProdType"));//品类
+            map1.put("Uprecndate", jsonObject2.optString("Uprecndate"));
+            map1.put("RefractiveIndex", jsonObject2.optString("RefractiveIndex"));//折射率
+            map1.put("Breed", jsonObject2.optString("Breed"));//品种
+            map1.put("SeriesName", jsonObject2.optString("SeriesName"));//系列
+
             list.add(map1);
         }
         return list;
@@ -1119,7 +1121,7 @@ public class AccessWeb {
 
 
     /**
-     * 下载总店销售订单信息（有单发货）
+     * 下载代销销售订单信息（有单发货）
      *
      * @throws Exception
      */
@@ -1738,6 +1740,7 @@ public class AccessWeb {
             scanOrder.setLastScanTime(jsonObject2.getString("LastScanTime"));
             scanOrder.setStockCode(jsonObject2.getString("StockCode"));
             scanOrder.setStockName(jsonObject2.getString("StockName"));
+            scanOrder.setStockSysCode(jsonObject2.getString("StockSysCode"));
             list.add(scanOrder);
         }
         return list;
@@ -1800,30 +1803,48 @@ public class AccessWeb {
         return list;
     }
 
-    //下载CCS客户
     public List<Map<String, Object>> GetCcsCustomer(String tBrandingCode,String tAgentCode,String tQuery) throws Exception {
         ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
         HashMap<Object, Object> map = new HashMap<Object, Object>();
-        map.put("tLoginId", sysUserInfo.getLoginid());//这个id一定要到服务里面去确认大小写，否则可能有错
-        map.put("tBrandingCode", tBrandingCode);//品牌id
-        map.put("tAgentCode", tAgentCode);//代理商id
-        map.put("tQuery",tQuery);//模糊查找
-        map.put("tProviceName", "");
-        map.put("tCityName", "");
+        map.put("BrandingCode", tBrandingCode);//品牌id
+        map.put("AgentCode", tAgentCode);//代理商id
+        map.put("Query",tQuery);//模糊查找
+        map.put("ProviceName", "");
+        map.put("CityName", "");
         para.add(map);
 //        Log.d("main","GetCcsCustomer-"+para.toString());
-        String result = getWebResult("GetCcsCustomer", para);
+//        String result = getWebResult("GetCcsCustomer", para);
+        String result = instance.GetAPIStringInterface("AndroidDv/GetUpstreamCustomer", para);
+//        Log.d("main","GetCcsCustomer-"+result);
         JSONArray listjson = new JSONArray(result);
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < listjson.length(); i++) {
             JSONObject jsonObject2 = (JSONObject) listjson.opt(i);
             Map<String, Object> map1 = new HashMap<String, Object>();
-            map1.put("CutCode", jsonObject2.getString("CutCode"));
-            map1.put("CustName", jsonObject2.getString("CustName"));
-            map1.put("CustLink", jsonObject2.getString("CustLink"));
-            map1.put("CustTel", jsonObject2.getString("CustTel"));
-            map1.put("CustAddr", jsonObject2.getString("CustAddr"));
-            map1.put("SaleName", jsonObject2.getString("SaleName"));
+            map1.put("CutCode", jsonObject2.getString("cutCode"));
+            map1.put("CustName", jsonObject2.getString("custName"));
+            map1.put("CustLink", jsonObject2.getString("custLink"));
+            map1.put("CustTel", jsonObject2.getString("custTel"));
+            map1.put("CustAddr", jsonObject2.getString("custAddr"));
+            map1.put("SaleName", jsonObject2.getString("saleName"));
+            List<Map<String, Object>> storeList = new ArrayList<Map<String, Object>>();
+            JSONArray storeArray = jsonObject2.optJSONArray("store");
+            if (storeArray != null) {
+                for (int j = 0; j < storeArray.length(); j++) {
+                    JSONObject storeObj = storeArray.getJSONObject(j);
+                    Map<String, Object> storeMap = new HashMap<String, Object>();
+                    storeMap.put("CutCode", storeObj.optString("cutCode"));
+                    storeMap.put("StoreId", storeObj.optString("storeId"));
+                    storeMap.put("StoreName", storeObj.optString("storeName"));
+                    storeMap.put("CustName", jsonObject2.optString("custName"));
+                    storeMap.put("CustLink", storeObj.optString("custLink"));
+                    storeMap.put("CustTel", storeObj.optString("custMobile"));
+                    storeMap.put("CustAddr", storeObj.optString("custAddr"));
+                    storeMap.put("CorpName", storeObj.optString("corpName"));
+                    storeList.add(storeMap);
+                }
+            }
+            map1.put("StoreList", storeList);
             list.add(map1);
         }
         return list;
@@ -1833,30 +1854,31 @@ public class AccessWeb {
     public List<Map<String, Object>> GetCcsStore(String tBrandingCode,String tAgentCode,String tQuery,String tCcsCustCode) throws Exception {
         ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
         HashMap<Object, Object> map = new HashMap<Object, Object>();
-        map.put("tLoginId", sysUserInfo.getLoginid());//这个id一定要到服务里面去确认大小写，否则可能有错
-        map.put("tBrandingCode", tBrandingCode);//品牌id
-        map.put("tAgentCode", tAgentCode);//代理商id
-        map.put("tQuery",tQuery);//模糊查找
-        map.put("tProviceName", "");
-        map.put("tCityName", "");
-        map.put("tCcsCustCode", tCcsCustCode);//CCS客户代号
+//        map.put("tLoginId", sysUserInfo.getLoginid());//这个id一定要到服务里面去确认大小写，否则可能有错
+        map.put("BrandingCode", tBrandingCode);//品牌id
+        map.put("AgentCode", tAgentCode);//代理商id
+        map.put("Query",tQuery);//模糊查找
+        map.put("ProviceName", "");
+        map.put("CityName", "");
+        map.put("CustCode", tCcsCustCode);//CCS客户代号
         para.add(map);
 //        Log.d("main","GetCcsStore-"+para.toString());
-        String result = getWebResult("GetCcsStore", para);
+//        String result = getWebResult("GetCcsStore", para);
+        String result = instance.GetAPIStringInterface("AndroidDv/GetUpstreamStore", para);
 //        Log.d("main","GetCcsStore-"+result);
         JSONArray listjson = new JSONArray(result);
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < listjson.length(); i++) {
             JSONObject jsonObject2 = (JSONObject) listjson.opt(i);
             Map<String, Object> map1 = new HashMap<String, Object>();
-            map1.put("CutCode", jsonObject2.getString("CutCode"));
-            map1.put("CustName", jsonObject2.getString("CustName"));
-            map1.put("StoreName", jsonObject2.getString("StoreName"));
-            map1.put("StoreId", jsonObject2.getString("StoreId"));
-            map1.put("CustLink", jsonObject2.getString("CustLink"));
-            map1.put("CustTel", jsonObject2.getString("CustMobile"));
-            map1.put("CustAddr", jsonObject2.getString("CustAddr"));
-            map1.put("CorpName", jsonObject2.getString("CorpName"));
+            map1.put("CutCode", jsonObject2.getString("cutCode"));
+            map1.put("CustName", jsonObject2.getString("custName"));
+            map1.put("StoreName", jsonObject2.getString("storeName"));
+            map1.put("StoreId", jsonObject2.getString("storeId"));
+            map1.put("CustLink", jsonObject2.getString("custLink"));
+            map1.put("CustTel", jsonObject2.getString("custMobile"));
+            map1.put("CustAddr", jsonObject2.getString("custAddr"));
+            map1.put("CorpName", jsonObject2.getString("corpName"));
             list.add(map1);
         }
         return list;
@@ -1906,7 +1928,7 @@ public class AccessWeb {
         map.put("tBrandCode", tBrandCode);//品牌代号
         map.put("tBillNo", tBillNo);//有单发货才需要传单号
         para.add(map);
-        Log.d("main","GetScsCustStoreRelate-"+para.toString());
+//        Log.d("main","GetScsCustStoreRelate-"+para.toString());
         String result = getWebResult("GetScsCustStoreRelate", para);
 //        Log.d("main","result-"+result);
         JSONObject listjson = new JSONObject(result);
@@ -2377,6 +2399,9 @@ public class AccessWeb {
                 //				}
                 SoapObject object = (SoapObject) envelope.bodyIn;
 //				SoapObject object = (SoapObject) envelope.getResponse();
+
+//                int code = Integer.parseInt(object.getProperty("code").toString());
+
                 // 获取返回的结果
                 result = object.getProperty(0).toString();
 
@@ -2389,11 +2414,11 @@ public class AccessWeb {
             if (result == null || result == "") {
                 throw new Exception("网络超时");
             }
-            //			if (result.split(";").length < 2) {
-            //				throw new Exception("本地处理:返回的值格式不正确.\r\n" + result);
-            //			}
 
-            //
+            if (result.split(";").length < 2) {
+                throw new Exception("发生错误：返回的值格式不正确.\r\n" + result);
+            }
+
             if (result.split(";")[0].equalsIgnoreCase("true")) {
                 //如果用户在新增资料时填写的内容有“;”就会造成result被截成多个，要返回后面的全部
                 if (result.split(";").length > 2) {
@@ -2405,7 +2430,15 @@ public class AccessWeb {
                 }
                 return result.split(";")[1];
             } else {
-                throw new Exception("服务器：" + result.split(";")[1]);
+                String[] parts = result.split(";", -1); // 保留末尾空字符串
+                if (parts.length < 2) {
+//                    throw new IllegalStateException("结果格式非法，缺少第二部分：" + result);
+                    throw new Exception("发生错误：结果格式非法，缺少报错提示：" + result);
+                }
+                if (parts[1].equals("")){
+                    throw new Exception("发生错误：结果格式非法，缺少报错提示：" + result);
+                }
+                throw new Exception("服务器：" + parts[1]);
             }
         } catch (Exception e) {
             throw new Exception("发生错误：" + e.getMessage());

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText,dpUsage,InefficientWeight,UselessLeaf" >
+
+    <LinearLayout
+        android:id="@+id/linelayout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titlebar_back"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/scaled_w_dp_10" >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="产品换标"
+            android:textColor="@color/white"
+            android:textSize="@dimen/show_title_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linelayout_middle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.88"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#DFDFDF"
+            android:padding="@dimen/scaled_w_dp_15" >
+
+            <TextView
+                android:id="@+id/tv_new_mess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/scaled_w_dp_80"
+                android:gravity="center"
+                android:text="新标物流码："
+                android:textColor="@color/black"
+                android:textSize="@dimen/show_title_size" />
+
+            <EditText
+                android:id="@+id/et_new_code"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/scaled_w_dp_10"
+                android:layout_marginRight="@dimen/scaled_w_dp_20"
+                android:layout_toRightOf="@id/tv_new_mess"
+                android:hint="请扫描新标物流码"
+                android:singleLine="true"
+                android:textSize="@dimen/show_title_size" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scaled_w_dp_1"
+            android:background="#AEAEAE" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#DFDFDF"
+            android:padding="@dimen/scaled_w_dp_15" >
+
+            <TextView
+                android:id="@+id/tv_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/scaled_w_dp_80"
+                android:gravity="right"
+                android:text="选择旧标类型："
+                android:textColor="@color/black"
+                android:textSize="@dimen/show_title_size" />
+
+            <RadioGroup
+                android:id="@+id/radiogroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scaled_w_dp_20"
+                android:layout_toRightOf="@id/tv_head"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radiobtn_logistics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:focusable="false"
+                    android:text="物流码"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/show_title_size" />
+
+                <RadioButton
+                    android:id="@+id/radiobtn_security"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_30"
+                    android:focusable="false"
+                    android:text="防伪码 "
+                    android:textSize="@dimen/show_title_size" />
+            </RadioGroup>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scaled_w_dp_1"
+            android:background="#AEAEAE" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#DFDFDF"
+            android:padding="@dimen/scaled_h_dp_15" >
+
+            <TextView
+                android:id="@+id/tv_old_mess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/scaled_h_dp_80"
+                android:gravity="center"
+                android:text="旧标物流码："
+                android:textColor="@color/black"
+                android:textSize="@dimen/show_title_size" />
+
+            <EditText
+                android:id="@+id/et_old_code"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/scaled_h_dp_10"
+                android:layout_marginRight="@dimen/scaled_h_dp_20"
+                android:layout_toRightOf="@id/tv_old_mess"
+                android:hint="请扫描旧标物流码"
+                android:nextFocusForward="@id/et_new_code"
+                android:singleLine="true"
+                android:textSize="@dimen/show_title_size" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scaled_h_dp_1"
+            android:background="#AEAEAE" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scaled_h_dp_20" >
+
+            <TextView
+                android:id="@+id/tv_result_str"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/scaled_h_dp_80"
+                android:gravity="center"
+                android:text="换标结果："
+                android:textColor="@color/black"
+                android:textSize="@dimen/scaled_h_dp_35" />
+
+            <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="@dimen/scaled_h_dp_150"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/scaled_h_dp_20"
+                android:layout_toRightOf="@id/tv_result_str"
+                android:text="未开始"
+                android:textSize="@dimen/scaled_h_dp_35" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_result" >
+
+                <TextView
+                    android:id="@+id/tv_new_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="新标物流码："
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/show_title_size" />
+
+                <TextView
+                    android:id="@+id/tv_old_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_new_code"
+                    android:text="旧标物流码："
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/show_title_size" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scaled_h_dp_80"
+            android:text=""
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/scaled_h_dp_20"
+            android:textSize="@dimen/scaled_w_dp_40" />
+
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scaled_h_dp_80"
+            android:layout_marginTop="@dimen/scaled_h_dp_20"
+            android:text=""
+            android:textColor="@color/red"
+            android:textSize="@dimen/show_title_size" />
+
+        <TextView
+            android:id="@+id/tv_totalqty"
+            android:layout_marginTop="@dimen/scaled_h_dp_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/login_font_size"
+            android:gravity="right"
+            android:layout_marginRight="@dimen/scaled_h_dp_20"
+            android:text="当前累计换标数"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linelayout_buttom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/titlebar_back"
+        android:gravity="center"
+        android:padding="@dimen/scaled_h_dp_10"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_list"
+            android:layout_width="@dimen/scaled_w_dp_250"
+            android:layout_height="@dimen/scaled_h_dp_80"
+            android:focusable="false"
+            android:text="明细"
+            android:textSize="@dimen/show_title_size" />
+
+        <Button
+            android:id="@+id/btn_print"
+            android:layout_width="@dimen/scaled_w_dp_250"
+            android:layout_height="@dimen/scaled_h_dp_80"
+            android:layout_marginLeft="@dimen/scaled_h_dp_30"
+            android:focusable="false"
+            android:text="打印"
+            android:textSize="@dimen/show_title_size" />
+
+        <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="@dimen/scaled_w_dp_250"
+            android:layout_height="@dimen/scaled_h_dp_80"
+            android:layout_marginLeft="@dimen/scaled_h_dp_30"
+            android:focusable="false"
+            android:text="完成"
+            android:textSize="@dimen/show_title_size" />
+    </LinearLayout>
+
+</LinearLayout>

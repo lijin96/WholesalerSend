@@ -37,6 +37,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -70,7 +71,12 @@ public class SelectAllPeiBill extends Activity implements View.OnClickListener {
     private String BrandingCode="",AgentCode="",BrandingCustCode="",TraderSysId="",StoreSysId="",TraderAlias_name="",Storealias_name="";;
     private Boolean IsBindCCS=false,IsBindCCScust=false,IsBindCCSstore=false,IsSendToStore=false;
 
-    private Boolean IsCustomized=true;
+    private Boolean IsCustomized=true;//是否定制
+    private String tQuery="";//模糊搜索
+    private String IsManuDirectSend="";//是否直发
+
+    private String StartTime="",EndTime="";//开始时间
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +139,15 @@ public class SelectAllPeiBill extends Activity implements View.OnClickListener {
                 }
             }
         });
+
+        if (lsv_aim.equals("OutStock_Z_D_L_BillBeInStock")){
+            //如果是有单直发零售商 就显示筛选条件
+            if (sysUserInfo.getDataBaseName().toLowerCase(Locale.ROOT).equals("ccs575227")){
+                //莱美的默认直发
+                IsManuDirectSend="是";
+            }
+        }
+
         DownLoadDataThread();
     }
 
@@ -183,7 +198,7 @@ public class SelectAllPeiBill extends Activity implements View.OnClickListener {
         intent.putExtra("retailerName", (String) item.get("retailerName"));
         intent.putExtra("retailerCode", (String) item.get("retailerCode"));
         intent.putExtra("retailerSysCode", (String) item.get("retailerSysCode"));
-
+        intent.putExtra("isSendToRetail", (String) item.get("isSendToRetail"));
 
         intent.putExtra("aim", lsv_aim);
         startActivity(intent);
@@ -198,15 +213,51 @@ public class SelectAllPeiBill extends Activity implements View.OnClickListener {
             @Override
             public void run() {
                 try {
+//                    String isSendToRetail="";
+//                    if (lsv_aim.equals("OutStock_Z_D_L_BillBeInStock")) {
+//                        //如果是有单直发零售商
+//                        isSendToRetail="true";
+//                    }
+                    String tIsCustomized="",tIsManuDirectSend="";
+                    if (lsv_aim.equals("OutStock_Z_D_L_BillBeInStock")){
+                        //有单直发零售商
+                        if(IsCustomized.equals("全部")){
+                            tIsCustomized="";
+                        }else if(IsCustomized.equals("是")){
+                            tIsCustomized="true";
+                        }else if(IsCustomized.equals("否")){
+                            tIsCustomized="false";
+                        }
+                        if(IsManuDirectSend.equals("全部")){
+                            tIsManuDirectSend="";
+                        }else if(IsManuDirectSend.equals("是")){
+                            tIsManuDirectSend="true";
+                        }else if(IsManuDirectSend.equals("否")){
+                            tIsManuDirectSend="false";
+                        }
+                    }else if (lsv_aim.equals("SelectAllPeiBill")){
+                        //定制发货
+                        tIsCustomized="true";
+                        tIsManuDirectSend="";//是否直发
+                        StartTime="";
+                        EndTime="";//开始时间
+                    }
+
+                    String isSendToRetail="";
+                    if (lsv_aim.equals("OutStock_Z_D_L_BillBeInStock")) {
+                        //如果是有单直发零售商
+                        isSendToRetail="true";
+                    }
                     ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
                     HashMap<Object, Object> map = new HashMap<Object, Object>();
-                    map.put("StartTime", "");
-                    map.put("EndTime", "");
-                    map.put("Custom", IsCustomized);
+                    map.put("StartTime", StartTime);
+                    map.put("EndTime", EndTime);
+                    map.put("Custom", tIsCustomized);
                     map.put("OrderType", "");
-                    map.put("IsManuDirectSend", "");
+                    map.put("IsManuDirectSend", tIsManuDirectSend);
+                    map.put("Query", et_search.getText().toString().trim());
+                    map.put("IsSendToRetail", isSendToRetail);
                     para.add(map);
-//                    Log.d("main", para.toString());
                     String tListData = accWeb.GetAPIStringInterface("AndroidDv/GetSaleOrderList",para);
 //                    Log.d("main", tListData);
                     JSONArray listjson = new JSONArray(tListData);
@@ -224,7 +275,8 @@ public class SelectAllPeiBill extends Activity implements View.OnClickListener {
                         map1.put("storeSysCode", jsonObject2.optString("storeSysCode"));
                         map1.put("retailerName", jsonObject2.optString("retailerName"));
                         map1.put("retailerCode", jsonObject2.optString("retailerCode"));
-                        map1.put("retailerSysCode", jsonObject2.optString("retailerName"));
+                        map1.put("retailerSysCode", jsonObject2.optString("retailerSysCode"));
+                        map1.put("isSendToRetail", jsonObject2.optString("isSendToRetail"));
                         list.add(map1);
                     }
                     ShowMessage.ShowMsg(hand, ShowMessage.HandSuccess, "success");

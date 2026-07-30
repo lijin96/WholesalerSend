@@ -38,7 +38,7 @@ import java.util.Map;
 
 /**
  * @ClassName: P_Dv_OutStock_Lens_Z_D_Bill_Cancel
- * @Description: 镜片有单总店发货撤销
+ * @Description: 镜片有单代销发货撤销
  * @Author: lijin
  * @Date: 2024年3月27日15:05:37
  */

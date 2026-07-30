@@ -27,6 +27,8 @@ public class Para {
     private String BrandCode;//SCS品牌代码
     private String GoodsOrderType;//满赠还是满正
 
+    private Boolean SyncCcsCode;//是否同步状态到ccs
+
 
     public String getBarcode() {
         return Barcode;
@@ -115,6 +117,14 @@ public class Para {
         BrandCode = brandCode;
     }
 
+    public Boolean getSyncCcsCode() {
+        return SyncCcsCode;
+    }
+
+    public void setSyncCcsCode(Boolean syncCcsCode) {
+        SyncCcsCode = syncCcsCode;
+    }
+
     public String getGoodsOrderType() {
         return GoodsOrderType;
     }
@@ -190,10 +200,30 @@ public class Para {
         js.put("FirstDelivery", getFirstDelivery());
         js.put("BrandCode", getBrandCode());
         js.put("GoodsOrderType", getGoodsOrderType());
+        return js.toString();
+    }
+
+    public String toSyncNoBillJson() throws JSONException {
+        JSONObject js = new JSONObject();
+        js.put("Barcode", getBarcode());
+        js.put("GoodsId", getGoodsId());
+        js.put("SoCompId", getSoCompId());
+        js.put("DeCompId", getDeCompId());
+        js.put("OaSuserId", getOaSuserId());
+        js.put("StockId", getStockId());
+        js.put("ScanSn", getScanSn());
+        js.put("ScanBillNo", getScanBillNo());
+        js.put("BillNo", getBillNo());
+        js.put("SourceBillNo", getSourceBillNo());
+        js.put("DocumentNo", getDocumentNo());
+        js.put("StoreId", getStoreId());
+        js.put("FirstDelivery", getFirstDelivery());
+        js.put("BrandCode", getBrandCode());
+        js.put("GoodsOrderType", getGoodsOrderType());
+        js.put("SyncCcsCode", getSyncCcsCode());
 
         return js.toString();
 
     }
-
 
 }

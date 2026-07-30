@@ -11,7 +11,7 @@ android {
         targetSdkVersion 30
         versionCode 1
 //        versionName "1.0"
-        versionName "W1T9202604131350"
+        versionName "W1T9202607231630"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
@@ -44,7 +44,7 @@ android {
         release {
             keyAlias 'ccs5v'
             keyPassword '123456'
-            storeFile file('D:/lijin/Key/androidstudio/release/ccs.keystore')
+            storeFile file('E:/D盘数据文件/lijin/Key/androidstudio/release/ccs.keystore')
             storePassword '123456'
         }
     }

@@ -50,7 +50,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-
 /**
  * @ClassName: P_Dv_Lens_InStock_NoBill
  * @Description: 无单镜片入库
@@ -124,7 +123,6 @@ public class P_Dv_Lens_InStock_NoBill extends Activity {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-
         ((Button) findViewById(R.id.btn_list))
                 .setOnClickListener(new BtnListClick());
         ((Button) findViewById(R.id.btn_print))

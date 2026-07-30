@@ -12,6 +12,7 @@ public class ScanOrder {
     private String LastScanTime;//最后一次扫描时间
     private String StockCode;//仓库代号
     private String StockName;//仓库名称
+    private String StockSysCode;//仓库系统代号
 
     public ScanOrder() {
     }
@@ -64,14 +65,18 @@ public class ScanOrder {
         StockName = stockName;
     }
 
+    public String getStockSysCode() {
+        return StockSysCode;
+    }
+
+    public void setStockSysCode(String stockSysCode) {
+        StockSysCode = stockSysCode;
+    }
+
     @Override
     public String toString() {
-        return "ScanOrder{" +
-                "BillNo='" + BillNo + '\'' +
-                ", BillNum='" + BillNum + '\'' +
-                ", LastScanTime='" + LastScanTime + '\'' +
-                ", StockCode='" + StockCode + '\'' +
-                ", StockName='" + StockName + '\'' +
-                '}';
+        return "ScanOrder{" + "BillNo='" + BillNo + '\'' + ", BillNum='" + BillNum + '\'' + ", " +
+                "LastScanTime='" + LastScanTime + '\'' + ", StockCode='" + StockCode + '\'' + ", " +
+                "StockName='" + StockName + '\'' + ", StockSysCode='" + StockSysCode + '\'' + '}';
     }
 }

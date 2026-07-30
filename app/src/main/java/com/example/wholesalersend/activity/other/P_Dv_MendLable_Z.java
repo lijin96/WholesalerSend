@@ -256,7 +256,6 @@ public class P_Dv_MendLable_Z extends Activity {
                             ed_revoke_code.setText("");
                             return true;
                         }
-
                         Access_CancelSend(tBarcode);
                         ed_revoke_code.setText("");
 

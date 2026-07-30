@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -35,8 +36,8 @@ public class MyRequest {
             URL url = new URL(url1);
             HttpURLConnection Connection = (HttpURLConnection) url.openConnection();//创建连接
             Connection.setRequestMethod("POST");
-            Connection.setConnectTimeout(3000);
-            Connection.setReadTimeout(3000);
+            Connection.setConnectTimeout(60000);
+            Connection.setReadTimeout(60000);
             Connection.setDoInput(true);
             Connection.setDoOutput(true);
             Connection.setUseCaches(false);
@@ -123,8 +124,8 @@ public class MyRequest {
             URL url = new URL(lastUrl);
             HttpURLConnection Connection = (HttpURLConnection) url.openConnection();
             Connection.setRequestMethod("GET");
-            Connection.setConnectTimeout(3000);
-            Connection.setReadTimeout(3000);
+            Connection.setConnectTimeout(60000);
+            Connection.setReadTimeout(60000);
             Connection.setRequestProperty("Content-Type",tContentType);
 
             if (!tloginid.equals("")){
@@ -197,11 +198,12 @@ public class MyRequest {
             // 将签名参数添加到URL
             String signedUrl = addSignParamsToUrl(url1, signParams);
 //            Log.d("main", signedUrl);
+//            Log.d("main", "Bearer "+tloginid);
             URL url = new URL(signedUrl);
             HttpURLConnection Connection = (HttpURLConnection) url.openConnection();
             Connection.setRequestMethod("GET");
-            Connection.setConnectTimeout(3000);
-            Connection.setReadTimeout(3000);
+            Connection.setConnectTimeout(60000);
+            Connection.setReadTimeout(60000);
             Connection.setRequestProperty("Content-Type",tContentType);
 
             if (!tloginid.equals("")){
@@ -215,7 +217,7 @@ public class MyRequest {
 //            dos.flush();
 //            dos.close();//写完记得关闭
             int responseCode = Connection.getResponseCode();
-//            Log.d("main", "get: "+responseCode);
+//            Log.d("main", "post: "+responseCode);
             if (responseCode == Connection.HTTP_OK) {//判断请求是否成功
                 InputStream inputStream = Connection.getInputStream();
 //                ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
@@ -352,6 +354,12 @@ public class MyRequest {
             if (idx > 0) {
                 String key = pair.substring(0, idx);
                 String value = pair.substring(idx + 1);
+                try {
+                    key = URLDecoder.decode(key, "UTF-8");
+                    value = URLDecoder.decode(value, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    // 保持原始值
+                }
                 params.put(key, value);
             }
         }
@@ -368,7 +376,7 @@ public class MyRequest {
     private static String sha256(String input) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hashBytes = digest.digest(input.getBytes());
+            byte[] hashBytes = digest.digest(input.getBytes("UTF-8"));
 
             // 将字节数组转换为十六进制字符串
             StringBuilder hexString = new StringBuilder();
@@ -380,6 +388,8 @@ public class MyRequest {
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("SHA-256算法不可用", e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("UTF-8编码不可用", e);
         }
     }
 

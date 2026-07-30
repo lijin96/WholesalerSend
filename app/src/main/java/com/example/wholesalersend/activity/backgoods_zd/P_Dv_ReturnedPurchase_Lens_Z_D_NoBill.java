@@ -39,7 +39,7 @@ import java.util.Map;
 
 /**
  * @ClassName: P_Dv_ReturnedPurchase_Z_D_NoBill
- * @Description: 总店无单退货
+ * @Description: 代销无单退货
  * @Author: lijin
  * @Date: 2021/3/10 10:22
  */
@@ -405,11 +405,11 @@ public class P_Dv_ReturnedPurchase_Lens_Z_D_NoBill extends Activity {
                     break;
                 case 8:
                     MyProgressDialog.close();
-                    String[] mark = new String[4];
+                    String[] mark = new String[3];
                     mark[0] = "退货单：" + mBillNo;
                     mark[1] = "客户名称：" + tv_company_name.getText().toString();
 //                    mark[2] = "门店名称：" + store_name;
-                    mark[3] = "仓   库 ：" + tv_stock_name.getText().toString();
+                    mark[2] = "仓   库 ：" + tv_stock_name.getText().toString();
 
                     if (sysUserInfo.getOldVersion().equals("T8")) {
 

@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/scaled_w_dp_10"
-                    android:text="代理商："
+                    android:text="客    户："
                     android:textColor="@color/white"
                     android:textSize="@dimen/scaled_t_dp_30" />
 
@@ -156,6 +156,7 @@
                 android:id="@+id/relayout_retail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:layout_below="@+id/relayout_company">
 
                 <TextView

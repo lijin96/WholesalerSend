@@ -905,4 +905,12 @@ public class SomeUtils {
         }
         return urlBuilder.toString();
     }
+
+
+    public static String getLastFourDigits(String phoneNumber) {
+        // 截取手机号后四位
+        String lastFourDigits = phoneNumber.substring(phoneNumber.length() - 4);
+        // 返回截取后的手机号
+        return lastFourDigits;
+    }
 }
