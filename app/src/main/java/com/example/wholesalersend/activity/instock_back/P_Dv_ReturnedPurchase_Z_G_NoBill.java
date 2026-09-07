@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import com.example.wholesalersend.R;
 import com.example.wholesalersend.activity.select.QueryScanDetail;
 import com.example.wholesalersend.activity.select.SelectProductModelColor;
+import com.example.wholesalersend.activity.select.SelectUpstreamBillno;
 import com.example.wholesalersend.entity.Para;
 import com.example.wholesalersend.lib.AccessWeb;
 import com.example.wholesalersend.lib.MySound;
@@ -28,6 +29,8 @@ import com.example.wholesalersend.utils.MyProgressDialog;
 import com.example.wholesalersend.utils.ShowMessage;
 import com.example.wholesalersend.utils.SomeUtils;
 import com.example.wholesalersend.utils.SysUserInfo;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,6 +71,13 @@ public class P_Dv_ReturnedPurchase_Z_G_NoBill extends Activity {
     private String nScanCount = "0";//合计
     private int nSize = 0;//次数
 
+
+    private TextView tv_upstream_billno;//显示上游单号
+    private TextView choose_upstream_billno;//选择上游单号
+
+    private String UpstreamBrand="";//上游单号品牌
+    private String UpstreamApplyNo="";//上游单号
+
 //	private List<String> codesList= new ArrayList<String>();
 //
 //	Thread send ;
@@ -100,12 +110,23 @@ public class P_Dv_ReturnedPurchase_Z_G_NoBill extends Activity {
         ((Button) findViewById(R.id.btn_exit))
                 .setOnClickListener(new BtnExitClick());
 
+
+        tv_upstream_billno=findViewById(R.id.tv_upstream_billno);
+        choose_upstream_billno=findViewById(R.id.choose_upstream_billno);
+        choose_upstream_billno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mContext, SelectUpstreamBillno.class);
+                startActivityForResult(intent, 3);
+            }
+        });
+
         //选择型号色号
         ((Button) findViewById(R.id.btn_select_goodsid))
                 .setOnClickListener(new BtnSelectProductClick());
 
-        tv_company_name = ((TextView) findViewById(R.id.tv_company_name));
-        tv_stock_name = (TextView) findViewById(R.id.tv_stock_name);
+//        tv_company_name = ((TextView) findViewById(R.id.tv_company_name));
+//        tv_stock_name = (TextView) findViewById(R.id.tv_stock_name);
         tv_curqty = (TextView) findViewById(R.id.tv_curqty);
         tv_totalqty = (TextView) findViewById(R.id.tv_totalqty);
         tv_billno = (TextView) findViewById(R.id.tv_billno);
@@ -131,8 +152,8 @@ public class P_Dv_ReturnedPurchase_Z_G_NoBill extends Activity {
         tv_totalqty.setText("0");
         tv_curqty.setText("0");
         tv_billno.setText("");
-        tv_company_name.setText(supplier_name);
-        tv_stock_name.setText(stock_name);
+//        tv_company_name.setText(supplier_name);
+//        tv_stock_name.setText(stock_name);
 
 //		send = new SendDatas();
 //		send.start();
@@ -187,13 +208,9 @@ public class P_Dv_ReturnedPurchase_Z_G_NoBill extends Activity {
                     //			mark[2] = "仓   库 ："+tv_stock_name.getText().toString();
 
                     if (sysUserInfo.getOldVersion().equals("T8")) {
-
                         printbill.prints("         无单入库退回", mark, sacnDataList, sysUserInfo.getUserName());
-
                     } else {
-
                         printbill.print(P_Dv_ReturnedPurchase_Z_G_NoBill.this, "         无单入库退回", mark, sacnDataList, sysUserInfo.getUserName());
-
                     }
                     break;
                 case 9:
@@ -244,6 +261,12 @@ public class P_Dv_ReturnedPurchase_Z_G_NoBill extends Activity {
                     String productinfo = modelm + "-" + colors;
                     tv_model_colors.setText(productinfo);
                     tv_goodsid.setText("(" + goodsid + ")");
+                    break;
+                case 3:
+                    //选择上游单号后返回
+                    UpstreamApplyNo=data.getStringExtra("applyNo");
+                    UpstreamBrand=data.getStringExtra("brandName");
+                    tv_upstream_billno.setText(UpstreamApplyNo);
                     break;
             }
         }
@@ -311,35 +334,27 @@ public class P_Dv_ReturnedPurchase_Z_G_NoBill extends Activity {
                     para.setScanBillNo(scanBillno);
                     para.setBillNo(mBillNo);
                     para.setSourceBillNo("");
+                    para.setDeliveryId(UpstreamApplyNo);//上游单号
 
-                    result = accWeb.P_Dv_Scan("P_Dv_ReturnedPurchase_Z_G_NoBill", para.toJson());
+//                    Log.d("main--",para.toJson());
+//                  无单入库退回（镜架）：先本系统校验；有上游单号则调上游 return.agent，成功后再落库
+                    result =accWeb.PostAPIStringInterface("AndroidDv/ReturnedPurchase_Z_G_NoBill", para.toJson());
+//                    Log.d("main--",result);
 
-                    if (result == "") {
-                        MySound.errorSound();
-                        ShowMessage.ShowMsg(handler, "网络不给力，请稍后再试！");
-                        return;
-                    }
-                    //true;产品编号,型号,色号,当前型号数量,当前扫描的条码,入库单号
-                    String[] rest = result.split(",");
-
-                    if (rest.length < 6) {
-                        MySound.errorSound();
-                        ShowMessage.ShowMsg(handler, "服务器返回参数不足，当前" + rest.length + "位！");
-                        return;
-                    }
+                    JSONObject jsonObject = new JSONObject(result);
                     nSize++;
-                    //true;产品编号,型号,色号,当前型号数量,当前扫描的条码,入库单号
-                    goodsid = rest[0].trim();
-                    modelm = rest[1].trim();
-                    colors = rest[2].trim();
-                    curcount = rest[3].trim();
-                    lastSuccessBarcode = rest[4].trim();
+                    goodsid = jsonObject.optString("goodsCode");
+                    modelm = jsonObject.optString("modelm");
+                    colors =jsonObject.optString("color");
+
+                    lastSuccessBarcode = jsonObject.optString("barcode");
 
                     if (mBillNo == null || mBillNo.isEmpty()) {
-                        mBillNo = rest[5];
+                        mBillNo = jsonObject.optString("billNo");
                     }
-                    if (Integer.parseInt(nScanCount) < Integer.parseInt(rest[6].trim())) {
-                        nScanCount = rest[6].trim();
+                    if (Integer.parseInt(nScanCount) < Integer.parseInt(jsonObject.optString("billCount"))) {
+                        curcount = jsonObject.optString("goodsCount");
+                        nScanCount = jsonObject.optString("billCount");
                     }
 
                     ShowMessage.ShowMsg(handler, ShowMessage.HandScanSuccess, "ok");
@@ -371,7 +386,6 @@ public class P_Dv_ReturnedPurchase_Z_G_NoBill extends Activity {
                         //包含
                         tBarcode = SomeUtils.InterceptCode(mContext, et_barcode.getText().toString().trim());
                     }
-
                     tv_show_code.setText(tBarcode);
                     if (!SomeUtils.isAllNumber(mContext,tBarcode)) {
                         MySound.errorSound();
@@ -396,12 +410,10 @@ public class P_Dv_ReturnedPurchase_Z_G_NoBill extends Activity {
      * 明细按钮监听类
      */
     private class BtnListClick implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
 
-            Intent intent = new Intent(mContext,
-                    QueryScanDetail.class);
+            Intent intent = new Intent(mContext,QueryScanDetail.class);
             intent.putExtra("mBillNo", scanBillno);
             startActivity(intent);
         }
@@ -425,7 +437,6 @@ public class P_Dv_ReturnedPurchase_Z_G_NoBill extends Activity {
                             ShowMessage.ShowMsg(handler, 9, "没有可打印的数据");
                             return;
                         }
-
                         ShowMessage.ShowMsg(handler, 8, "打印");
                     } catch (Exception e) {
                         ShowMessage.ShowMsg(handler, 9, e.getMessage());

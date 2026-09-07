@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -190,13 +191,6 @@ public class SelectCCScustomerstore extends Activity {
 
 //        tv_total=findViewById(R.id.tv_total);
 
-//        ((ImageButton) findViewById(R.id.btn_back)).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//            }
-//        });
-
         relat_search_title=findViewById(R.id.relat_search_title);
         list_customer = findViewById(R.id.listview_ccscustomer);
 
@@ -214,14 +208,14 @@ public class SelectCCScustomerstore extends Activity {
             }
         });
 
-//        btn_synchronous=findViewById(R.id.btn_synchronous);
-//        btn_synchronous.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                showNewNormalDialog();
-//                GetScsCustStore();
-//            }
-//        });
+        btn_synchronous=findViewById(R.id.btn_synchronous);
+        btn_synchronous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                showNewNormalDialog();
+                GetScsCustStore();
+            }
+        });
 
         et_search = findViewById(R.id.et_search);
         et_search.setOnKeyListener(new View.OnKeyListener() {
@@ -283,56 +277,23 @@ public class SelectCCScustomerstore extends Activity {
         sendCode.start();
     }
 
-    // SCS客户和CCS客户绑定
-    private void ScsCustBindToCcs(final String tCcsCustCode) {
-        MyProgressDialog.show(this, "正在绑定客户数据...", false, false);
-        Thread sendCode = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String result = accWeb.ScsCustBindToCcs(TraderSysId,tCcsCustCode,Brandcode,AgentCode);
-                    ShowMessage.ShowMsg(hand, 1, "success");
-                } catch (Exception e) {
-                    ShowMessage.ShowMsg(hand, "ScsCustBindToCcs-绑定出错" + e.getMessage());
-                }
-            }
-        });
-        sendCode.start();
-    }
 
     // SCS门店和CCS门店绑定
     private void ScsStoreBindToCcs(final String tCcsCustCode,final String tCcsStoreCode) {
-        MyProgressDialog.show(this, "正在绑定门店数据...", false, false);
+        MyProgressDialog.show(this, "正在绑定客户数据...", true, false);
         Thread sendCode = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    String result = accWeb.ScsStoreBindToCcs(TraderSysId,StoreSysId,tCcsCustCode,tCcsStoreCode,Brandcode,AgentCode);
+                    String result = accWeb.ScsCustBindToCcs(TraderSysId,StoreSysId,tCcsCustCode,tCcsStoreCode,Brandcode,AgentCode);
                     ShowMessage.ShowMsg(hand, 3, "success");
                 } catch (Exception e) {
-                    ShowMessage.ShowMsg(hand, "ScsStoreBindToCcs-绑定出错" + e.getMessage());
+                    ShowMessage.ShowMsg(hand, "绑定门店出错" + e.getMessage());
                 }
             }
         });
         sendCode.start();
     }
-
-//    // SCS新客户同步CCS并绑定
-//    private void ScsNewCustBindToCcs(final String tTraderAlias) {
-//        MyProgressDialog.show(this, "正在同步客户数据...", false, false);
-//        Thread sendCode = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    String result = accWeb.ScsNewCustBindToCcs(TraderSysId,Brandcode,AgentCode,tTraderAlias);
-//                    ShowMessage.ShowMsg(hand, 1, "success");
-//                } catch (Exception e) {
-//                    ShowMessage.ShowMsg(hand, "同步客户出错" + e.getMessage());
-//                }
-//            }
-//        });
-//        sendCode.start();
-//    }
 
 
     //获取SCS具体客户和门店信息
@@ -343,7 +304,7 @@ public class SelectCCScustomerstore extends Activity {
             public void run() {
                 try {
                     String result = accWeb.GetScsCustStore(StoreSysId);
-//                    Log.d("main", result);
+                    Log.d("main", result);
                     JSONObject listjson = new JSONObject(result);
                     JSONArray jsonArray = listjson.getJSONArray("Data");
                     StoreId=jsonArray.getJSONObject(0).getString("StoreId");   //门店代号
@@ -435,41 +396,7 @@ public class SelectCCScustomerstore extends Activity {
         sendCode.start();
     }
 
-    // 同步SCS数据到CCS并绑定
-    private void ScsNewSyncToCcs(final String tCustJson, final String tStoreJson) {
-        MyProgressDialog.show(this, "正在同步数据...", true, false);
-        Thread sendCode = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String result = accWeb.ScsNewSyncToCcs(Brandcode,AgentCode,tCustJson,tStoreJson);
-                    ShowMessage.ShowMsg(hand, 8, "success");
-                } catch (Exception e) {
-                    ShowMessage.ShowMsg(hand, "ScsNewSyncToCcs-同步数据出错" + e.getMessage());
-                }
-            }
-        });
-        sendCode.start();
-    }
 
-
-
-    // SCS新门店同步CCS并绑定
-//    private void ScsNewStoreBindToCcs() {
-//        MyProgressDialog.show(this, "正在同步门店数据...", false, false);
-//        Thread sendCode = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    String result = accWeb.ScsNewStoreBindToCcs(StoreSysId,Brandcode,AgentCode);
-//                    ShowMessage.ShowMsg(hand, 3, "success");
-//                } catch (Exception e) {
-//                    ShowMessage.ShowMsg(hand, "同步门店出错" + e.getMessage());
-//                }
-//            }
-//        });
-//        sendCode.start();
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -672,7 +599,7 @@ public class SelectCCScustomerstore extends Activity {
 //                    Log.d("main", "tCustJson="+gson.toJson(syncCustomers));
 //                    Log.d("main", "tStoreJson ="+gson.toJson(syncStores));
 
-                    ScsNewSyncToCcs(gson.toJson(syncCustomers),"");//同步接口
+//                    ScsNewSyncToCcs(gson.toJson(syncCustomers),"");//同步接口
                 }
             }
         });
@@ -927,7 +854,8 @@ public class SelectCCScustomerstore extends Activity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ScsCustBindToCcs(CCScustId);
+                ScsStoreBindToCcs(CCScustId,CCSstoreId);
+//                ScsCustBindToCcs(CCScustId);
             }
         });
 

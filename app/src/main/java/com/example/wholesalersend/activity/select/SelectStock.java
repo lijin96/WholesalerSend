@@ -36,6 +36,8 @@ import com.example.wholesalersend.activity.other.P_Dv_ReturnedPurchase_D_L_NoBil
 import com.example.wholesalersend.activity.other.P_Dv_MendLable_Z;
 import com.example.wholesalersend.activity.other.P_Dv_ReturnedPurchase_L_D_Z_Frame;
 import com.example.wholesalersend.activity.other.P_Dv_ReturnedPurchase_L_D_Z_Lens;
+import com.example.wholesalersend.activity.sendgoods_fd.P_Dv_OutStock_Lens_Z_L_Bill_NoInStock;
+import com.example.wholesalersend.activity.sendgoods_fd.P_Dv_OutStock_Lens_Z_L_NoBill_NoInStock;
 import com.example.wholesalersend.activity.sendgoods_fd.P_Dv_OutStock_Z_L_Bill_BeInStock;
 import com.example.wholesalersend.activity.sendgoods_fd.P_Dv_OutStock_Z_L_Bill_NoInStock;
 import com.example.wholesalersend.activity.sendgoods_fd.P_Dv_OutStock_Z_L_NoBill_NoInStock;
@@ -311,6 +313,22 @@ public class SelectStock extends Activity {
                 intent.putExtra("store_sysid",getIntent.getStringExtra("store_sysid"));
                 intent.putExtra("link",getIntent.getStringExtra("link"));
             }
+            else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_L_NoBill_NoInStock")) {
+                //分店无入库无单镜片发货
+                intent = new Intent(SelectStock.this, P_Dv_OutStock_Lens_Z_L_NoBill_NoInStock.class);
+                intent.putExtra("stock_id", (String) item.get("StockId"));
+                intent.putExtra("stock_name", (String) item.get("StockName"));
+                intent.putExtra("company_name", getIntent.getStringExtra("company_name"));
+                intent.putExtra("company_id", getIntent.getStringExtra("company_id"));
+                intent.putExtra("retail_id", getIntent.getStringExtra("retail_id"));
+
+                intent.putExtra("alias_name", getIntent.getStringExtra("TraderAlias_name"));
+
+                intent.putExtra("trader_sysid", getIntent.getStringExtra("trader_sysid"));
+                intent.putExtra("store_sysid", getIntent.getStringExtra("store_sysid"));
+                intent.putExtra("link", getIntent.getStringExtra("link"));
+            }
+
             //仓库补标
             else if (lsv_aim.equals("P_Dv_MendLable_Z")) {
                 intent = new Intent(SelectStock.this, P_Dv_MendLable_Z.class);
@@ -344,9 +362,8 @@ public class SelectStock extends Activity {
                 intent.putExtra("company_name", getIntent.getStringExtra("company_name"));
                 intent.putExtra("company_id", getIntent.getStringExtra("company_id"));
             }
-
             //分店无单退货
-            else if (lsv_aim.equals("P_Dv_ReturnedPurchase_Z_L_NoBill")) {
+            else if (lsv_aim.equals("P_Dv_ReturnedPurchase_Z_L_NoBill")||"ReturnedPurchase_D_L_NoBill_SameCust".equals(lsv_aim)) {
                 intent = new Intent(SelectStock.this, P_Dv_ReturnedPurchase_Z_L_NoBill.class);
 //                intent = new Intent(mContext, SelectCCSBrand.class);
                 intent.putExtra("stock_id", (String) item.get("StockId"));
@@ -360,11 +377,14 @@ public class SelectStock extends Activity {
                 intent.putExtra("trader_sysid",  getIntent.getStringExtra("trader_sysid"));
                 intent.putExtra("store_sysid",getIntent.getStringExtra("store_sysid"));
 
+                intent.putExtra("stock_sysid", (String) item.get("StockSysCode"));
+
 
             } else if (lsv_aim.equals("P_Dv_ReturnedPurchase_D_L_NoBill_NoCust")) {
                 intent = new Intent(SelectStock.this, P_Dv_ReturnedPurchase_Z_L_NoBill.class);
                 intent.putExtra("stock_id", (String) item.get("StockId"));
                 intent.putExtra("stock_name", (String) item.get("StockName"));
+                intent.putExtra("stock_sysid", (String) item.get("StockSysCode"));
             } else if (lsv_aim.equals("P_Dv_ReturnedPurchase_Lens_Z_L_NoBill")) {
                 intent = new Intent(SelectStock.this, P_Dv_ReturnedPurchase_Lens_Z_L_NoBill.class);
 //                intent = new Intent(mContext, SelectCCSBrand.class);
@@ -421,6 +441,15 @@ public class SelectStock extends Activity {
                 intent.putExtra("company_name", getIntent.getStringExtra("company_name"));
                 intent.putExtra("company_id", getIntent.getStringExtra("company_id"));
                 intent.putExtra("stock_id", (String) item.get("StockSysCode"));
+                intent.putExtra("stock_name", (String) item.get("StockName"));
+            }else if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_L_Bill_NoInStock")){
+                //分销镜片有单无入库发货
+                intent = new Intent(SelectStock.this, P_Dv_OutStock_Lens_Z_L_Bill_NoInStock.class);
+                intent.putExtra("purchecklno", getIntent.getStringExtra("purchecklno"));
+                intent.putExtra("saplno", getIntent.getStringExtra("saplno"));
+                intent.putExtra("supplier_name", getIntent.getStringExtra("supplier_name"));
+                intent.putExtra("supplier_id", getIntent.getStringExtra("supplier_id"));
+                intent.putExtra("stock_id", (String) item.get("StockId"));
                 intent.putExtra("stock_name", (String) item.get("StockName"));
             }
 //

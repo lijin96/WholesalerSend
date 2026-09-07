@@ -59,45 +59,10 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/relayout_billno"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/scaled_h_dp_10"
-                android:layout_below="@id/relayout_source_billno" >
-
-                <TextView
-                    android:id="@+id/tv_billno_str"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/scaled_w_dp_10"
-                    android:text="镜片退货单："
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30" />
-
-                <TextView
-                    android:id="@+id/tv_billno"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/tv_billno_str"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30" />
-            </RelativeLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relayout_right"
-            android:layout_width="@dimen/scaled_w_dp_0"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical" >
-
-            <RelativeLayout
                 android:id="@+id/relayout_company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/relayout_source_billno"
                 android:paddingTop="@dimen/scaled_h_dp_10"
                 >
 
@@ -123,11 +88,50 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/relayout_billno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/scaled_h_dp_10"
+                android:layout_below="@id/relayout_company" >
+
+                <TextView
+                    android:id="@+id/tv_billno_str"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_10"
+                    android:text="镜片退货单："
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/scaled_t_dp_30" />
+
+                <TextView
+                    android:id="@+id/tv_billno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/tv_billno_str"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/scaled_t_dp_30" />
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relayout_right"
+            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical" >
+
+
+            <RelativeLayout
                 android:id="@+id/relayout_stock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/relayout_company">
-
+                >
                 <TextView
                     android:id="@+id/tv_stock_str"
                     android:layout_width="wrap_content"
@@ -154,6 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relayout_stock"
+                android:paddingTop="@dimen/scaled_h_dp_10"
                 >
                 <TextView
                     android:id="@+id/tv_ccscustomer_str"
@@ -186,6 +191,49 @@
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/scaled_t_dp_30" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relayout_ccsstore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/scaled_h_dp_10"
+                android:visibility="gone"
+                android:layout_below="@+id/relayout_ccscustomer">
+
+                <TextView
+                    android:id="@+id/tv_ccsstore_str"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/scaled_w_dp_10"
+                    android:text="CCS客户："
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/scaled_t_dp_30" />
+
+
+                <TextView
+                    android:id="@+id/btn_ChooseCCSData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/login_marginTop"
+                    android:text="选择"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/scaled_t_dp_30"></TextView>
+
+                <TextView
+                    android:id="@+id/tv_ccsstore_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/btn_ChooseCCSData"
+                    android:layout_toRightOf="@id/tv_ccsstore_str"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/scaled_t_dp_26" />
+
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>

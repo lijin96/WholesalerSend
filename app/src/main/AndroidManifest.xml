@@ -576,6 +576,25 @@
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
+        <!-- 镜片有单无入库分店发货-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Lens_Z_L_Bill_NoInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+        <!-- 镜片无单无入库分店发货-->
+        <activity
+            android:name=".activity.sendgoods_fd.P_Dv_OutStock_Lens_Z_L_NoBill_NoInStock"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
+
+
+
         <!-- 镜片有单有入库分店发货-->
         <activity
             android:name=".activity.sendgoods_fd.P_Dv_OutStock_Lens_Z_L_NoBill_BeInStock"
@@ -740,7 +759,13 @@
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
-
+        <!--获取上游单号-->
+        <activity
+            android:name=".activity.select.SelectUpstreamBillno"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
 
         <!-- 有单调拨-->
         <activity
@@ -756,6 +781,14 @@
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="adjustPan|stateHidden" >
         </activity>
+        <!-- 无单镜片调拨-->
+        <activity
+            android:name=".activity.other.P_Dv_InStock_Z_Lens_ChangeStock_NoBill"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+        </activity>
+
         <!-- 仓库补标-->
         <activity
             android:name=".activity.other.P_Dv_MendLable_Z"

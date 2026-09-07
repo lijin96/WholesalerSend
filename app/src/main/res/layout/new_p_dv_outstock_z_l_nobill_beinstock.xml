@@ -204,7 +204,7 @@
                     android:layout_toRightOf="@id/tv_ccsstore_str"
                     android:text=""
                     android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_26" />
+                    android:textSize="@dimen/scaled_t_dp_24" />
 
             </RelativeLayout>
 

@@ -42,9 +42,13 @@ import com.example.wholesalersend.utils.MyProgressDialog;
 import com.example.wholesalersend.utils.ShowMessage;
 import com.example.wholesalersend.utils.SomeUtils;
 import com.example.wholesalersend.utils.SysUserInfo;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -73,7 +77,7 @@ public class P_Dv_ReturnedPurchase_Z_L_NoBill extends Activity {
     private List<Map<String, Object>> sacnDataList = new ArrayList<Map<String, Object>>();
 
     private String scanBillno = "", mBillNo = "", company_id = "", company_name = "", store_name="";
-    private String curcount = "0", goodsid = "", stock_id = "",retail_id="",retail_name="", stock_name="",TraderAlias_name="";
+    private String curcount = "0", goodsid = "", stock_id = "",StockSysCode="",retail_id="",retail_name="", stock_name="",TraderAlias_name="";
     private String lastSuccessBarcode = "", lStar = "";
     private String modelm = "", colors = "";
     private String Scan_aim="";//跳转过来的模式
@@ -189,21 +193,38 @@ public class P_Dv_ReturnedPurchase_Z_L_NoBill extends Activity {
         company_id = gIntent.getStringExtra("company_id");
         company_name = gIntent.getStringExtra("company_name");
         stock_id = gIntent.getStringExtra("stock_id");
+        StockSysCode= gIntent.getStringExtra("stock_sysid");
         stock_name = gIntent.getStringExtra("stock_name");
         retail_id= gIntent.getStringExtra("retail_id");
         retail_name= gIntent.getStringExtra("retail_name");
         TraderAlias_name= gIntent.getStringExtra("alias_name");
 
-        TraderSysId=gIntent.getStringExtra("trader_sysid");
-        StoreSysId=gIntent.getStringExtra("store_sysid");
+//        TraderSysId=gIntent.getStringExtra("trader_sysid");
+//        StoreSysId=gIntent.getStringExtra("store_sysid");
+        if (gIntent.getStringExtra("trader_sysid")!=null) {
+            TraderSysId = gIntent.getStringExtra("trader_sysid");
+        }
+        if (gIntent.getStringExtra("store_sysid")!=null) {
+            StoreSysId = gIntent.getStringExtra("store_sysid");
+        }
 
         Scan_aim= gIntent.getStringExtra("aim");
+//        if (Scan_aim.equals("P_Dv_ReturnedPurchase_Z_L_NoBill")){
+//            tv_title.setText("【分店无单选客退货】 "+sysUserInfo.getAccountSetName());
+//            relayout_ccsstore.setVisibility(View.VISIBLE);
+//        }else{
+//            tv_title.setText("【分店无单扫描退货】 "+sysUserInfo.getAccountSetName());
+//            relayout_ccsstore.setVisibility(View.GONE);
+//        }
         if (Scan_aim.equals("P_Dv_ReturnedPurchase_Z_L_NoBill")){
             tv_title.setText("【分店无单选客退货】 "+sysUserInfo.getAccountSetName());
-            relayout_ccsstore.setVisibility(View.VISIBLE);
-        }else{
+//            relayout_ccsstore.setVisibility(View.VISIBLE);
+        }else if (Scan_aim.equals("ReturnedPurchase_D_L_NoBill_SameCust")){
+            tv_title.setText("【镜架跨店退货】 "+sysUserInfo.getAccountSetName());
+        }
+        else{
             tv_title.setText("【分店无单扫描退货】 "+sysUserInfo.getAccountSetName());
-            relayout_ccsstore.setVisibility(View.GONE);
+//            relayout_ccsstore.setVisibility(View.GONE);
         }
         tv_lastscannum=findViewById(R.id.tv_lastscannum);
 
@@ -542,28 +563,24 @@ public class P_Dv_ReturnedPurchase_Z_L_NoBill extends Activity {
                     //选择品牌后读取当前绑定情况
                     MyProgressDialog.close();
 
-                    if (!IsBindCCS&&!IsBindCCScust&&!IsSendToStore){
+                    if (!IsBindCCS){
                         relayout_ccsstore.setVisibility(View.GONE);
                     }else {
                         relayout_ccsstore.setVisibility(View.VISIBLE);
                         if (IsSendToStore) {
+                            //显示分店数据
                             tv_ccsstore_str.setText("CCS分销店：");
-                            if (CcsCustName.equals("")) {
+                            if (CcsStoreName.equals("")&&BrandingStoreCode.equals("")) {
                                 tv_ccsstore_name.setText("");
                             } else {
-                                if (CcsStoreName.equals("")) {
-                                    //如果未绑定分销店就不显示分销店名称
-                                    tv_ccsstore_name.setText("");
-                                } else {
-                                    tv_ccsstore_name.setText(CcsStoreName);
-                                }
+                                tv_ccsstore_name.setText(CcsStoreName+"("+BrandingStoreCode+")");
                             }
                         } else {
                             tv_ccsstore_str.setText("CCS零售商：");
-                            if (CcsCustName.equals("")) {
+                            if (CcsCustName.equals("")&&BrandingCustCode.equals("")) {
                                 tv_ccsstore_name.setText("");
                             } else {
-                                tv_ccsstore_name.setText(CcsCustName);
+                                tv_ccsstore_name.setText(CcsCustName+"("+BrandingCustCode+")");
                             }
                         }
                     }
@@ -715,12 +732,26 @@ public class P_Dv_ReturnedPurchase_Z_L_NoBill extends Activity {
 
     // 请求服务
     private void access_send(final String contents) {
-        if (sysUserInfo.getLoginType().equals("CCS")&&!sysUserInfo.getMainAccount().equals("U_1000820")){
-            BrandCode="";
-        }else {
+        if ((!sysUserInfo.getLoginType().equals("CCS")||sysUserInfo.getMainAccount().equals("U_1000820"))&&(Scan_aim.equals("P_Dv_ReturnedPurchase_Z_L_NoBill")||Scan_aim.equals("ReturnedPurchase_D_L_NoBill_SameCust"))) {
             if (BrandCode.equals("")) {
+                MySound.errorSound();
                 ShowMessage.ShowMsg(handler, "请先选择品牌");
                 return;
+            }
+            if (IsBindCCS) {
+                if (IsSendToStore) {
+                    if (CcsStoreName.equals("")&&BrandingCustCode.equals("")) {
+                        MySound.errorSound();
+                        ShowMessage.ShowMsg(handler, "请先绑定CCS客户门店");
+                        return;
+                    }
+                } else {
+                    if (CcsCustName.equals("")&&BrandingCustCode.equals("")) {
+                        MySound.errorSound();
+                        ShowMessage.ShowMsg(handler, "请先绑定CCS客户");
+                        return;
+                    }
+                }
             }
         }
         Thread sendCode = new Thread(new Runnable() {
@@ -742,58 +773,66 @@ public class P_Dv_ReturnedPurchase_Z_L_NoBill extends Activity {
                     //	                 BillNo：退货单号(首次扫码传空，成功再扫码时传返回的退货单号)
                     //	                 SourceBillNo：来源单号(销售退货单号)(传空)
 
-                    para.setBarcode(contents);
-                    para.setGoodsId("");
-                    para.setSoCompId(retail_id);
-                    para.setDeCompId("00");
-                    para.setOaSuserId(sysUserInfo.getUserid());
-                    para.setStockId(stock_id);
-                    para.setScanSn(String.valueOf(nSize));
-                    para.setScanBillNo(scanBillno);
-                    para.setBillNo(mBillNo);
-                    para.setSourceBillNo("");
-                    para.setStoreId(company_id);
-                    para.setBrandCode(BrandCode);
-//                    Log.d("main",para.toJson());
+
+                    Gson gson=new Gson();
+                    HashMap<Object, Object> map = new HashMap<Object, Object>();
+                    map.put("Barcode", contents);//条码
+                    map.put("GoodsId", "");//产品id
+                    map.put("Diopter", "");//球镜
+                    map.put("Astigmatism", "");//柱镜
+                    map.put("SoCompId", retail_id);//来源单位编码
+                    map.put("DeCompId", "00");//目标单位编码
+                    map.put("OaSuserId", sysUserInfo.getUserid());
+                    map.put("StockId", stock_id);//仓库代号
+                    map.put("StockSysCode", StockSysCode);//仓库代号
+                    map.put("ScanSn", String.valueOf(nSize));//序号
+                    map.put("StoreId", company_id);//分店代号
+                    map.put("ScanBillNo", scanBillno);//扫描单号
+                    map.put("BillNo", mBillNo);//单号
+                    map.put("BrandCode", BrandCode);//品牌代号
+
+                    Log.d("main--", gson.toJson(map));
+
                     if (Scan_aim.equals("P_Dv_ReturnedPurchase_Z_L_NoBill")){
-                        result = accWeb.P_Dv_Scan("P_Dv_ReturnedPurchase_D_L_NoBill", para.toNoBillJson());
+//                        result = accWeb.P_Dv_Scan("P_Dv_ReturnedPurchase_D_L_NoBill", para.toNoBillJson());
+                        result =accWeb.PostAPIStringInterface("AndroidDv/ReturnedPurchase_D_L_NoBill", gson.toJson(map));
+
+                    }else if (Scan_aim.equals("ReturnedPurchase_D_L_NoBill_SameCust")){
+                        //镜架跨店退货
+                        result =accWeb.PostAPIStringInterface("AndroidDv/ReturnedPurchase_D_L_NoBill_SameCust", gson.toJson(map));
                     }else{
-                        result = accWeb.P_Dv_Scan("P_Dv_ReturnedPurchase_D_L_NoBill_NoCust", para.toNoBillJson());
+//                        result = accWeb.P_Dv_Scan("P_Dv_ReturnedPurchase_D_L_NoBill_NoCust", para.toNoBillJson());
+                        result =accWeb.PostAPIStringInterface("AndroidDv/ReturnedPurchase_D_L_NoBill_NoCust", gson.toJson(map));
                     }
-//                    Log.d("main",result);
+//                    Log.d("main--",result);
                     if (result == "") {
                         MySound.errorSound();
-                        ShowMessage.ShowMsg(handler, "网络不给力，请稍后再试！");
+                        ShowMessage.ShowMsg(handler, "返回内容为空，请检查后台返回格式"+result);
                         return;
                     }
-                    //true;产品编号,型号,色号,当前型号数量,当前扫描的条码,入库单号
-                    String[] rest = result.split(",");
 
-                    if (rest.length < 6) {
-                        MySound.errorSound();
-                        ShowMessage.ShowMsg(handler, "服务器返回参数不足，当前" + rest.length + "位！");
-                        return;
-                    }
+                    JSONObject jsonObject=new JSONObject(result);
                     nSize++;
-                    // true;产品编号,型号,色号,当前型号数量,当前扫描的条码,退货单号，当前扫码总数量，客户代号，客户名称
-                    goodsid = rest[0].trim();
-                    modelm = rest[1].trim();
-                    colors = rest[2].trim();
-                    curcount = rest[3].trim();
-                    lastSuccessBarcode = rest[4].trim();
+
+
+                    goodsid =jsonObject.optString("goodsCode").trim();
+                    modelm = jsonObject.optString("modelm").trim();
+                    colors = jsonObject.optString("color").trim();
+
 
                     if (mBillNo == null || mBillNo.isEmpty()) {
-                        mBillNo = rest[5];
+                        mBillNo = jsonObject.optString("billNo");
                     }
 
-                    if (Integer.parseInt(nScanCount) < Integer.parseInt(rest[6].trim())) {
-                        nScanCount = rest[6].trim();
+                    if (Integer.parseInt(nScanCount) < Integer.parseInt(jsonObject.optString("billCount").trim())) {
+                        curcount = jsonObject.optString("goodsCount").trim();
+                        nScanCount = jsonObject.optString("billCount").trim();
                     }
 
                     if (!Scan_aim.equals("P_Dv_ReturnedPurchase_Z_L_NoBill")){
-                        retail_name= rest[8].trim();
-                        TraderAlias_name=rest[9].trim();
-                        company_name= rest[11].trim();
+                        retail_name= jsonObject.optString("storeName");
+                        TraderAlias_name=jsonObject.optString("businessName");
+                        company_name=jsonObject.optString("customerName");
                     }
 
                     ShowMessage.ShowMsg(handler, ShowMessage.HandScanSuccess, "ok");
@@ -821,29 +860,37 @@ public class P_Dv_ReturnedPurchase_Z_L_NoBill extends Activity {
 
                 case Lic_SelectCCSBrand:
                     //选择品牌后返回
-                    BrandCode = data.getStringExtra("BrandCode");
-                    BrandName = data.getStringExtra("BrandName");
-                    BrandingCode = data.getStringExtra("BrandingCode");
+                    BrandCode=data.getStringExtra("BrandCode");
+                    BrandName=data.getStringExtra("BrandName");
+                    BrandingCode=data.getStringExtra("BrandingCode");
+                    AgentCode=data.getStringExtra("AgentCode");
                     tv_brand_name.setText(BrandName);
-                    if (Scan_aim.equals("P_Dv_ReturnedPurchase_Z_L_NoBill")) {
-                        //无单选客退货
-                        GetScsCustStoreRelate(TraderSysId, StoreSysId, BrandCode, "");
+                    if (Scan_aim.equals("P_Dv_ReturnedPurchase_Z_L_NoBill")||Scan_aim.equals("ReturnedPurchase_D_L_NoBill_SameCust")) {
+
+                        if (BrandingCode.equals("")){
+//                        relayout_ccscustomer.setVisibility(View.GONE);
+                            relayout_ccsstore.setVisibility(View.GONE);
+                        }else{
+                            GetScsCustStoreRelate(TraderSysId, StoreSysId, BrandingCode, AgentCode);
+                        }
                     }
                     break;
-
                 case Lic_SelectCCSStore:
-                    CcsCustName=data.getStringExtra("CCScustName");
-                    CcsStoreName=data.getStringExtra("CCSstoreName");
-                    tv_ccsstore_name.setText(CcsStoreName);
+//                    CcsCustName=data.getStringExtra("CCScustName");
+//                    CcsStoreName=data.getStringExtra("CCSstoreName");
+//                    tv_ccsstore_name.setText(CcsStoreName);
+                    GetScsCustStoreRelate(TraderSysId,StoreSysId,BrandingCode,AgentCode);
                     break;
                 case Lic_SelectCCSCustomer:
-                    CcsCustName=data.getStringExtra("CCScustName");
-                    tv_ccsstore_name.setText(CcsCustName);
+//                    CcsCustName=data.getStringExtra("CCScustName");
+//                    tv_ccsstore_name.setText(CcsCustName);
+                    GetScsCustStoreRelate(TraderSysId,StoreSysId,BrandingCode,AgentCode);
                     break;
                 case Lic_SelectCCSCustomerStore:
-                    CcsCustName=data.getStringExtra("CCScustName");
-                    CcsStoreName=data.getStringExtra("CCSstoreName");
-                    tv_ccsstore_name.setText(CcsStoreName);
+//                    CcsCustName=data.getStringExtra("CCScustName");
+//                    CcsStoreName=data.getStringExtra("CCSstoreName");
+//                    tv_ccsstore_name.setText(CcsStoreName);
+                    GetScsCustStoreRelate(TraderSysId,StoreSysId,BrandingCode,AgentCode);
                     break;
             }
         }
@@ -851,21 +898,18 @@ public class P_Dv_ReturnedPurchase_Z_L_NoBill extends Activity {
     }
 
 
-    private void GetScsCustStoreRelate(final String tCustSysCode, final String tStoreSysCode, final String tBrandCode, final String tBillNo) {
-        MyProgressDialog.show(this, "正在获取数据...", true, false);
+    private void GetScsCustStoreRelate(final String tCustSysCode, final String tStoreSysCode, final String tBrandCode, final String tAgentCode) {
+//        MyProgressDialog.show(this, "正在获取数据...", true, false);
         Thread sendCode = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    List<Map<String, Object>> data = accWeb.GetScsCustStoreRelate(tCustSysCode,tStoreSysCode,tBrandCode,tBillNo);
-
+                    List<Map<String, Object>> data = accWeb.GetScsCustStoreRelate(tCustSysCode,tStoreSysCode,tBrandCode,tAgentCode);
 //                    Log.d("main","GetScsCustStoreRelate-"+data.toString());
                     if (data.size()>0) {
-                        IsBindCCS = (Boolean) data.get(0).get("NeedBind");
-                        IsBindCCScust = (Boolean) data.get(0).get("CustBind");
-                        IsBindCCSstore = (Boolean) data.get(0).get("StoreBind");
-                        IsSendToStore = (Boolean) data.get(0).get("IsSendToStore");
-
+                        IsBindCCS = (Boolean) data.get(0).get("NeedBind");//是否需要绑定CCS客户或者门店
+                        IsSendToStore = (Boolean) data.get(0).get("IsSendToStore");//true就要同步客户+门店，false同步客户就行
+                        //需要绑定到ccs门店
                         if (BrandingCode.equals("01")){
                             SearchBindName = (String) data.get(0).get("TraderAlias");
                         }else {
@@ -875,24 +919,12 @@ public class P_Dv_ReturnedPurchase_Z_L_NoBill extends Activity {
                                 SearchBindName = (String) data.get(0).get("TraderAlias");
                             }
                         }
+                        BrandingCustCode= (String) data.get(0).get("BrandingCustCode");////ccs客户代号
+                        BrandingStoreCode=(String) data.get(0).get("BrandingStoreCode");//ccs门店代号
 
-//                        BrandingCode= (String) data.get(0).get("BrandingCode");//判断如果是等于01的情况带联系人过去
-//                        BrandingCode= (String) data.get(0).get("BrandingCode");
-                        AgentCode= (String) data.get(0).get("AgentCode");
-                        BrandingCustCode= (String) data.get(0).get("BrandingCustCode");
-                        BrandingStoreCode=(String) data.get(0).get("BrandingStoreCode");
-
-                        TraderSysId=(String) data.get(0).get("CustSysCode");
-                        StoreSysId=(String) data.get(0).get("StoreSysCode");
-
-                        CcsCustName=(String) data.get(0).get("CcsCustName");
-                        CcsStoreName=(String) data.get(0).get("CcsStoreName");
-
+                        CcsCustName=(String) data.get(0).get("CcsCustName");//ccs客户名称
+                        CcsStoreName=(String) data.get(0).get("CcsStoreName");//ccs门店名称
                     }
-//                    Log.d("main","IsBindCCS-"+IsBindCCS);
-//                    Log.d("main","IsBindCCScust-"+IsBindCCScust);
-//                    Log.d("main","IsBindCCSstore-"+IsBindCCSstore);
-
                     ShowMessage.ShowMsg(handler, 6, "success");
                 } catch (Exception e) {
                     ShowMessage.ShowMsg(handler,ShowMessage.HandShowMessage,"下载出错" + e.getMessage());

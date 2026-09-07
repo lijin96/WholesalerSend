@@ -782,5 +782,32 @@ public class SysUserInfo {
         SaveConfigString("usertype", UserType);
     }
 
+    //获取装盒入库的盒装数
+    public String getInStockBoxNoNum()
+    {
+        if (ReadConfigString("InStockBoxNoNum").isEmpty())
+        {
+            return "12";
+        }
+        return ReadConfigString("InStockBoxNoNum");
+    }
+    //设置装盒入库的盒装数
+    public void setInStockBoxNoNum(String inStockBoxNoNum)
+    {
+        SaveConfigString("InStockBoxNoNum", inStockBoxNoNum);
+    }
+    //设置获取上游单号的id
+    public void setBmpSendUserCode(String tbmpSendUserCode)
+    {
+        SaveConfigString("bmpSendUserCode", tbmpSendUserCode);
+    }
+    //获取上游单号的id
+    public String getBmpSendUserCode()
+    {
+        return ReadConfigString("bmpSendUserCode");
+    }
+
+
+
 }
 

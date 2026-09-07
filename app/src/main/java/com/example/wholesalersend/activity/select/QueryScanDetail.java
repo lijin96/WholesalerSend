@@ -26,9 +26,14 @@ import com.example.wholesalersend.utils.MyProgressDialog;
 import com.example.wholesalersend.utils.ShowMessage;
 import com.example.wholesalersend.utils.SomeUtils;
 import com.example.wholesalersend.utils.SysUserInfo;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,25 +85,45 @@ public class QueryScanDetail extends Activity {
         public void run() {
             try {
 
-//                if (mBillNo == null || mBillNo.isEmpty()) {
-//                    slist = SqliteDataHelper.getHelper(getApplicationContext())
-//                            .QueryDbList(
-//                                    "select goodsid,modelm,colors,sum(curcount) as curcount from newscandate GROUP BY goodsid",
-//                                    null);
-//                } else {
-                    slist = accWeb.GetDowLoadBilldetail(sysUserInfo.getLoginid(), mBillNo);
-//                slist = accWeb.GetDowLoadBilldetail("163125128103241181193187", "18682075683S18838316614195263");
-
+//                slist = accWeb.GetDowLoadBilldetail(sysUserInfo.getLoginid(), mBillNo);
+//                if (slist.size() == 0) {
+//                    ShowMessage.ShowMsg(hand,
+//                            "当前没有扫描数据");
+//                    MyProgressDialog.close();
+//                    return;
 //                }
+//                ShowMessage.ShowMsg(hand, ShowMessage.HandScanSuccess, "success");
 
+
+                ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
+                HashMap<Object, Object> requestParams = new HashMap<Object, Object>();
+                requestParams.put("ScanBillNo", mBillNo);//扫描单号
+                para.add(requestParams);
+                Gson gson=new Gson();
+                String  result =accWeb.GetAPIStringInterface("AndroidDv/GetBillScanDetail", para);
+
+                JSONArray listjson =new JSONArray(result);
+                slist = new ArrayList<Map<String, Object>>();
+                Map<String, Object> maps;
+                for (int i = 0; i < listjson.length(); i++) {
+                    JSONObject jsonObject2 = (JSONObject) listjson.opt(i);
+                    maps = new HashMap<String, Object>();
+                    maps.put("goodsid", jsonObject2.optString("goodsCode"));
+                    maps.put("modelm", jsonObject2.optString("modelm"));
+                    maps.put("colors", jsonObject2.optString("colors"));
+                    maps.put("curcount", jsonObject2.optString("num"));
+                    maps.put("scandate", jsonObject2.optString("scanDate"));
+                    maps.put("brandname", jsonObject2.optString("brandName"));
+                    slist.add(maps);
+                }
                 if (slist.size() == 0) {
-                    ShowMessage.ShowMsg(hand,
-                            "当前没有扫描数据");
+                    ShowMessage.ShowMsg(hand,"当前没有扫描数据");
                     MyProgressDialog.close();
                     return;
                 }
 //                Log.d("main",slist.toString());
                 ShowMessage.ShowMsg(hand, ShowMessage.HandScanSuccess, "success");
+
             } catch (Exception e) {
                 ShowMessage.ShowMsg(hand, "下载出错" + e.getMessage());
             }

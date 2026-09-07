@@ -21,6 +21,7 @@ import com.example.wholesalersend.R;
 import com.example.wholesalersend.activity.select.QueryScanDetail;
 import com.example.wholesalersend.activity.select.QueryScanLensDetail;
 import com.example.wholesalersend.activity.select.SelectProductModelColor;
+import com.example.wholesalersend.activity.select.SelectUpstreamBillno;
 import com.example.wholesalersend.entity.Para;
 import com.example.wholesalersend.lib.AccessWeb;
 import com.example.wholesalersend.lib.MySound;
@@ -29,6 +30,8 @@ import com.example.wholesalersend.utils.MyProgressDialog;
 import com.example.wholesalersend.utils.ShowMessage;
 import com.example.wholesalersend.utils.SomeUtils;
 import com.example.wholesalersend.utils.SysUserInfo;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,8 +73,13 @@ public class P_Dv_ReturnedPurchase_Lens_Z_G_NoBill extends Activity {
     private int nSize = 0;//次数
 
 //	private List<String> codesList= new ArrayList<String>();
-//
 //	Thread send ;
+
+    private TextView tv_upstream_billno;//显示上游单号
+    private TextView choose_upstream_billno;//选择上游单号
+
+    private String UpstreamBrand="";//上游单号品牌
+    private String UpstreamApplyNo="";//上游单号
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +113,17 @@ public class P_Dv_ReturnedPurchase_Lens_Z_G_NoBill extends Activity {
         ((Button) findViewById(R.id.btn_select_goodsid))
                 .setOnClickListener(new BtnSelectProductClick());
 
-        tv_company_name = ((TextView) findViewById(R.id.tv_company_name));
-        tv_stock_name = (TextView) findViewById(R.id.tv_stock_name);
+        tv_upstream_billno=findViewById(R.id.tv_upstream_billno);
+        choose_upstream_billno=findViewById(R.id.choose_upstream_billno);
+        choose_upstream_billno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mContext, SelectUpstreamBillno.class);
+                startActivityForResult(intent, 3);
+            }
+        });
+//        tv_company_name = ((TextView) findViewById(R.id.tv_company_name));
+//        tv_stock_name = (TextView) findViewById(R.id.tv_stock_name);
         tv_curqty = (TextView) findViewById(R.id.tv_curqty);
         tv_totalqty = (TextView) findViewById(R.id.tv_totalqty);
         tv_billno = (TextView) findViewById(R.id.tv_billno);
@@ -132,8 +149,8 @@ public class P_Dv_ReturnedPurchase_Lens_Z_G_NoBill extends Activity {
         tv_totalqty.setText("0");
         tv_curqty.setText("0");
         tv_billno.setText("");
-        tv_company_name.setText(supplier_name);
-        tv_stock_name.setText(stock_name);
+//        tv_company_name.setText(supplier_name);
+//        tv_stock_name.setText(stock_name);
 
 //		send = new SendDatas();
 //		send.start();
@@ -188,13 +205,9 @@ public class P_Dv_ReturnedPurchase_Lens_Z_G_NoBill extends Activity {
                     //			mark[2] = "仓   库 ："+tv_stock_name.getText().toString();
 
                     if (sysUserInfo.getOldVersion().equals("T8")) {
-
                         printbill.prints("         无单入库退回", mark, sacnDataList, sysUserInfo.getUserName());
-
                     } else {
-
                         printbill.print(P_Dv_ReturnedPurchase_Lens_Z_G_NoBill.this, "         无单入库退回", mark, sacnDataList, sysUserInfo.getUserName());
-
                     }
                     break;
                 case 9:
@@ -204,7 +217,6 @@ public class P_Dv_ReturnedPurchase_Lens_Z_G_NoBill extends Activity {
                 default:
                     break;
             }
-
             super.handleMessage(msg);
         }
 
@@ -246,40 +258,16 @@ public class P_Dv_ReturnedPurchase_Lens_Z_G_NoBill extends Activity {
 //                    tv_model_colors.setText(productinfo);
 //                    tv_goodsid.setText("(" + goodsid + ")");
                     break;
+                case 3:
+                    //选择上游单号后返回
+                    UpstreamApplyNo=data.getStringExtra("applyNo");
+                    UpstreamBrand=data.getStringExtra("brandName");
+                    tv_upstream_billno.setText(UpstreamApplyNo);
+                    break;
             }
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-//	private class SendDatas extends Thread
-//	{
-//		@Override
-//		public void run() {
-//			try
-//			{
-//				while(!Thread.currentThread().isInterrupted()){
-//					if(codesList.size()>0)
-//					{
-//						if (access_send(codesList.get(0).toString())){
-//							codesList.remove(0);
-//						}
-//						else
-//						{
-//							codesList.remove(0);
-//						}
-//					}
-//
-//				}
-//
-//			}
-//			catch(Exception e)
-//			{
-//				Log.d("main","thread end");
-//			}
-//
-//		}
-//	}
 
     // 请求服务
     private void access_send(final String contents) {
@@ -312,42 +300,30 @@ public class P_Dv_ReturnedPurchase_Lens_Z_G_NoBill extends Activity {
                     para.setScanBillNo(scanBillno);
                     para.setBillNo(mBillNo);
                     para.setSourceBillNo("");
+                    para.setDeliveryId(UpstreamApplyNo);//上游单号
 
-                    result = accWeb.P_Dv_Scan("P_Dv_ReturnedPurchase_Z_G_Lens_NoBill", para.toJson());
-//                    Log.d("main",result);
-                    if (result == "") {
-                        MySound.errorSound();
-                        ShowMessage.ShowMsg(handler, "网络不给力，请稍后再试！");
-                        return;
-                    }
-                    //true;产品编号,型号,色号,当前型号数量,当前扫描的条码,入库单号
-                    String[] rest = result.split(",");
+                    //镜片无单入库退回：先本系统校验；有上游单号则调上游 return.agent，成功后再落库
+                    result =accWeb.PostAPIStringInterface("AndroidDv/ReturnedPurchase_Z_G_Lens_NoBill", para.toJson());
+//                        Log.d("main--",result);
 
-                    if (rest.length < 6) {
-                        MySound.errorSound();
-                        ShowMessage.ShowMsg(handler, "服务器返回参数不足，当前" + rest.length + "位！");
-                        return;
-                    }
+                    JSONObject jsonObject = new JSONObject(result);
                     nSize++;
-                    //true; 产品代号+折射率+球镜+柱镜+此产品球柱镜扫描数量+条码+单据编号+单据扫描数量
-                    goodsid = rest[0].trim();
-                    Refractivity = rest[1].trim();
-                    Spherical = rest[2].trim();
-                    Cylinder = rest[3].trim();
+                    goodsid = jsonObject.optString("goodsCode");
 
-                    curcount = rest[4].trim();
-                    lastSuccessBarcode = rest[5].trim();
+                    Refractivity = jsonObject.optString("refractiveIndex");//折射率
+                    Spherical = jsonObject.optString("diopter");//球镜
+                    Cylinder =jsonObject.optString("astigmatism");//柱镜
+                    lastSuccessBarcode = jsonObject.optString("barcode");
 
                     if (mBillNo == null || mBillNo.isEmpty()) {
-                        mBillNo = rest[6];
+                        mBillNo = jsonObject.optString("billNo");
                     }
-                    if (Integer.parseInt(nScanCount) < Integer.parseInt(rest[7].trim())) {
-                        nScanCount = rest[7].trim();
+                    if (Integer.parseInt(nScanCount) < Integer.parseInt(jsonObject.optString("billCount"))) {
+                        curcount = jsonObject.optString("goodsCount");
+                        nScanCount = jsonObject.optString("billCount");
                     }
-
                     ShowMessage.ShowMsg(handler, ShowMessage.HandScanSuccess, "ok");
                     lStar = "";
-
                 } catch (Exception e) {
                     ShowMessage.ShowMsg(handler, ShowMessage.HandScanError,
                             e.getMessage());
@@ -382,10 +358,8 @@ public class P_Dv_ReturnedPurchase_Lens_Z_G_NoBill extends Activity {
                         et_barcode.setText("");
                         return true;
                     }
-
                     access_send(tBarcode);
                     et_barcode.setText("");
-
                 }
                 return true;
             } else {
@@ -393,7 +367,6 @@ public class P_Dv_ReturnedPurchase_Lens_Z_G_NoBill extends Activity {
             }
         }
     }
-
 
     /**
      * 明细按钮监听类
@@ -403,8 +376,7 @@ public class P_Dv_ReturnedPurchase_Lens_Z_G_NoBill extends Activity {
         @Override
         public void onClick(View v) {
 
-            Intent intent = new Intent(mContext,
-                    QueryScanLensDetail.class);
+            Intent intent = new Intent(mContext,QueryScanLensDetail.class);
             intent.putExtra("mBillNo", scanBillno);
             startActivity(intent);
         }

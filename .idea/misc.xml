@@ -39,7 +39,7 @@
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/activity_p_dv_instock_packbox_search.xml" value="0.190234375" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/activity_p_dv_returnedpurchase_l_d_z_frame.xml" value="0.134375" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/activity_p_dv_returnedpurchase_l_d_z_lens.xml" value="0.1328125" />
-        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/activity_productlogist.xml" value="0.16" />
+        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/activity_productlogist.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/activity_replacelabcode.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/activity_salesreplacelabcode.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/activity_select_brand.xml" value="0.2" />
@@ -58,6 +58,7 @@
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/dialog_brandcode_layout.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/dialog_modifydomain_layout.xml" value="0.176" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/dialog_revokerepair_layout.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/dialog_select_ccsstore_list.xml" value="0.146875" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/dialog_select_ccsstore_list.xml.xml" value="0.10745073891625616" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/dialog_syncccscustomer.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/dialog_syncccsstore.xml" value="0.29336966394187103" />
@@ -77,6 +78,7 @@
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/list_purcheck_lens_detail.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/list_scan_lens_detail.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/list_scan_makelabel_detail.xml" value="0.140234375" />
+        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/list_upstreambillno.xml" value="0.124609375" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/loading.xml" value="0.13984375" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/lst_company_item.xml" value="0.140625" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/menu_list_item_layout.xml" value="0.15" />
@@ -96,13 +98,15 @@
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_cancel_nobill.xml" value="0.123046875" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_lens_bill.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_lens_cancel_bill.xml" value="0.16799999999999998" />
+        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_lens_cancel_nobill.xml" value="0.141015625" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_lens_nobill.xml" value="0.152" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_nobill.xml" value="0.16" />
-        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_packing.xml" value="0.10400000000000001" />
+        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_packing.xml" value="0.16" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_z_changecode.xml" value="0.131640625" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_z_changeproduct.xml" value="0.130078125" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_z_changestock_bill.xml" value="0.113671875" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_z_changestock_nobill.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_instock_z_lens_changestock_nobill.xml" value="0.141015625" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_mendlable_z.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_outstock_lens_z_d_bill_beinstock.xml" value="0.152" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_outstock_lens_z_d_bill_cancel.xml" value="0.15" />
@@ -112,7 +116,9 @@
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_outstock_lens_z_d_nobill_noinstock.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_outstock_lens_z_l_bill_beinstock.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_outstock_lens_z_l_bill_cancel.xml" value="0.11015625" />
+        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_outstock_lens_z_l_bill_noinstock.xml" value="0.145703125" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_outstock_lens_z_l_nobill_beinstock.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_outstock_lens_z_l_nobill_noinstock.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_outstock_z_d_bill_beinstock.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_outstock_z_d_bill_cancel.xml" value="0.16810344827586207" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_outstock_z_d_bill_noinstock.xml" value="0.2" />
@@ -131,13 +137,13 @@
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_lens_z_d_nobill.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_lens_z_d_nobill_cancel.xml" value="0.1296875" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_lens_z_g_cancel_nobill.xml" value="0.16" />
-        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_lens_z_g_nobill.xml" value="0.4" />
+        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_lens_z_g_nobill.xml" value="0.3703125" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_lens_z_l_nobill.xml" value="0.10400000000000001" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_lens_z_l_nobill_cancel.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_z_d_nobill.xml" value="0.3132137030995106" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_z_d_nobill_cancel.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_z_g_cancel_nobill.xml" value="0.123046875" />
-        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_z_g_nobill.xml" value="0.104296875" />
+        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_z_g_nobill.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_p_dv_returnedpurchase_z_l_nobill.xml" value="0.19096209912536444" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_query_change_code_detail.xml" value="0.131640625" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_query_scan_detail.xml" value="0.264" />
@@ -154,6 +160,7 @@
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_select_product_model_color_listview_item.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_select_purcheck.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_select_stock.xml" value="0.3447265625" />
+        <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/new_select_upstreambillno.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/progress.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/select_bindbrand_list.xml" value="0.152" />
         <entry key="..\:/AndroidStudioProjects/WholesalerSend/app/src/main/res/layout/select_ccscustomer_item.xml" value="0.264" />

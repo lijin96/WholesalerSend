@@ -92,12 +92,12 @@
             android:layout_marginLeft="@dimen/scaled_w_dp_10"
             android:layout_marginRight="@dimen/scaled_w_dp_10"
             android:layout_toRightOf="@+id/radio_group"
-            android:hint="请选择再扫描条码"
-            android:imeOptions="actionSend"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:hint="请选择再扫描条码"
+            android:imeOptions="actionSend"
             android:singleLine="true"
-            android:textSize="@dimen/scaled_t_dp_26" >
+            android:textSize="@dimen/scaled_t_dp_26">
 
             <requestFocus />
         </EditText>

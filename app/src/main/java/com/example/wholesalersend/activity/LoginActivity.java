@@ -712,7 +712,7 @@ public class LoginActivity extends Activity {
                 case ShowMessage.HandSuccess: // 登录成功
 //                    if (loading != null)
 //                        loading.Close();
-
+                    GetLoginUser();
 //                    if (IsChooseAccount){
 //                        DownLoadAccounThread();
 //                    }else{
@@ -775,6 +775,40 @@ public class LoginActivity extends Activity {
 
     private void showTip(String msg) {
         ShowMessage.ShowMsg(hand, 5, msg);
+    }
+
+    //获取登录人信息
+    private void GetLoginUser() {
+//        MyProgressDialog.show(mContext, "正在下载菜单...", true, false);
+//        list = new ArrayList<Map<String, Object>>();
+        new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void run() {
+                try {
+                    MyRequest request = new MyRequest();
+                    Gson gson=new Gson();
+                    //请求的域名地址GET
+                    String requestUrl="http://"+sysUserInfo.getServerip()+":9521/"+sysUserInfo.getAPIEndpoint()+"/Home/GetLoginUser";
+//                            +sysUserInfo.getAccountSetId();
+//                    Log.d("main",requestUrl);
+                    String result = request.getV1(requestUrl,sysUserInfo.getLoginToken(),"text/plain");//调用我们写的Get方法
+//                    Log.d("main--",result);
+                    JSONObject response = new JSONObject(result);
+                    boolean success = response.optBoolean("success", false);
+                    if (success) {
+                        JSONObject tdata = response.getJSONObject("data");
+                        sysUserInfo.setCompanyid(tdata.optString("custSysCode"));
+                        sysUserInfo.setBmpSendUserCode(tdata.optString("bmpSendUserCode"));
+//                        Log.d("main--",sysUserInfo.getCompanyid());
+//                        Log.d("main--",sysUserInfo.getBmpSendUserCode());
+                    }
+                } catch (Exception e) {
+                    ShowMessage.ShowMsg(hand, ShowMessage.HandShowMessage,
+                            e.getMessage());
+                }
+            }
+        }).start();
     }
 
 

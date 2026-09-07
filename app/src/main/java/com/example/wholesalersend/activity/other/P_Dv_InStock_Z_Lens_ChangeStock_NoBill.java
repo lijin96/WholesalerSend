@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,9 +19,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-
 import com.example.wholesalersend.R;
 import com.example.wholesalersend.activity.select.QueryScanDetail;
+import com.example.wholesalersend.activity.select.QueryScanLensDetail;
 import com.example.wholesalersend.entity.Para;
 import com.example.wholesalersend.lib.AccessWeb;
 import com.example.wholesalersend.lib.MySound;
@@ -39,11 +40,11 @@ import java.util.Map;
 
 /**
  * @ClassName: P_Dv_InStock_Z_ChangeStock_NoBill
- * @Description: 仓库无单调拨
+ * @Description: 仓库无单镜片调拨
  * @Author: lijin
- * @Date: 2021/3/10 14:00
+ * @Date: 2026年8月19日17:10:50
  */
-public class P_Dv_InStock_Z_ChangeStock_NoBill extends Activity {
+public class P_Dv_InStock_Z_Lens_ChangeStock_NoBill extends Activity {
 
     private Context mContext;
     private AccessWeb accWeb;//后台服务工具类
@@ -65,7 +66,9 @@ public class P_Dv_InStock_Z_ChangeStock_NoBill extends Activity {
     private String curcount = "0", goodsid = "", mBillNo = "";
     private String instock_id = "", instock_name = "", outstock_id = "", outstock_name = "";
     private String lastSuccessBarcode = "", lStar = "";
-    private String modelm = "", colors = "";
+    //    private String modelm = "", colors = "";
+    private String Spherical= "", Cylinder = "",Refractivity="";//球镜柱镜折射率
+
 
     private final int Lic_SelectModel = 2;
 
@@ -81,7 +84,7 @@ public class P_Dv_InStock_Z_ChangeStock_NoBill extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_p_dv_instock_z_changestock_nobill);
+        setContentView(R.layout.new_p_dv_instock_z_lens_changestock_nobill);
 
         mContext = this;
         accWeb = new AccessWeb(this);
@@ -119,7 +122,7 @@ public class P_Dv_InStock_Z_ChangeStock_NoBill extends Activity {
         tv_goodsid = (TextView) findViewById(R.id.tv_goodsid);
 
         tv_title=findViewById(R.id.tv_title);
-        tv_title.setText("【仓库无单调拨】 "+sysUserInfo.getAccountSetName());
+        tv_title.setText("【仓库无单镜片调拨】 "+sysUserInfo.getAccountSetName());
 
         tv_show_code = (TextView) findViewById(R.id.tv_show_code);
 
@@ -185,12 +188,13 @@ public class P_Dv_InStock_Z_ChangeStock_NoBill extends Activity {
 //				tv_goodsid.setText("("+goodsid+")");
 
                     MySound.scanSound();
-                    tv_model_colors.setText(modelm + "-" + colors);
+//                    tv_model_colors.setText(modelm + "-" + colors);
+                    tv_model_colors.setText(Refractivity+ "  S"+Spherical + " C" + Cylinder);
                     tv_curqty.setText(curcount);
                     tv_totalqty.setText(nScanCount);
 
                     if (tv_source_billno != null) {
-                        tv_source_billno.setText(mBillNo);
+                        tv_source_billno.setText(mBillNo);//调拨单号显示
                     }
                     tv_goodsid.setText("(" + goodsid + ")");
 
@@ -211,7 +215,7 @@ public class P_Dv_InStock_Z_ChangeStock_NoBill extends Activity {
 
                     } else {
 
-                        printbill.print(P_Dv_InStock_Z_ChangeStock_NoBill.this, "         仓库无单调拨", mark, sacnDataList, sysUserInfo.getUserName());
+                        printbill.print(P_Dv_InStock_Z_Lens_ChangeStock_NoBill.this, "         仓库无单调拨", mark, sacnDataList, sysUserInfo.getUserName());
 
                     }
                     break;
@@ -257,12 +261,12 @@ public class P_Dv_InStock_Z_ChangeStock_NoBill extends Activity {
             }
             switch (requestCode) {
                 case Lic_SelectModel:
-                    goodsid = data.getStringExtra("goodsid");
-                    modelm = data.getStringExtra("modelm");
-                    colors = data.getStringExtra("colors");
-                    String productinfo = modelm + "-" + colors;
-                    tv_model_colors.setText(productinfo);
-                    tv_goodsid.setText("(" + goodsid + ")");
+//                    goodsid = data.getStringExtra("goodsid");
+//                    modelm = data.getStringExtra("modelm");
+//                    colors = data.getStringExtra("colors");
+//                    String productinfo = modelm + "-" + colors;
+//                    tv_model_colors.setText(productinfo);
+//                    tv_goodsid.setText("(" + goodsid + ")");
                     break;
             }
         }
@@ -323,7 +327,9 @@ public class P_Dv_InStock_Z_ChangeStock_NoBill extends Activity {
 
 //                    result = accWeb.P_Dv_Scan("P_Dv_InStock_Z_ChangeStock_NoBill", para.toJson());
 
-                    result =accWeb.PostAPIStringInterface("AndroidDv/ChangeStockNoBill", para.toJson());
+                    result =accWeb.PostAPIStringInterface("AndroidDv/ChangeStockLensNoBill", para.toJson());
+
+//                    Log.d("main---", result);
 
                     if (result == "") {
                         MySound.errorSound();
@@ -345,14 +351,17 @@ public class P_Dv_InStock_Z_ChangeStock_NoBill extends Activity {
                     JSONObject jsonObject = new JSONObject(result);
                     nSize++;
                     goodsid = jsonObject.optString("goodsCode");
-                    modelm = jsonObject.optString("modelm");
-                    colors =jsonObject.optString("color");
+
+                    Refractivity = jsonObject.getString("refractiveIndex");
+                    Spherical =jsonObject.getString("diopter");
+                    Cylinder = jsonObject.getString("astigmatism");
 
                     lastSuccessBarcode = jsonObject.optString("barcode");
 
                     if (mBillNo == null || mBillNo.isEmpty()) {
                         mBillNo = jsonObject.optString("billNo");
                     }
+                    Log.d("main---", mBillNo);
                     if (Integer.parseInt(nScanCount) < Integer.parseInt(jsonObject.optString("billCount"))) {
                         curcount = jsonObject.optString("goodsCount");
                         nScanCount = jsonObject.optString("billCount");
@@ -360,6 +369,8 @@ public class P_Dv_InStock_Z_ChangeStock_NoBill extends Activity {
 
                     ShowMessage.ShowMsg(handler, ShowMessage.HandScanSuccess, "ok");
                     lStar = "";
+
+
                 } catch (Exception e) {
                     ShowMessage.ShowMsg(handler, ShowMessage.HandScanError,
                             e.getMessage());
@@ -417,7 +428,7 @@ public class P_Dv_InStock_Z_ChangeStock_NoBill extends Activity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(mContext,
-                    QueryScanDetail.class);
+                    QueryScanLensDetail.class);
             intent.putExtra("mBillNo", scanBillno);
             startActivity(intent);
         }

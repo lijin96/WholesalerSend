@@ -242,6 +242,40 @@
                         android:textSize="@dimen/scaled_t_dp_24" />
                 </LinearLayout>
             </LinearLayout>
+
+            <!-- 第三行：仓库 -->
+            <LinearLayout
+                android:id="@+id/lin_stock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/scaled_h_dp_5"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="仓库"
+                        android:textColor="@color/logist_text_label"
+                        android:textSize="@dimen/scaled_t_dp_22" />
+
+                    <TextView
+                        android:id="@+id/tv_stock_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scaled_o_dp_4"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/logist_text_value"
+                        android:textSize="@dimen/scaled_t_dp_24" />
+                </LinearLayout>
+            </LinearLayout>
+
         </LinearLayout>
 
         <!-- 物流轨迹 -->

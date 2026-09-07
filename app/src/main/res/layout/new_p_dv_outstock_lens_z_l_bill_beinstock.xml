@@ -388,7 +388,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/scaled_h_dp_80"
                 android:layout_marginRight="@dimen/scaled_w_dp_20"
-                android:text="查看"
+                android:text="选择"
                 android:textSize="@dimen/scaled_t_dp_28" />
         </LinearLayout>
     </LinearLayout>

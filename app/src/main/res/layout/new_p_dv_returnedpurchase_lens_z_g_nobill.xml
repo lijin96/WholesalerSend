@@ -22,13 +22,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/titlebar_back"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
         <RelativeLayout
-            android:layout_width="@dimen/scaled_w_dp_0"
+            android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:paddingBottom="@dimen/scaled_h_dp_10"
             android:paddingTop="@dimen/scaled_h_dp_10" >
 
             <TextView
@@ -53,48 +52,40 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="@dimen/scaled_w_dp_0"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:visibility="gone" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/scaled_h_dp_10"
+            android:layout_marginBottom="@dimen/scaled_h_dp_10">
 
             <TextView
                 android:id="@+id/tv_company_name_str"
-                android:layout_width="@dimen/scaled_w_dp_80"
+                android:layout_width="@dimen/scaled_w_dp_150"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:text="供应商："
+                android:layout_marginLeft="@dimen/scaled_w_dp_10"
+                android:text="上游单号："
                 android:textColor="@color/white"
                 android:textSize="@dimen/scaled_t_dp_30" />
 
             <TextView
-                android:id="@+id/tv_company_name"
+                android:id="@+id/tv_upstream_billno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@id/tv_company_name_str"
                 android:text=""
+                android:layout_toLeftOf="@+id/choose_upstream_billno"
                 android:textColor="@color/white"
                 android:textSize="@dimen/scaled_t_dp_30" />
-
             <TextView
-                android:id="@+id/tv_stock_str"
-                android:layout_width="@dimen/scaled_w_dp_80"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:text="仓\t库 ："
-                android:textColor="@color/white"
-                android:textSize="@dimen/scaled_t_dp_30" />
-
-            <TextView
-                android:id="@+id/tv_stock_name"
+                android:id="@+id/choose_upstream_billno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@id/tv_stock_str"
-                android:text=""
+                android:layout_alignParentRight="true"
+                android:text="选择"
                 android:textColor="@color/white"
-                android:textSize="@dimen/scaled_t_dp_30" />
+                android:textSize="@dimen/scaled_t_dp_30" ></TextView>
         </RelativeLayout>
     </LinearLayout>
 

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:ignore="HardcodedText">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/scaled_h_dp_60"
+		android:gravity="center_vertical"
+		android:background="@drawable/bottombar_back_button">
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			>
+
+			<TextView
+				android:id="@+id/textView1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingLeft="@dimen/scaled_w_dp_10"
+				android:text="单据选择"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textColor="@color/white" />
+
+			<TextView
+				android:id="@+id/tv_total"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/textView1"
+				android:layout_alignParentBottom="true"
+				android:layout_centerHorizontal="true"
+				android:text="（共 0 条）"
+				android:textColor="@color/white"
+				android:textSize="@dimen/scaled_t_dp_18" />
+		</RelativeLayout>
+
+		<EditText
+			android:id="@+id/et_search"
+			android:layout_width="@dimen/scaled_w_dp_250"
+			android:layout_height="wrap_content"
+			android:layout_centerVertical="true"
+			android:layout_gravity="right"
+			android:layout_marginRight="@dimen/scaled_w_dp_10"
+			android:layout_toLeftOf="@+id/btn_seach"
+			android:hint="请输入申请单号"
+			android:imeOptions="flagNoExtractUi"
+			android:inputType="text" />
+
+		<Button
+			android:id="@+id/btn_seach"
+			android:layout_width="@dimen/scaled_w_dp_90"
+			android:layout_height="@dimen/scaled_h_dp_50"
+			android:text="确定"
+			android:textSize="@dimen/scaled_t_sp_16"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="@dimen/scaled_w_dp_10"
+			android:layout_centerVertical="true"
+			></Button>
+	</RelativeLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="left"
+		android:background="@color/burlywood">
+
+		<TextView
+			android:id="@+id/txt_1"
+			android:layout_width="@dimen/scaled_w_dp_0"
+			android:layout_height="wrap_content"
+			android:layout_weight="1.1"
+			android:padding="@dimen/scaled_o_dp_5"
+			android:text="申请单号"
+			android:textSize="@dimen/scaled_t_dp_20" />
+
+		<View
+			android:layout_width="@dimen/scaled_w_dp_1"
+			android:layout_height="match_parent"
+			android:background="#AEAEAE" />
+
+		<TextView
+			android:id="@+id/txt_pur_2"
+			android:layout_width="@dimen/scaled_w_dp_0"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="类型"
+			android:padding="@dimen/scaled_o_dp_5"
+			android:textSize="@dimen/scaled_t_dp_20" />
+
+		<View
+			android:layout_width="@dimen/scaled_w_dp_1"
+			android:layout_height="match_parent"
+			android:background="#AEAEAE" />
+
+		<LinearLayout
+			android:layout_width="@dimen/scaled_w_dp_0"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="vertical" >
+
+			<TextView
+				android:id="@+id/txt_pur_3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingLeft="@dimen/scaled_w_dp_2"
+				android:text="品牌"
+				android:padding="@dimen/scaled_o_dp_5"
+				android:textSize="@dimen/scaled_t_dp_20" />
+		</LinearLayout>
+
+		<View
+			android:layout_width="@dimen/scaled_w_dp_1"
+			android:layout_height="match_parent"
+			android:background="#AEAEAE" />
+
+		<LinearLayout
+			android:layout_width="@dimen/scaled_w_dp_0"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="vertical" >
+			<TextView
+				android:id="@+id/txt_pur_4"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingLeft="@dimen/scaled_w_dp_2"
+				android:text="申请状态"
+				android:padding="@dimen/scaled_o_dp_5"
+				android:textSize="@dimen/scaled_t_dp_20" />
+		</LinearLayout>
+	</LinearLayout>
+	<ListView
+		android:id="@+id/listView1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+	</ListView>
+
+</LinearLayout>

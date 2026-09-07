@@ -102,9 +102,12 @@ public class P_ProductLogist extends Activity {
     private TextView tvStockAge;
     private TextView tvExchange;
     private TextView tvBlacklist;
+    private TextView tvStockName;//仓库
     private TextView tvLogisticsCount;
     private LinearLayout llLogisticsTimeline;
     private LayoutInflater layoutInflater;
+
+    private LinearLayout lin_stock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +161,8 @@ public class P_ProductLogist extends Activity {
 
 
         tUnitId = sysUserInfo.getCompanyid();//总公司"00",大代理商模式就为代理商代号
+
+        lin_stock=findViewById(R.id.lin_stock);
 
         radio_group.setOnCheckedChangeListener(new RadioGroupChangeListener());
         et_barcode.setOnKeyListener(new EtBarodeOnkeyListener());
@@ -223,6 +228,7 @@ public class P_ProductLogist extends Activity {
                 int id = radioGroup.getCheckedRadioButtonId();
                 switch (radioGroup.getCheckedRadioButtonId()) {
                     case R.id.rb_scslogistics:
+                        lin_stock.setVisibility(View.VISIBLE);
                         Relative_SCSLogistics.setVisibility(View.VISIBLE);
                         Relative_CCSLogistics.setVisibility(View.GONE);
                         IsCCSScanCode=false;
@@ -235,6 +241,7 @@ public class P_ProductLogist extends Activity {
                         et_barcode.requestFocus();
                         break;
                     case R.id.rb_ccslogistics:
+                        lin_stock.setVisibility(View.GONE);
                         Relative_SCSLogistics.setVisibility(View.GONE);
                         Relative_CCSLogistics.setVisibility(View.VISIBLE);
                         IsCCSScanCode=true;
@@ -353,7 +360,6 @@ public class P_ProductLogist extends Activity {
                         tCodeValue = et_barcode.getText().toString().trim();
                     }
 
-
                     if (!SomeUtils.isAllNumber(mContext, tCodeValue)) {
                         ShowMessage.Show(mContext, "请扫描正确的物流码【" + tCodeValue + "】");
                         et_barcode.requestFocus();
@@ -382,11 +388,9 @@ public class P_ProductLogist extends Activity {
             @Override
             public void run() {
                 try {
-                    message = "";
-                    Remarks = accessWeb.GetCcsBarcodeTrackingInfor(BrandCode, BrandName, tCodeType, tCodeValue);
-                    for (Map<String, Object> m : Remarks) {
-                        message += m.get("Remark") + "\r\n";
-                    }
+                    String Remarks = accessWeb.GetCcsBarcodeTrackingInfor(BrandCode, tCodeType, tCodeValue);
+                    parseProductLogisticsResult(Remarks);
+                    buildProductLogisticsMessage();
 
                     ShowMessage.ShowMsg(handler, ShowMessage.HandScanSuccess, "ok");
                 } catch (Exception e) {
@@ -460,6 +464,9 @@ public class P_ProductLogist extends Activity {
         productLogisticsData.put("batchNo", json.optString("batchNo"));
         productLogisticsData.put("notes", json.optString("notes"));
 
+        productLogisticsData.put("stockName", json.optString("stockName"));
+
+
         logisticsList = new ArrayList<>();
         JSONArray logistics = json.optJSONArray("logistics");
         if (logistics != null) {
@@ -509,6 +516,7 @@ public class P_ProductLogist extends Activity {
         tvStockAge = findViewById(R.id.tv_stock_age);
         tvExchange = findViewById(R.id.tv_exchange);
         tvBlacklist = findViewById(R.id.tv_blacklist);
+        tvStockName=findViewById(R.id.tv_stock_name);
         tvLogisticsCount = findViewById(R.id.tv_logistics_count);
         llLogisticsTimeline = findViewById(R.id.ll_logistics_timeline);
     }
@@ -524,11 +532,11 @@ public class P_ProductLogist extends Activity {
     }
 
     private void refreshResultDisplay() {
-        if (IsCCSScanCode) {
-            showMessageResultUi();
-            tv_message.setText(message);
-            return;
-        }
+//        if (IsCCSScanCode) {
+//            showMessageResultUi();
+//            tv_message.setText(message);
+//            return;
+//        }
         if (logisticsList != null && !logisticsList.isEmpty()) {
             showScsResultUi();
             bindScsProductLogisticsUi();
@@ -569,6 +577,7 @@ public class P_ProductLogist extends Activity {
         tvExchange.setText(optStr(productLogisticsData.get("exchangeText")));
         Object blackList = productLogisticsData.get("isBlackList");
         tvBlacklist.setText(blackList instanceof Boolean && (Boolean) blackList ? "是" : "否");
+        tvStockName.setText(optStr(productLogisticsData.get("stockName")));
 
         int count = logisticsList != null ? logisticsList.size() : 0;
         tvLogisticsCount.setText("共" + count + "条");
@@ -609,7 +618,7 @@ public class P_ProductLogist extends Activity {
     }
 
     private String optStr(Object value) {
-        return value == null ? "" : String.valueOf(value);
+        return value == null||value == "null" ? "" : String.valueOf(value);
     }
 
     private String displayName(Object name) {

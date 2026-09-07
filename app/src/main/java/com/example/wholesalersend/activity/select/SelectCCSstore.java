@@ -249,6 +249,7 @@ public class SelectCCSstore extends Activity {
 
 //        RecyclerView_supplier=findViewById(R.id.RecyclerView_supplier);
 
+
         list_store.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -275,6 +276,10 @@ public class SelectCCSstore extends Activity {
 //        initRecyclerView();
 //        DownLoadDataThread();
         GetScsProvice();
+        et_search.setText(LinkName);
+        if (!LinkName.equals("")){
+            DownLoadDataThread();
+        }
     }
 
     //是否同步门店数据到CCS
@@ -320,27 +325,20 @@ public class SelectCCSstore extends Activity {
         tv_storecityname.setText(StoreCityName);
 
         StoreNormalDialog = new AlertDialog.Builder(mContext,R.style.Base_Theme_AppCompat_Light_Dialog)
-                .setIcon(R.drawable.ccs)
+                .setIcon(R.mipmap.scs)
                 .setView(selectview)
                 .create();
 
         StoreNormalDialog.setCanceledOnTouchOutside(false);
         StoreNormalDialog.show();
 
-        if (StoreNormalDialog.getWindow() != null) {
-            WindowManager.LayoutParams lp = StoreNormalDialog.getWindow().getAttributes();
+//        if (StoreNormalDialog.getWindow() != null) {
+//            WindowManager.LayoutParams lp = StoreNormalDialog.getWindow().getAttributes();
 //            lp.width = 800; // 宽度，可根据屏幕宽度进行计算
 //            lp.height = 700; // 宽度，可根据屏幕宽度进行计算
-            if (sysUserInfo.getOldVersion().equals("T8")){
-                lp.width = 600; // 宽度，可根据屏幕宽度进行计算
-//                lp.height = 600; // 宽度，可根据屏幕宽度进行计算
-            }else{
-                lp.width = 800; // 宽度，可根据屏幕宽度进行计算
-                lp.height = 700; // 宽度，可根据屏幕宽度进行计算
-            }
-            lp.gravity = Gravity.CENTER;
-            StoreNormalDialog.getWindow().setAttributes(lp);
-        }
+//            lp.gravity = Gravity.CENTER;
+//            StoreNormalDialog.getWindow().setAttributes(lp);
+//        }
         //关闭
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -468,19 +466,17 @@ public class SelectCCSstore extends Activity {
                 String Provice=Provicelist[which];
                 if (Citytype.equals("trader")){
                     //零售商点开省份
-//                    if (!TraderProviceName.equals(Provice)){
-                    tv_traderprovicename.setText(Provice);
-                    tv_tradercityname.setText("");
-                    TraderCounty="";
-                    TraderCityName="";
-//                    }
+                    if (!TraderProviceName.equals(Provice)){
+                        tv_traderprovicename.setText(Provice);
+                        tv_tradercityname.setText("");
+                        TraderCounty="";
+                    }
                 }else if (Citytype.equals("store")){
                     //分销店点开省份
-//                    if (!StoreProviceName.equals(Provice)){
-                    tv_storeprovicename.setText(Provice);
-                    tv_storecityname.setText("");
-                    StoreCityName="";
-//                    }
+                    if (!StoreProviceName.equals(Provice)){
+                        tv_storeprovicename.setText(Provice);
+                        tv_storecityname.setText("");
+                    }
                 }
             }
         });
@@ -558,20 +554,20 @@ public class SelectCCSstore extends Activity {
 
 
         StoreBindNormalDialog = new AlertDialog.Builder(mContext,R.style.Base_Theme_AppCompat_Light_Dialog)
-                .setIcon(R.drawable.ccs)
+                .setIcon(R.mipmap.scs)
                 .setView(selectview)
                 .create();
 
         StoreBindNormalDialog.setCanceledOnTouchOutside(false);
         StoreBindNormalDialog.show();
 
-        if (StoreBindNormalDialog.getWindow() != null) {
-            WindowManager.LayoutParams lp = StoreBindNormalDialog.getWindow().getAttributes();
-            lp.width = 650; // 宽度，可根据屏幕宽度进行计算
-            lp.height = 400; // 宽度，可根据屏幕宽度进行计算
-            lp.gravity = Gravity.CENTER;
-            StoreBindNormalDialog.getWindow().setAttributes(lp);
-        }
+//        if (StoreBindNormalDialog.getWindow() != null) {
+//            WindowManager.LayoutParams lp = StoreBindNormalDialog.getWindow().getAttributes();
+//            lp.width = 650; // 宽度，可根据屏幕宽度进行计算
+//            lp.height = 400; // 宽度，可根据屏幕宽度进行计算
+//            lp.gravity = Gravity.CENTER;
+//            StoreBindNormalDialog.getWindow().setAttributes(lp);
+//        }
         //关闭
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -582,7 +578,8 @@ public class SelectCCSstore extends Activity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ScsCustBindToCcs(CCScustId);
+                ScsStoreBindToCcs(CCScustId,CCSstoreId);
+//                ScsCustBindToCcs(CCScustId);
             }
         });
 
@@ -611,22 +608,21 @@ public class SelectCCSstore extends Activity {
 
 
     // SCS客户和CCS客户绑定
-    private void ScsCustBindToCcs(final String tCcsCustCode) {
-        MyProgressDialog.show(this, "正在绑定客户数据...", true, false);
-        Thread sendCode = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String result = accWeb.ScsCustBindToCcs(TraderSysId,tCcsCustCode,Brandcode,AgentCode);
-                    ShowMessage.ShowMsg(hand, 1, "success");
-                } catch (Exception e) {
-                    ShowMessage.ShowMsg(hand, "绑定客户出错" + e.getMessage());
-                }
-            }
-        });
-        sendCode.start();
-    }
-
+//    private void ScsCustBindToCcs(final String tCcsCustCode) {
+//        MyProgressDialog.show(this, "正在绑定客户数据...", true, false);
+//        Thread sendCode = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    String result = accWeb.ScsCustBindToCcs(TraderSysId,tCcsCustCode,CCScustId,CCSstoreId,Brandcode,AgentCode);
+//                    ShowMessage.ShowMsg(hand, 1, "success");
+//                } catch (Exception e) {
+//                    ShowMessage.ShowMsg(hand, "绑定客户出错" + e.getMessage());
+//                }
+//            }
+//        });
+//        sendCode.start();
+//    }
     // SCS门店和CCS门店绑定
     private void ScsStoreBindToCcs(final String tCcsCustCode,final String tCcsStoreCode) {
         MyProgressDialog.show(this, "正在绑定客户数据...", true, false);
@@ -634,7 +630,7 @@ public class SelectCCSstore extends Activity {
             @Override
             public void run() {
                 try {
-                    String result = accWeb.ScsStoreBindToCcs(TraderSysId,StoreSysId,tCcsCustCode,tCcsStoreCode,Brandcode,AgentCode);
+                    String result = accWeb.ScsCustBindToCcs(TraderSysId,StoreSysId,tCcsCustCode,tCcsStoreCode,Brandcode,AgentCode);
                     ShowMessage.ShowMsg(hand, 3, "success");
                 } catch (Exception e) {
                     ShowMessage.ShowMsg(hand, "绑定门店出错" + e.getMessage());
@@ -643,6 +639,27 @@ public class SelectCCSstore extends Activity {
         });
         sendCode.start();
     }
+
+
+//    // SCS门店和CCS门店绑定
+//    private void ScsStoreBindToCcs(final String tCcsCustCode,final String tCcsStoreCode) {
+//        MyProgressDialog.show(this, "正在绑定门店数据...", true, false);
+//        Thread sendCode = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+////                    String result = accWeb.ScsStoreBindToCcs(TraderSysId,StoreSysId,tCcsCustCode,tCcsStoreCode,Brandcode,AgentCode);
+//
+//                    String result = accWeb.ScsCustBindToCcs(TraderSysId,tCcsCustCode,tCcsStoreCode,StoreSysId,Brandcode,AgentCode);
+//
+//                    ShowMessage.ShowMsg(hand, 3, "success");
+//                } catch (Exception e) {
+//                    ShowMessage.ShowMsg(hand, "绑定门店出错" + e.getMessage());
+//                }
+//            }
+//        });
+//        sendCode.start();
+//    }
 
 
 
@@ -654,37 +671,40 @@ public class SelectCCSstore extends Activity {
             public void run() {
                 try {
                     String result = accWeb.GetScsCustStore(StoreSysId);
-//                    Log.d("main", result);
                     JSONObject listjson = new JSONObject(result);
                     JSONArray jsonArray = listjson.getJSONArray("Data");
-                    StoreId=jsonArray.getJSONObject(0).getString("StoreId");   //门店代号
-                    StoreName=jsonArray.getJSONObject(0).getString("StoreName");	//门店名称
-                    StoreLink=jsonArray.getJSONObject(0).getString("StoreLink");		 	//联系人（门店）
-                    StoreTel=jsonArray.getJSONObject(0).getString("StoreTel");		   //电话（门店）
-                    StoreCorpAdde=jsonArray.getJSONObject(0).getString("StoreCorpAdde");	// 地址（门店）
-                    Alias=jsonArray.getJSONObject(0).getString("Alias");	//门店别名
-                    StoreProviceName=jsonArray.getJSONObject(0).getString("StoreProviceName");	//省份（门店）
-                    StoreCityName=jsonArray.getJSONObject(0).getString("StoreCityName"); //城市（门店）
-                    StoreCounty=jsonArray.getJSONObject(0).getString("StoreCounty");	//区县（门店）
-                    TraderId=jsonArray.getJSONObject(0).getString("TraderId");		   //客户代号
-                    TraderName=jsonArray.getJSONObject(0).getString("TraderName");	//客户名称
-                    TraderLink=jsonArray.getJSONObject(0).getString("TraderLink");
-                    TraderSaleId=jsonArray.getJSONObject(0).getString("TraderSaleId");   //业务员代号（客户）
-                    TraderSaleName=jsonArray.getJSONObject(0).getString("TraderSaleName");	//业务员名称（客户）
-                    TraderTel=jsonArray.getJSONObject(0).getString("TraderTel");	   //电话（客户）
-                    TraderCorpAddr=jsonArray.getJSONObject(0).getString("TraderCorpAddr"); //地址（客户）
-                    TraderProviceName=jsonArray.getJSONObject(0).getString("TraderProviceName");	//省份（客户）
-                    TraderCityName=jsonArray.getJSONObject(0).getString("TraderCityName");  //城市（客户）
-                    TraderCounty=jsonArray.getJSONObject(0).getString("TraderCounty");	//区县（客户）
-                    TraderAlias=jsonArray.getJSONObject(0).getString("TraderAlias");  //客户别名
-                    BrandName=jsonArray.getJSONObject(0).getString("BrandName");  //品牌
-                    CustSysCode=jsonArray.getJSONObject(0).getString("CustSysCode");  //客户系统代号
-                    StoreSysCode=jsonArray.getJSONObject(0).getString("StoreSysCode");	   //门店系统代号
+                    if (jsonArray.length()>0){
+                        StoreId=jsonArray.getJSONObject(0).optString("StoreId");   //门店代号
+                        StoreName=jsonArray.getJSONObject(0).optString("StoreName");	//门店名称
+                        StoreLink=jsonArray.getJSONObject(0).optString("StoreLink");		 	//联系人（门店）
+                        StoreTel=jsonArray.getJSONObject(0).optString("StoreTel");		   //电话（门店）
+                        StoreCorpAdde=jsonArray.getJSONObject(0).optString("StoreCorpAdde");	// 地址（门店）
+                        Alias=jsonArray.getJSONObject(0).optString("Alias");	//门店别名
+                        StoreProviceName=jsonArray.getJSONObject(0).optString("StoreProviceName");	//省份（门店）
+                        StoreCityName=jsonArray.getJSONObject(0).optString("StoreCityName"); //城市（门店）
+                        StoreCounty=jsonArray.getJSONObject(0).optString("StoreCounty");	//区县（门店）
+                        TraderId=jsonArray.getJSONObject(0).optString("TraderId");		   //客户代号
+                        TraderName=jsonArray.getJSONObject(0).optString("TraderName");	//客户名称
+                        TraderLink=jsonArray.getJSONObject(0).optString("TraderLink");
+                        TraderSaleId=jsonArray.getJSONObject(0).optString("TraderSaleId");   //业务员代号（客户）
+                        TraderSaleName=jsonArray.getJSONObject(0).optString("TraderSaleName");	//业务员名称（客户）
+                        TraderTel=jsonArray.getJSONObject(0).optString("TraderTel");	   //电话（客户）
+                        TraderCorpAddr=jsonArray.getJSONObject(0).optString("TraderCorpAddr"); //地址（客户）
+                        TraderProviceName=jsonArray.getJSONObject(0).optString("TraderProviceName");	//省份（客户）
+                        TraderCityName=jsonArray.getJSONObject(0).optString("TraderCityName");  //城市（客户）
+                        TraderCounty=jsonArray.getJSONObject(0).optString("TraderCounty");	//区县（客户）
+                        TraderAlias=jsonArray.getJSONObject(0).optString("TraderAlias");  //客户别名
+                        BrandName=jsonArray.getJSONObject(0).optString("BrandName");  //品牌
+                        CustSysCode=jsonArray.getJSONObject(0).optString("CustSysCode");  //客户系统代号
+                        StoreSysCode=jsonArray.getJSONObject(0).optString("StoreSysCode");	   //门店系统代号
 
-                    TraderLicenceNo=jsonArray.getJSONObject(0).getString("TraderLicenceNo");	//客户营业执照号
-                    StoreLicenceNo=jsonArray.getJSONObject(0).getString("StoreLicenceNo");	//门店营业执照号
+                        TraderLicenceNo=jsonArray.getJSONObject(0).optString("TraderLicenceNo");	//客户营业执照号
+                        StoreLicenceNo=jsonArray.getJSONObject(0).optString("StoreLicenceNo");	//门店营业执照号
+                        ShowMessage.ShowMsg(hand, 5, "success");
+                    }else{
+                        ShowMessage.ShowMsg(hand, "暂无SCS门店数据展示");
+                    }
 
-                    ShowMessage.ShowMsg(hand, 5, "success");
                 } catch (Exception e) {
                     ShowMessage.ShowMsg(hand, "获取门店详情出错" + e.getMessage());
                 }
@@ -755,7 +775,7 @@ public class SelectCCSstore extends Activity {
             @Override
             public void run() {
                 try {
-                    String result = accWeb.ScsNewSyncToCcs(Brandcode,AgentCode,tCustJson,tStoreJson);
+                    String result = accWeb.ScsNewSyncToCcs(Brandcode,AgentCode,CustSysCode,StoreSysCode,tCustJson,tStoreJson);
                     ShowMessage.ShowMsg(hand, 8, "success");
                 } catch (Exception e) {
                     ShowMessage.ShowMsg(hand, "同步数据出错" + e.getMessage());
@@ -836,7 +856,7 @@ public class SelectCCSstore extends Activity {
                             setResult(RESULT_OK, scsintent);
                             finish();
                         }
-                    });
+                    },450);
 
                     //绑定CCS门店 成功就跳扫描界面
 //                    Intent scsintent = new Intent();
@@ -953,7 +973,7 @@ public class SelectCCSstore extends Activity {
                             setResult(RESULT_OK, intent);
                             finish();
                         }
-                    });
+                    },450);
                     break;
 
                 default:
@@ -973,7 +993,7 @@ public class SelectCCSstore extends Activity {
         adapter = new SimpleAdapter(this, mList, R.layout.select_ccsstore_item, new String[]{"CustName","CutCode","StoreName", "StoreId","CustLink", "CustTel","CustAddr"}, new int[]{R.id.customr_name,R.id.customr_id,R.id.store_name, R.id.store_id,R.id.store_Link, R.id.store_Tel,R.id.corpaddr});
         list_store.setAdapter(adapter);
         MyProgressDialog.close();
-        tv_total.setText("（共 " + mList.size() + " 条）");
+//        tv_total.setText("（共 " + mList.size() + " 条）");
     }
 
     /**

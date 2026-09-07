@@ -37,7 +37,7 @@
                 android:id="@+id/relayout_source_billno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible" >
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/tv_source_billno_str"

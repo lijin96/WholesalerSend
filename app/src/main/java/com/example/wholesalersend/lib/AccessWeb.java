@@ -9,6 +9,8 @@ import com.example.wholesalersend.entity.SalesScsWebApiInfo;
 import com.example.wholesalersend.entity.ScanApiResponse;
 import com.example.wholesalersend.entity.ScanOrder;
 import com.example.wholesalersend.entity.SupplierInfor;
+import com.example.wholesalersend.entity.SyncCustomers;
+import com.example.wholesalersend.entity.SyncStores;
 import com.example.wholesalersend.utils.SysUserInfo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -1631,31 +1633,59 @@ public class AccessWeb {
      * @author van van.shu@magic-point.com
      * @version 创建时间：2017-11-30 上午11:29:56
      */
-    public List<Map<String, Object>> GetCcsBarcodeTrackingInfor(String tBrandCode, String tBrandName, String tCodeType, String tCodeValue) throws Exception {
+//    public List<Map<String, Object>> GetCcsBarcodeTrackingInfor(String tBrandCode, String tBrandName, String tCodeType, String tCodeValue) throws Exception {
+//        ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
+//        HashMap<Object, Object> map = new HashMap<Object, Object>();
+//        map.put("tLoginId", sysUserInfo.getLoginid());//这个id一定要到服务里面去确认大小写，否则可能有错
+//        map.put("tBrandCode", tBrandCode);
+//        map.put("tBrandName", tBrandName);
+//        map.put("tCodeType", tCodeType);//1-物流码2-防伪码3-积分码
+//        map.put("tCodeValue", tCodeValue);//条码
+//        para.add(map);
+////        Log.d("main", para.toString());
+//        String result = getWebResult("GetCcsBarcodeTrackingInfor", para);
+//
+//        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+//        JSONArray listjson = new JSONArray(result);
+//
+//        for (int i = 0; i < listjson.length(); i++) {
+//            JSONObject jsonObject2 = (JSONObject) listjson.opt(i);
+//
+//            Map<String, Object> map1 = new HashMap<String, Object>();
+//            map1.put("Remark", jsonObject2.getString("memo"));
+//            list.add(map1);
+//        }
+//        return list;
+//    }
+
+    /**
+     * CCS物流查询
+     *
+     * @param tCodeType
+     * @param tCodeValue
+     * @return
+     * @throws Exception
+     * @author
+     * @version
+     */
+    public String GetCcsBarcodeTrackingInfor(String tBrandCode, String tCodeType, String tCodeValue) throws Exception {
         ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
         HashMap<Object, Object> map = new HashMap<Object, Object>();
-        map.put("tLoginId", sysUserInfo.getLoginid());//这个id一定要到服务里面去确认大小写，否则可能有错
-        map.put("tBrandCode", tBrandCode);
-        map.put("tBrandName", tBrandName);
-        map.put("tCodeType", tCodeType);//1-物流码2-防伪码3-积分码
-        map.put("tCodeValue", tCodeValue);//条码
+//        map.put("tLoginId", sysUserInfo.getLoginid());//这个id一定要到服务里面去确认大小写，否则可能有错
+//        map.put("tBrandCode", tBrandCode);
+//        map.put("tBrandName", tBrandName);
+//        map.put("tCodeType", tCodeType);//1-物流码2-防伪码3-积分码
+//        map.put("tCodeValue", tCodeValue);//条码
+        map.put("BrandCode", tBrandCode);
+//        map.put("tBrandName", tBrandName);
+        map.put("CodeKind", tCodeType);//1-物流码2-防伪码3-积分码
+        map.put("CodeValue", tCodeValue);//条码
         para.add(map);
-//        Log.d("main", para.toString());
-        String result = getWebResult("GetCcsBarcodeTrackingInfor", para);
+//        Log.d("main--", para.toString());
+        String result = GetAPIStringInterface("AndroidDv/GetUpstreamProductLogistics", para);
 
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        JSONArray listjson = new JSONArray(result);
-
-        for (int i = 0; i < listjson.length(); i++) {
-            JSONObject jsonObject2 = (JSONObject) listjson.opt(i);
-
-            Map<String, Object> map1 = new HashMap<String, Object>();
-            map1.put("Remark", jsonObject2.getString("memo"));
-            list.add(map1);
-        }
-        return list;
+        return result;
     }
-
 
 
     /**
@@ -1780,24 +1810,31 @@ public class AccessWeb {
 
 
     //下载品牌
-    public List<Map<String, Object>> GetBrandInfor(String tSearchWord,Boolean tIsSytemBrand) throws Exception {
+    public List<Map<String, Object>> GetBrandInfor(String tQuery,Boolean tIsSytemBrand) throws Exception {
         ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
         HashMap<Object, Object> map = new HashMap<Object, Object>();
-        map.put("tLoginId", sysUserInfo.getLoginid());//这个id一定要到服务里面去确认大小写，否则可能有错
-        map.put("tCustSysCode","");
-        map.put("tSearchWord", tSearchWord);//门店系统代号
-        map.put("tIsSytemBrand", tIsSytemBrand);//是否系统品牌
+        String isSystembrand="";
+        if (tIsSytemBrand){
+            isSystembrand= String.valueOf(tIsSytemBrand);
+        }
+        map.put("Query", tQuery);//查询条件
+        map.put("IsPartnerBrand", isSystembrand);//是否合作品牌：true=合作品牌（BrandingCode 不为空）；false=非合作品牌（BrandingCode 为空）；不传则不过滤
         para.add(map);
-//        Log.d("main", para.toString());
-        String result = downLoadWebResult("GetBrandInfor", para);
+        String result = instance.GetAPIStringInterface("Brand/GetBrandList", para);
         JSONArray listjson = new JSONArray(result);
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < listjson.length(); i++) {
             JSONObject jsonObject2 = (JSONObject) listjson.opt(i);
             Map<String, Object> map1 = new HashMap<String, Object>();
-            map1.put("BrandingCode", jsonObject2.getString("BrandingCode"));
-            map1.put("BrandCode", jsonObject2.getString("BrandCode"));
-            map1.put("BrandName", jsonObject2.getString("BrandName"));
+            map1.put("BrandingCode", jsonObject2.optString("brandingCode"));
+            map1.put("BrandCode", jsonObject2.optString("brandCode"));
+            map1.put("BrandName", jsonObject2.optString("brandName"));
+            if (jsonObject2.optString("agentCode").equals("null")){
+                map1.put("AgentCode", "");
+            }else {
+                map1.put("AgentCode", jsonObject2.optString("agentCode"));
+            }
+            map1.put("TradeStatus", jsonObject2.optString("tradeStatus"));
             list.add(map1);
         }
         return list;
@@ -1915,122 +1952,112 @@ public class AccessWeb {
     }
 
 
-
     /**
-     * 分店发货获取客户、门店是否绑定
+     * 2.0分店发货获取客户、门店是否绑定
      */
-    public List<Map<String, Object>> GetScsCustStoreRelate(String tCustSysCode, String tStoreSysCode,String tBrandCode,String tBillNo) throws Exception {
+    public List<Map<String, Object>> GetScsCustStoreRelate(String tCustSysCode, String tStoreSysCode,String tBrandCode,String tAgentCode) throws Exception {
         ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
         HashMap<Object, Object> map = new HashMap<Object, Object>();
-        map.put("tLoginId", sysUserInfo.getLoginid());
-        map.put("tCustSysCode", tCustSysCode);//客户系统代号
-        map.put("tStoreSysCode", tStoreSysCode);//门店系统代号
-        map.put("tBrandCode", tBrandCode);//品牌代号
-        map.put("tBillNo", tBillNo);//有单发货才需要传单号
+        map.put("CustSysCode", tCustSysCode);//SCS客户系统代号
+        map.put("StoreSysCode",tStoreSysCode);//SCS门店系统代号
+        map.put("BrandingCode",tBrandCode);//品牌商代号
+        map.put("AgentCode", tAgentCode);//代理商代号
         para.add(map);
-//        Log.d("main","GetScsCustStoreRelate-"+para.toString());
-        String result = getWebResult("GetScsCustStoreRelate", para);
-//        Log.d("main","result-"+result);
+//        Log.d("main-","GetScsCcsBindStatus-"+para.toString());
+        String result = instance.GetAPIStringInterface("UpDownLink/GetScsCcsBindStatus", para);
+//        Log.d("main-","GetScsCcsBindStatus-"+result);
         JSONObject listjson = new JSONObject(result);
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        JSONArray jsonArray = listjson.getJSONArray("Data0");
-        JSONArray jsonArray2 = listjson.getJSONArray("Data1");
-        for (int i = 0; i <jsonArray.length(); i++) {
-            Map<String, Object> map1 = new HashMap<String, Object>();
-            map1.put("NeedBind", jsonArray.getJSONObject(i).getBoolean("NeedBind"));//是否绑定
-            map1.put("BrandingCode", jsonArray.getJSONObject(i).optString("BrandingCode"));
-            map1.put("AgentCode", jsonArray.getJSONObject(i).optString("AgentCode"));
-            map1.put("CustBind", jsonArray.getJSONObject(i).getBoolean("CustBind"));//CCS客户是否绑定
-            map1.put("StoreBind", jsonArray.getJSONObject(i).getBoolean("StoreBind"));//CCS门店是否绑定
-            map1.put("IsSendToStore", jsonArray.getJSONObject(i).getBoolean("IsSendToStore"));//是否发到门店
+        Map<String, Object> map1 = new HashMap<String, Object>();
+        map1.put("NeedBind", listjson.optBoolean("needBind"));//是否绑定
+        map1.put("BrandingCode", listjson.optString("brandingCode"));
+        map1.put("AgentCode", listjson.optString("agentCode"));
+        map1.put("IsSendToStore", listjson.optBoolean("isSendToStore"));//是否发到门店
 
-            map1.put("CustSysCode", jsonArray.getJSONObject(i).optString("CustSysCode"));
-            map1.put("StoreSysCode", jsonArray.getJSONObject(i).optString("StoreSysCode"));
-            map1.put("BillNo", jsonArray.getJSONObject(i).optString("BillNo"));
-            map1.put("BrandCode", jsonArray.getJSONObject(i).optString("BrandCode"));
-            map1.put("BrandName", jsonArray.getJSONObject(i).optString("BrandName"));
+        map1.put("CustSysCode", listjson.optString("custSysCode"));//scs客户系统代号
+        map1.put("StoreSysCode", listjson.optString("storeSysCode"));//scs门店系统代号
 
-            map1.put("TraderAlias", jsonArray.getJSONObject(i).optString("TraderAlias"));
-            map1.put("StoreAlias", jsonArray.getJSONObject(i).optString("Alias"));
+        map1.put("TraderAlias", listjson.optString("businessName"));//客户别名
+        map1.put("StoreAlias", listjson.optString("storeBusinessName"));//门店别名
+        map1.put("CcsCustName", listjson.optString("ccsCustName"));//CCS绑定成功的客户名称
+        map1.put("CcsStoreName", listjson.optString("ccsStoreName"));//CCS绑定成功的门店名称
 
-//            map1.put("CcsCustName", jsonArray.getJSONObject(i).getString("CcsCustName"));
+        map1.put("BrandingCustCode", listjson.optString("ccsCustCode"));//CCS绑定成功的客户代号
+        map1.put("BrandingStoreCode", listjson.optString("ccsStoreCode"));//CCS绑定成功的门店代号
 
-            map1.put("CcsCustName", jsonArray.getJSONObject(i).optString("CcsCustName"));
-            map1.put("CcsStoreName", jsonArray.getJSONObject(i).optString("CcsStoreName"));
-//            if ( jsonArray.getJSONObject(i).getString("CcsStoreName")!=null) {
-//                map1.put("CcsStoreName", jsonArray.getJSONObject(i).getString("CcsStoreName"));
-//            }else{
-//                map1.put("CcsStoreName", "");
-//            }
+        map1.put("CustomerName",listjson.optString("customerName"));//用于搜索客户
+        map1.put("StoreName", listjson.optString("storeName"));//用于搜索门店
 
-            if (jsonArray.getJSONObject(i).getBoolean("CustBind")){
-                if (jsonArray2.length()>0) {
-                    for (int j = 0; j < jsonArray2.length(); j++) {
-                        if (jsonArray.getJSONObject(i).getString("BrandCode").equals(jsonArray2.getJSONObject(j).getString("BrandCode"))){
-                            map1.put("BrandingCustCode", jsonArray2.getJSONObject(j).getString("BrandingCustCode"));//ccs客户代号
-                            map1.put("CustomerName", jsonArray2.getJSONObject(j).getString("CustomerName"));//scs客户名称
-                            map1.put("StoreName", jsonArray2.getJSONObject(j).getString("StoreName"));//scs门店名称
-                            map1.put("BrandingStoreCode", jsonArray2.getJSONObject(j).getString("BrandingStoreCode")); //ccs门店代号
-
-                            break;
-                        }
-                    }
-
-                }
-            }else{
-                map1.put("BrandingCustCode", "");
-                map1.put("CustomerName", "");
-                map1.put("StoreName", "");
-                map1.put("BrandingStoreCode", "");
-
-            }
-            list.add(map1);
-        }
+        list.add(map1);
         return list;
     }
 
+//    /**
+//     * SCS客户和CCS客户绑定
+//     */
+//    public String ScsCustBindToCcs(String tCustSysCode, String tCcsCustCode,String tBrandingCode,String tAgentCode) throws Exception {
+//        ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
+//        HashMap<Object, Object> map = new HashMap<Object, Object>();
+//        map.put("tLoginId", sysUserInfo.getLoginid());
+//        map.put("tCustSysCode", tCustSysCode);//客户系统代号
+//        map.put("tCcsCustCode", tCcsCustCode);//ccs客户代号
+//        map.put("tBrandingCode", tBrandingCode);//ccs品牌商代号
+//        map.put("tAgentCode", tAgentCode);//ccs代理商代号
+//        para.add(map);
+////        Log.d("main","ScsCustBindToCcs"+para.toString());
+//
+//        String result = getWebResult("ScsCustBindToCcs", para);
+//        return result;
+//    }
 
-    /**
-     * SCS客户和CCS客户绑定
-     */
-    public String ScsCustBindToCcs(String tCustSysCode, String tCcsCustCode,String tBrandingCode,String tAgentCode) throws Exception {
-        ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
-        HashMap<Object, Object> map = new HashMap<Object, Object>();
-        map.put("tLoginId", sysUserInfo.getLoginid());
-        map.put("tCustSysCode", tCustSysCode);//客户系统代号
-        map.put("tCcsCustCode", tCcsCustCode);//ccs客户代号
-        map.put("tBrandingCode", tBrandingCode);//ccs品牌商代号
-        map.put("tAgentCode", tAgentCode);//ccs代理商代号
-        para.add(map);
-//        Log.d("main","ScsCustBindToCcs"+para.toString());
+//    /**
+//     * SCS客户和CCS客户绑定
+//     */
+    public String ScsCustBindToCcs(String tCustSysCode, String tStoreSysCode,String tCcsCustCode, String tCcsStoreCode,String tBrandingCode,String tAgentCode) throws Exception {
+//        ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
+//        HashMap<Object, Object> map = new HashMap<Object, Object>();
+        Map<String, Object> requestParams = new HashMap<>();
+        requestParams.put("CustSysCode", tCustSysCode);//SCS客户系统代号
+        requestParams.put("CcsCustCode", tCcsCustCode);//ccs客户代号
+        requestParams.put("StoreSysCode", tStoreSysCode);//SCS 门店系统编码；BrandingInfor.IsSendToStore 为 true 时必填
+        requestParams.put("CcsStoreCode", tCcsStoreCode);//CCS 门店代号（BrandingStoreCode）；BrandingInfor.IsSendToStore 为 true 时必填
 
-        String result = getWebResult("ScsCustBindToCcs", para);
+        requestParams.put("BrandingCode", tBrandingCode);//ccs品牌商代号
+        requestParams.put("AgentCode", tAgentCode);//ccs代理商代号
+//        para.add(map);
+
+        Gson gson=new Gson();
+//        String result = getWebResult("ScsCustBindToCcs", para);
+//        Log.d("main-","ScsBindToCcs-"+gson.toJson(requestParams));
+        String result = instance.PostAPIStringInterface("UpDownLink/ScsBindToCcs", gson.toJson(requestParams));
+//        Log.d("main-",result);
         return result;
     }
 
+
+//    /**
+//     * SCS门店和CCS门店绑定
+//     */
+//    public String ScsStoreBindToCcs(String tCustSysCode,String tStoreSysCode, String tCcsCustCode,String tCcsStoreCode,String tBrandingCode,String tAgentCode) throws Exception {
+//        ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
+//        HashMap<Object, Object> map = new HashMap<Object, Object>();
+//        map.put("tLoginId", sysUserInfo.getLoginid());
+//        map.put("tCustSysCode", tCustSysCode);//客户系统代号
+//        map.put("tStoreSysCode", tStoreSysCode);//门店系统代号
+//        map.put("tCcsCustCode", tCcsCustCode);//ccs客户代号
+//        map.put("tCcsStoreCode", tCcsStoreCode);//ccs门店代号
+//        map.put("tBrandingCode", tBrandingCode);//ccs品牌商代号
+//        map.put("tAgentCode", tAgentCode);//ccs代理商代号
+//        para.add(map);
+////        Log.d("main","ScsStoreBindToCcs"+para.toString());
+//
+//        String result = getWebResult("ScsStoreBindToCcs", para);
+//        return result;
+//    }
+
+
     /**
-     * SCS门店和CCS门店绑定
-     */
-    public String ScsStoreBindToCcs(String tCustSysCode,String tStoreSysCode, String tCcsCustCode,String tCcsStoreCode,String tBrandingCode,String tAgentCode) throws Exception {
-        ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
-        HashMap<Object, Object> map = new HashMap<Object, Object>();
-        map.put("tLoginId", sysUserInfo.getLoginid());
-        map.put("tCustSysCode", tCustSysCode);//客户系统代号
-        map.put("tStoreSysCode", tStoreSysCode);//门店系统代号
-        map.put("tCcsCustCode", tCcsCustCode);//ccs客户代号
-        map.put("tCcsStoreCode", tCcsStoreCode);//ccs门店代号
-        map.put("tBrandingCode", tBrandingCode);//ccs品牌商代号
-        map.put("tAgentCode", tAgentCode);//ccs代理商代号
-        para.add(map);
-//        Log.d("main","ScsStoreBindToCcs"+para.toString());
-
-        String result = getWebResult("ScsStoreBindToCcs", para);
-        return result;
-    }
-
-
-    /**
-     * SCS新客户同步CCS并绑定
+     * SCS新客户同步CCS并绑定 已停用
      */
     public String ScsNewCustBindToCcs(String tCustSysCode,String tBrandingCode,String tAgentCode,String tTraderAlias) throws Exception {
         ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
@@ -2048,7 +2075,7 @@ public class AccessWeb {
 
 
     /**
-     * SCS新门店同步CCS并绑定
+     * SCS新门店同步CCS并绑定 已停用
      */
     public String ScsNewStoreBindToCcs(String tStoreSysCode,String tBrandingCode,String tAgentCode,String tAlias) throws Exception {
         ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
@@ -2065,20 +2092,73 @@ public class AccessWeb {
     }
 
 
+
     /**
-     * 同步SCS数据到CCS并绑定
+     * 同步SCS数据到CCS并绑定 改为2.0版本
      */
-    public String ScsNewSyncToCcs(String tBrandingCode,String tAgentCode,String tCustJson,String tStoreJson) throws Exception {
-        ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
-        HashMap<Object, Object> map = new HashMap<Object, Object>();
-        map.put("tLoginId", sysUserInfo.getLoginid());
-        map.put("tBrandingCode", tBrandingCode);//ccs品牌商代号
-        map.put("tAgentCode", tAgentCode);//ccs代理商代号
-        map.put("tCustJson", tCustJson);//客户json
-        map.put("tStoreJson", tStoreJson);//门店json
-        para.add(map);
-//        Log.d("main","ScsNewSyncToCcs"+para.toString());
-        String result = getWebResult("ScsNewSyncToCcs", para);
+    public String ScsNewSyncToCcs(String tBrandingCode,String tAgentCode,String tCustSysCode,String tStoreSysCode,String tCustJson,String tStoreJson) throws Exception {
+//        ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
+//        HashMap<Object, Object> map = new HashMap<Object, Object>();
+//        map.put("tLoginId", sysUserInfo.getLoginid());
+//        map.put("tBrandingCode", tBrandingCode);//ccs品牌商代号
+//        map.put("tAgentCode", tAgentCode);//ccs代理商代号
+//        map.put("tCustJson", tCustJson);//客户json
+//        map.put("tStoreJson", tStoreJson);//门店json
+//        para.add(map);
+////        Log.d("main","ScsNewSyncToCcs"+para.toString());
+//        String result = getWebResult("ScsNewSyncToCcs", para);
+//        return result;
+        Gson gson=new Gson();
+        SyncCustomers customers = gson.fromJson(tCustJson, SyncCustomers.class); // 转成对象
+        SyncStores syncStores= null;
+        if (tStoreJson != null && !tStoreJson.trim().isEmpty()) {
+            syncStores = gson.fromJson(tStoreJson, SyncStores.class);
+        } else {
+            // 处理空字符串的情况，比如给个默认值
+            syncStores = new SyncStores(); // 或者 null
+        }
+
+        Map<String, Object> requestParams = new HashMap<>();
+
+        requestParams.put("BrandingCode", tBrandingCode);//ccs品牌商代号
+        requestParams.put("AgentCode", tAgentCode);//ccs代理商代号
+        requestParams.put("CustSysCode", tCustSysCode);//SCS 客户系统编码
+        requestParams.put("StoreSysCode", tStoreSysCode);//SCS 门店系统编码；BrandingInfor.IsSendToStore 为 true 时必填
+//        requestParams.put("StoreType", tStoreType);//门店类型：总店 / 分销店；为空时按 SCS 门店资料 StoreType 转换 后台说可以先不传
+        requestParams.put("SaleId", "");//业务员代号 默认先传空
+        requestParams.put("SaleName", "");//业务员名称 默认先传空
+
+        requestParams.put("EditMode", customers.getEditMode());//编辑状态：A-新增；M-修改
+        requestParams.put("CutCode", tCustSysCode);//客户代号（同步至 CCS 时使用 SCS 客户系统编码 CustSysCode）
+        requestParams.put("CustName", customers.getCustName());//客户名称
+        requestParams.put("CustLink", customers.getCustLink());//客户联系人
+        requestParams.put("CustTel", customers.getCustTel());//客户联系电话
+        requestParams.put("CustMobile", customers.getCustMobile());//客户手机号码
+        requestParams.put("BrandName", customers.getBrandName());//品牌名称
+        requestParams.put("ProviceName", customers.getProviceName());//客户省份名称
+        requestParams.put("CityName", customers.getCityName());//客户城市名称
+        requestParams.put("CountyName", customers.getCountyName());//客户区县名称
+        requestParams.put("CustAddr", customers.getCustAddr());//客户地址
+        requestParams.put("LicenceNo", customers.getLicenceNo());//客户营业执照号
+        requestParams.put("CorpName", customers.getCorpName());//客户企业名称
+        requestParams.put("CcsCustId", customers.getCcsCustId());//CCS客户ID
+
+        requestParams.put("StoreCcsStoreId", syncStores.getCcsStoreId());//CCS 门店 ID（同步门店时使用）
+        requestParams.put("StoreEditMode", syncStores.getEditMode());//门店编辑状态：A-新增；M-修改；为空时沿用客户 EditMode
+        requestParams.put("StoreName", syncStores.getStoreName());//门店名称
+        requestParams.put("StoreLink", syncStores.getCustLink());//门店联系人（同步门店时使用）
+        requestParams.put("StoreMobile", syncStores.getCustMobile());//门店联系电话（同步门店时使用）
+        requestParams.put("StoreBrandName", syncStores.getBrandName());//门店品牌名称（同步门店时使用）
+        requestParams.put("StoreProviceName", syncStores.getProviceName());//门店省份名称（同步门店时使用）
+        requestParams.put("StoreCityName", syncStores.getCityName());//门店城市名称（同步门店时使用）
+        requestParams.put("StoreCountyName", syncStores.getCountyName());//门店区县名称（同步门店时使用）
+        requestParams.put("StoreAddr", syncStores.getCustAddr());//门店门店地址名称（同步门店时使用）
+        requestParams.put("StoreLicenceNo", syncStores.getLicenceNo());//门店营业执照（同步门店时使用）
+        requestParams.put("StoreCorpName", syncStores.getCorpName());//门店企业名称（同步门店时使用）
+
+//        Log.d("main","ScsNewSyncToCcss-"+gson.toJson(requestParams));
+        String result = instance.PostAPIStringInterface("UpDownLink/ScsNewSyncToCcs", gson.toJson(requestParams));
+//        Log.d("main-",result);
         return result;
     }
 
@@ -3055,25 +3135,47 @@ public class AccessWeb {
      * @throws Exception
      */
     public List<Map<String, Object>> GetDowLoadBilldetail(String tLoginId, String tScanBillNo) throws Exception {
+//        ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
+//        HashMap<Object, Object> map = new HashMap<Object, Object>();
+//        map.put("tLoginId", tLoginId);
+//        map.put("tScanBillNo", tScanBillNo);
+//        para.add(map);
+//        String result = downLoadWebResult("GetDowLoadBilldetail", para);
+//        JSONArray jsonArray = new JSONArray(result);
+//        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+//        Map<String, Object> maps;
+//        for (int i = 0; i < jsonArray.length(); i++) {
+//            JSONObject jsonObject = (JSONObject) jsonArray.opt(i);
+//            maps = new HashMap<String, Object>();
+//            maps.put("goodsid", jsonObject.getString("GoodsId"));
+//            maps.put("modelm", jsonObject.getString("Modelm"));
+//            maps.put("colors", jsonObject.getString("Colors"));
+//            maps.put("curcount", jsonObject.getString("Num"));
+//            maps.put("scandate", jsonObject.getString("ScanDate"));
+//            maps.put("brandname", jsonObject.getString("BrandName"));
+//            list.add(maps);
+//        }
+//        return list;
+
         ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
-        HashMap<Object, Object> map = new HashMap<Object, Object>();
-        map.put("tLoginId", tLoginId);
-        map.put("tScanBillNo", tScanBillNo);
-        para.add(map);
-        String result = downLoadWebResult("GetDowLoadBilldetail", para);
-//        Log.d("main",result);
-        JSONArray jsonArray = new JSONArray(result);
+        HashMap<Object, Object> requestParams = new HashMap<Object, Object>();
+        requestParams.put("ScanBillNo", tScanBillNo);//扫描单号
+        para.add(requestParams);
+        Gson gson=new Gson();
+        String  result =GetAPIStringInterface("AndroidDv/GetBillScanDetail", para);
+
+        JSONArray listjson =new JSONArray(result);
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         Map<String, Object> maps;
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = (JSONObject) jsonArray.opt(i);
+        for (int i = 0; i < listjson.length(); i++) {
+            JSONObject jsonObject2 = (JSONObject) listjson.opt(i);
             maps = new HashMap<String, Object>();
-            maps.put("goodsid", jsonObject.getString("GoodsId"));
-            maps.put("modelm", jsonObject.getString("Modelm"));
-            maps.put("colors", jsonObject.getString("Colors"));
-            maps.put("curcount", jsonObject.getString("Num"));
-            maps.put("scandate", jsonObject.getString("ScanDate"));
-            maps.put("brandname", jsonObject.getString("BrandName"));
+            maps.put("goodsid", jsonObject2.optString("goodsCode"));
+            maps.put("modelm", jsonObject2.optString("modelm"));
+            maps.put("colors", jsonObject2.optString("colors"));
+            maps.put("curcount", jsonObject2.optString("num"));
+            maps.put("scandate", jsonObject2.optString("scanDate"));
+            maps.put("brandname", jsonObject2.optString("brandName"));
             list.add(maps);
         }
         return list;

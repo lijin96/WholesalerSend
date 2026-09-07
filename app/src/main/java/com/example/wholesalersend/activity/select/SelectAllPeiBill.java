@@ -162,8 +162,9 @@ public class SelectAllPeiBill extends Activity implements View.OnClickListener {
             item = (Map<String, Object>) listView.getItemAtPosition(position);
 
             if (lsv_aim.equals("P_Dv_OutStock_Z_L_Bill_BeInStock")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_L_Bill_BeInStock")||lsv_aim.equals("P_Dv_OutStock_Z_L_Bill_NoInStock")){
-                CustStoreRelate.clear();
-                GetScsCustStoreRelate("","","", (String) item.get("PeiGoodLno"));
+//                CustStoreRelate.clear();
+//                GetScsCustStoreRelate("","","", (String) item.get("PeiGoodLno"));
+                JumpInterface();
             }else
 //                if (lsv_aim.equals("P_Dv_OutStock_Z_L_Bill_BeInStock_NoDetail")){
 //                Intent intent = new Intent(mContext, P_Dv_OutStock_Z_L_Bill_BeInStock_NoDetail.class);

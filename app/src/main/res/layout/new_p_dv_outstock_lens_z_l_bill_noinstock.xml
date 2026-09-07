@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,117 +13,9 @@
         android:background="@color/black"
         android:gravity="left"
         android:paddingLeft="@dimen/scaled_w_dp_10"
-        android:text="【无单无入库分店发货】"
+        android:text="【镜片有单无入库分店发货】"
         android:textColor="@color/white"
         android:textSize="@dimen/show_title_size" />
-
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:background="@drawable/titlebar_back"-->
-    <!--        android:gravity="center_vertical"-->
-    <!--        android:orientation="horizontal" >-->
-
-    <!--        <RelativeLayout-->
-    <!--            android:id="@+id/relayout_left"-->
-    <!--            android:layout_width="@dimen/scaled_w_dp_0"-->
-    <!--            android:layout_height="fill_parent"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:gravity="center_vertical" >-->
-
-    <!--            <RelativeLayout-->
-    <!--                android:id="@+id/relayout_billno"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                >-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/tv_billno_str"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_centerVertical="true"-->
-    <!--                    android:layout_marginLeft="@dimen/scaled_w_dp_10"-->
-    <!--                    android:text="发货单："-->
-    <!--                    android:textColor="@color/white"-->
-    <!--                    android:textSize="@dimen/show_title_size" />-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/tv_billno"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_centerVertical="true"-->
-    <!--                    android:layout_toRightOf="@id/tv_billno_str"-->
-    <!--                    android:text=""-->
-    <!--                    android:textColor="@color/white"-->
-    <!--                    android:textSize="@dimen/show_title_size" />-->
-    <!--            </RelativeLayout>-->
-    <!--        </RelativeLayout>-->
-
-    <!--        <RelativeLayout-->
-    <!--            android:id="@+id/relayout_right"-->
-    <!--            android:layout_width="@dimen/scaled_w_dp_0"-->
-    <!--            android:layout_height="fill_parent"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:gravity="center_vertical" >-->
-
-    <!--            <RelativeLayout-->
-    <!--                android:id="@+id/relayout_company"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:paddingBottom="@dimen/scaled_h_dp_10"-->
-    <!--                android:paddingTop="@dimen/scaled_h_dp_10"-->
-    <!--                android:visibility="visible" >-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/tv_company_str"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_centerVertical="true"-->
-    <!--                    android:layout_marginLeft="@dimen/scaled_w_dp_10"-->
-    <!--                    android:text="分销店："-->
-    <!--                    android:textColor="@color/white"-->
-    <!--                    android:textSize="@dimen/show_title_size" />-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/tv_company_name"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_centerVertical="true"-->
-    <!--                    android:layout_toRightOf="@id/tv_company_str"-->
-    <!--                    android:text=""-->
-    <!--                    android:textColor="@color/white"-->
-    <!--                    android:textSize="@dimen/show_title_size" />-->
-    <!--            </RelativeLayout>-->
-
-    <!--            <RelativeLayout-->
-    <!--                android:id="@+id/relayout_stock"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_below="@id/relayout_company"-->
-    <!--                android:paddingBottom="@dimen/scaled_h_dp_10" >-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/tv_stock_str"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_centerVertical="true"-->
-    <!--                    android:layout_marginLeft="@dimen/scaled_w_dp_10"-->
-    <!--                    android:text="仓    库："-->
-    <!--                    android:textColor="@color/white"-->
-    <!--                    android:textSize="@dimen/show_title_size" />-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/tv_stock_name"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_centerVertical="true"-->
-    <!--                    android:layout_toRightOf="@id/tv_stock_str"-->
-    <!--                    android:text=""-->
-    <!--                    android:textColor="@color/white"-->
-    <!--                    android:textSize="@dimen/show_title_size" />-->
-    <!--            </RelativeLayout>-->
-    <!--        </RelativeLayout>-->
-    <!--    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -140,67 +32,40 @@
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/scaled_h_dp_10"
             android:paddingTop="@dimen/scaled_h_dp_10" >
+
             <RelativeLayout
-                android:id="@+id/relayout_company"
+                android:id="@+id/relayout_source_billno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible">
+                android:visibility="visible" >
 
                 <TextView
-                    android:id="@+id/tv_company_str"
+                    android:id="@+id/tv_source_billno_str"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/scaled_w_dp_10"
-                    android:text="分销店："
+                    android:text="订单号："
                     android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30" />
+                    android:textSize="@dimen/show_title_size" />
 
                 <TextView
-                    android:id="@+id/tv_company_name"
+                    android:id="@+id/tv_source_billno"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/tv_company_str"
+                    android:layout_toRightOf="@id/tv_source_billno_str"
                     android:text=""
                     android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/relayout_stock"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/relayout_company"
-                android:visibility="visible">
-
-                <TextView
-                    android:id="@+id/tv_stock_str"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/scaled_w_dp_10"
-                    android:text="仓    库："
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30" />
-
-                <TextView
-                    android:id="@+id/tv_stock_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/tv_stock_str"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30" />
+                    android:textSize="@dimen/show_title_size" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relayout_billno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/relayout_stock"
-                >
+                android:layout_below="@id/relayout_source_billno"
+                android:layout_marginTop="@dimen/scaled_h_dp_10" >
 
                 <TextView
                     android:id="@+id/tv_billno_str"
@@ -210,7 +75,7 @@
                     android:layout_marginLeft="@dimen/scaled_w_dp_10"
                     android:text="发货单："
                     android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30" />
+                    android:textSize="@dimen/show_title_size" />
 
                 <TextView
                     android:id="@+id/tv_billno"
@@ -220,7 +85,7 @@
                     android:layout_toRightOf="@id/tv_billno_str"
                     android:text=""
                     android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30" />
+                    android:textSize="@dimen/show_title_size" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -234,93 +99,61 @@
             android:paddingTop="@dimen/scaled_h_dp_10" >
 
             <RelativeLayout
-                android:id="@+id/relayout_ccscustomer"
+                android:id="@+id/relayout_company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
+                android:visibility="visible" >
 
                 <TextView
-                    android:id="@+id/tv_ccscustomer_str"
+                    android:id="@+id/tv_company_str"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/scaled_w_dp_10"
-                    android:text="品牌名称："
+                    android:text="分销店："
                     android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30" />
+                    android:textSize="@dimen/show_title_size" />
 
                 <TextView
-                    android:id="@+id/bth_choosebrand"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/scaled_w_dp_15"
-                    android:text="选择"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30"></TextView>
-
-                <TextView
-                    android:id="@+id/tv_brand_name"
+                    android:id="@+id/tv_company_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/bth_choosebrand"
-                    android:layout_toRightOf="@id/tv_ccscustomer_str"
+                    android:layout_toRightOf="@id/tv_company_str"
                     android:text=""
                     android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30" />
-
-
+                    android:textSize="@dimen/show_title_size" />
             </RelativeLayout>
-
 
             <RelativeLayout
-                android:id="@+id/relayout_ccsstore"
+                android:id="@+id/relayout_stock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/scaled_h_dp_10"
-                android:layout_below="@+id/relayout_ccscustomer">
+                android:layout_below="@id/relayout_company"
+                android:layout_marginTop="@dimen/scaled_h_dp_10" >
 
                 <TextView
-                    android:id="@+id/tv_ccsstore_str"
+                    android:id="@+id/tv_stock_str"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/scaled_w_dp_10"
-                    android:text="CCS客户："
+                    android:text="仓    库："
                     android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30" />
-
+                    android:textSize="@dimen/show_title_size" />
 
                 <TextView
-                    android:id="@+id/btn_ChooseCCSData"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/scaled_w_dp_15"
-                    android:text="选择"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_30"></TextView>
-
-                <TextView
-                    android:id="@+id/tv_ccsstore_name"
+                    android:id="@+id/tv_stock_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/btn_ChooseCCSData"
-                    android:layout_toRightOf="@id/tv_ccsstore_str"
+                    android:layout_toRightOf="@id/tv_stock_str"
                     android:text=""
                     android:textColor="@color/white"
-                    android:textSize="@dimen/scaled_t_dp_26" />
-
+                    android:textSize="@dimen/show_title_size" />
             </RelativeLayout>
-
         </RelativeLayout>
     </LinearLayout>
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -332,11 +165,10 @@
         <TextView
             android:layout_width="@dimen/scaled_w_dp_0"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_weight="0.5"
             android:gravity="center"
-            android:paddingBottom="@dimen/scaled_h_dp_10"
-            android:paddingTop="@dimen/scaled_h_dp_10"
+            android:paddingBottom="@dimen/scaled_h_dp_15"
+            android:paddingTop="@dimen/scaled_h_dp_15"
             android:text="条\t\t码"
             android:textColor="@color/white"
             android:textSize="@dimen/show_title_size" />
@@ -376,6 +208,7 @@
                 android:id="@+id/radiogroup_change"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginRight="@dimen/scaled_w_dp_10"
                 android:orientation="horizontal">
                 <RadioButton
@@ -406,7 +239,7 @@
                 android:visibility="gone" />
 
             <Button
-                android:id="@+id/btn_p_dv_outstock_z_l_nobill_noinstock_revoke"
+                android:id="@+id/btn_p_dv_outstock_z_l_bill_noinstock_revoke"
                 android:layout_width="@dimen/scaled_w_dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/scaled_w_dp_10"
@@ -482,23 +315,23 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/scaled_h_dp_10"
-            android:paddingTop="@dimen/scaled_h_dp_10" >
-
+            android:paddingBottom="@dimen/scaled_h_dp_15"
+            android:paddingTop="@dimen/scaled_h_dp_15" >
             <TextView
                 android:id="@+id/TextView06"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="型号色号 "
+                android:text="球镜柱镜 "
                 android:textSize="@dimen/scaled_t_dp_30" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="(产品代号)"
+                android:text="(产品ID) "
                 android:textSize="@dimen/scaled_t_dp_28" />
+
         </LinearLayout>
 
         <View
@@ -519,8 +352,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/scaled_w_dp_5"
-                android:text="（请先选择产品的型号色号！>>>）"
-                android:textSize="@dimen/scaled_t_dp_30" />
+                android:text="（请先选择产品的折射率及球柱镜！）"
+                android:textSize="@dimen/show_title_size" />
 
             <TextView
                 android:id="@+id/tv_goodsid"
@@ -597,54 +430,36 @@
             android:layout_height="@dimen/scaled_h_dp_1"
             android:background="#AEAEAE" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:id="@+id/tv_curqty"
-                    android:layout_width="@dimen/scaled_w_dp_0"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textColor="@color/darkgreen"
-                    android:textSize="@dimen/scaled_t_dp_60" />
-
-                <View
-                    android:layout_width="@dimen/scaled_w_dp_2"
-                    android:layout_height="fill_parent"
-                    android:background="#AEAEAE" />
-
-                <TextView
-                    android:id="@+id/tv_totalqty"
-                    android:layout_width="@dimen/scaled_w_dp_0"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textSize="@dimen/scaled_t_dp_60" />
-            </LinearLayout>
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/tv_lastscannum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/scaled_t_dp_22"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:text=""
-                android:textColor="@color/gray"
-                android:layout_marginBottom="@dimen/scaled_h_dp_10"
-                android:layout_marginRight="@dimen/scaled_w_dp_10"
-                ></TextView>
-        </RelativeLayout>
+                android:id="@+id/tv_curqty"
+                android:layout_width="@dimen/scaled_w_dp_0"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/darkgreen"
+                android:textSize="@dimen/scaled_t_dp_60" />
+
+            <View
+                android:layout_width="@dimen/scaled_w_dp_2"
+                android:layout_height="fill_parent"
+                android:background="#AEAEAE" />
+
+            <TextView
+                android:id="@+id/tv_totalqty"
+                android:layout_width="@dimen/scaled_w_dp_0"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="@dimen/scaled_t_dp_60" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -674,6 +489,7 @@
 
         <Button
             android:id="@+id/btn_refresh"
+            android:visibility="gone"
             android:layout_width="@dimen/scaled_w_dp_250"
             android:layout_height="@dimen/scaled_h_dp_80"
             android:layout_marginLeft="@dimen/scaled_w_dp_30"

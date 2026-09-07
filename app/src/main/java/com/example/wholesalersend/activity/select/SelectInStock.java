@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 
 import com.example.wholesalersend.R;
 import com.example.wholesalersend.activity.other.P_Dv_InStock_Z_ChangeStock_NoBill;
+import com.example.wholesalersend.activity.other.P_Dv_InStock_Z_Lens_ChangeStock_NoBill;
 import com.example.wholesalersend.lib.AccessWeb;
 import com.example.wholesalersend.lib.SortListMapComparator;
 import com.example.wholesalersend.utils.DisplayUtil;
@@ -126,7 +127,12 @@ public class SelectInStock extends Activity {
             item = (Map<String, Object>) listView.getItemAtPosition(position);
 
             Intent intent = null;
-            intent = new Intent(mContext, P_Dv_InStock_Z_ChangeStock_NoBill.class);
+//            intent = new Intent(mContext, P_Dv_InStock_Z_ChangeStock_NoBill.class);
+            if (lsv_aim.equals("P_Dv_InStock_Z_Lens_ChangeStock_NoBill")){
+                intent = new Intent(mContext, P_Dv_InStock_Z_Lens_ChangeStock_NoBill.class);
+            }else{
+                intent = new Intent(mContext, P_Dv_InStock_Z_ChangeStock_NoBill.class);
+            }
             intent.putExtra("aim", lsv_aim);
             intent.putExtra("outstock_name", getIntent.getStringExtra("outstock_name"));
             intent.putExtra("outstock_id", getIntent.getStringExtra("outstock_id"));

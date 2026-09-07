@@ -107,6 +107,8 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
 
 
     private RelativeLayout relayout_ccsstore;//ccs门店数据展示
+    private RelativeLayout relayout_ccscustomer;//ccs品牌数据展示
+
     private TextView tv_ccsstore_name;//ccs门店名称展示
     private TextView tv_ccsstore_str;//CCS门店名称提示
 
@@ -215,6 +217,7 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
         tv_stock_name.setText(stock_name);
 
         relayout_ccsstore=findViewById(R.id.relayout_ccsstore);
+        relayout_ccscustomer=findViewById(R.id.relayout_ccscustomer);
         tv_ccsstore_name=findViewById(R.id.tv_ccsstore_name);
         tv_ccsstore_str=findViewById(R.id.tv_ccsstore_str);
         tv_brand_name=findViewById(R.id.tv_brand_name);
@@ -588,28 +591,24 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
                     //选择品牌后读取当前绑定情况
                     MyProgressDialog.close();
 
-                    if (!IsBindCCS&&!IsBindCCScust&&!IsSendToStore){
+                    if (!IsBindCCS){
                         relayout_ccsstore.setVisibility(View.GONE);
                     }else {
                         relayout_ccsstore.setVisibility(View.VISIBLE);
                         if (IsSendToStore) {
+                            //显示分店数据
                             tv_ccsstore_str.setText("CCS分销店：");
-                            if (CcsCustName.equals("")) {
+                            if (CcsStoreName.equals("")&&BrandingStoreCode.equals("")) {
                                 tv_ccsstore_name.setText("");
                             } else {
-                                if (CcsStoreName.equals("")) {
-                                    //如果未绑定分销店就不显示分销店名称
-                                    tv_ccsstore_name.setText("");
-                                } else {
-                                    tv_ccsstore_name.setText(CcsStoreName);
-                                }
+                                tv_ccsstore_name.setText(CcsStoreName+"("+BrandingStoreCode+")");
                             }
                         } else {
                             tv_ccsstore_str.setText("CCS零售商：");
-                            if (CcsCustName.equals("")) {
+                            if (CcsCustName.equals("")&&BrandingCustCode.equals("")) {
                                 tv_ccsstore_name.setText("");
                             } else {
-                                tv_ccsstore_name.setText(CcsCustName);
+                                tv_ccsstore_name.setText(CcsCustName+"("+BrandingCustCode+")");
                             }
                         }
                     }
@@ -712,23 +711,23 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
                     BrandCode=data.getStringExtra("BrandCode");
                     BrandName=data.getStringExtra("BrandName");
                     BrandingCode=data.getStringExtra("BrandingCode");
+                    AgentCode=data.getStringExtra("AgentCode");
                     tv_brand_name.setText(BrandName);
-
-                    GetScsCustStoreRelate(TraderSysId,StoreSysId,BrandCode,"");
+                    if (BrandingCode.equals("")){
+                        relayout_ccscustomer.setVisibility(View.GONE);
+                        relayout_ccsstore.setVisibility(View.GONE);
+                    }else{
+                        GetScsCustStoreRelate(TraderSysId,StoreSysId,BrandingCode,AgentCode);
+                    }
                     break;
                 case Lic_SelectCCSStore:
-                    CcsCustName=data.getStringExtra("CCScustName");
-                    CcsStoreName=data.getStringExtra("CCSstoreName");
-                    tv_ccsstore_name.setText(CcsStoreName);
+                    GetScsCustStoreRelate(TraderSysId,StoreSysId,BrandingCode,AgentCode);
                     break;
                 case Lic_SelectCCSCustomer:
-                    CcsCustName=data.getStringExtra("CCScustName");
-                    tv_ccsstore_name.setText(CcsCustName);
+                    GetScsCustStoreRelate(TraderSysId,StoreSysId,BrandingCode,AgentCode);
                     break;
                 case Lic_SelectCCSCustomerStore:
-                    CcsCustName=data.getStringExtra("CCScustName");
-                    CcsStoreName=data.getStringExtra("CCSstoreName");
-                    tv_ccsstore_name.setText(CcsStoreName);
+                    GetScsCustStoreRelate(TraderSysId,StoreSysId,BrandingCode,AgentCode);
                     break;
             }
         }
@@ -736,21 +735,18 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void GetScsCustStoreRelate(final String tCustSysCode, final String tStoreSysCode, final String tBrandCode, final String tBillNo) {
-        MyProgressDialog.show(this, "正在获取数据...", true, false);
+    private void GetScsCustStoreRelate(final String tCustSysCode, final String tStoreSysCode, final String tBrandCode, final String tAgentCode) {
+//        MyProgressDialog.show(this, "正在获取数据...", true, false);
         Thread sendCode = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    List<Map<String, Object>> data = accWeb.GetScsCustStoreRelate(tCustSysCode,tStoreSysCode,tBrandCode,tBillNo);
-
+                    List<Map<String, Object>> data = accWeb.GetScsCustStoreRelate(tCustSysCode,tStoreSysCode,tBrandCode,tAgentCode);
 //                    Log.d("main","GetScsCustStoreRelate-"+data.toString());
                     if (data.size()>0) {
-                        IsBindCCS = (Boolean) data.get(0).get("NeedBind");
-                        IsBindCCScust = (Boolean) data.get(0).get("CustBind");
-                        IsBindCCSstore = (Boolean) data.get(0).get("StoreBind");
-                        IsSendToStore = (Boolean) data.get(0).get("IsSendToStore");
-
+                        IsBindCCS = (Boolean) data.get(0).get("NeedBind");//是否需要绑定CCS客户或者门店
+                        IsSendToStore = (Boolean) data.get(0).get("IsSendToStore");//true就要同步客户+门店，false同步客户就行
+                        //需要绑定到ccs门店
                         if (BrandingCode.equals("01")){
                             SearchBindName = (String) data.get(0).get("TraderAlias");
                         }else {
@@ -760,24 +756,12 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
                                 SearchBindName = (String) data.get(0).get("TraderAlias");
                             }
                         }
+                        BrandingCustCode= (String) data.get(0).get("BrandingCustCode");////ccs客户代号
+                        BrandingStoreCode=(String) data.get(0).get("BrandingStoreCode");//ccs门店代号
 
-//                        BrandingCode= (String) data.get(0).get("BrandingCode");
-
-                        AgentCode= (String) data.get(0).get("AgentCode");
-                        BrandingCustCode= (String) data.get(0).get("BrandingCustCode");
-                        BrandingStoreCode=(String) data.get(0).get("BrandingStoreCode");
-
-                        TraderSysId=(String) data.get(0).get("CustSysCode");
-                        StoreSysId=(String) data.get(0).get("StoreSysCode");
-
-                        CcsCustName=(String) data.get(0).get("CcsCustName");
-                        CcsStoreName=(String) data.get(0).get("CcsStoreName");
-
+                        CcsCustName=(String) data.get(0).get("CcsCustName");//ccs客户名称
+                        CcsStoreName=(String) data.get(0).get("CcsStoreName");//ccs门店名称
                     }
-//                    Log.d("main","IsBindCCS-"+IsBindCCS);
-//                    Log.d("main","IsBindCCScust-"+IsBindCCScust);
-//                    Log.d("main","IsBindCCSstore-"+IsBindCCSstore);
-
                     ShowMessage.ShowMsg(handler, 6, "success");
                 } catch (Exception e) {
                     ShowMessage.ShowMsg(handler,ShowMessage.HandShowMessage,"下载出错" + e.getMessage());
@@ -819,20 +803,23 @@ public class P_Dv_OutStock_Z_L_NoBill_NoInStock extends Activity {
     // 请求服务
     private void access_send(final String contents) {
 
-        if (!sysUserInfo.getLoginType().equals("CCS")&&!sysUserInfo.getMainAccount().equals("U_1000820")){
-            if (BrandCode.equals("")){
+        if (!sysUserInfo.getLoginType().equals("CCS")||sysUserInfo.getMainAccount().equals("U_1000820")) {
+            if (BrandCode.equals("")) {
+                MySound.errorSound();
                 ShowMessage.ShowMsg(handler, "请先选择品牌");
                 return;
             }
 
-            if (IsBindCCS&&(!IsBindCCScust||!IsBindCCSstore)){
-                if (IsSendToStore){
-                    if (CcsStoreName.equals("")){
+            if (IsBindCCS) {
+                if (IsSendToStore) {
+                    if (CcsStoreName.equals("")&&BrandingCustCode.equals("")) {
+                        MySound.errorSound();
                         ShowMessage.ShowMsg(handler, "请先绑定CCS客户门店");
                         return;
                     }
-                }else{
-                    if (CcsCustName.equals("")){
+                } else {
+                    if (CcsCustName.equals("")&&BrandingCustCode.equals("")) {
+                        MySound.errorSound();
                         ShowMessage.ShowMsg(handler, "请先绑定CCS客户");
                         return;
                     }

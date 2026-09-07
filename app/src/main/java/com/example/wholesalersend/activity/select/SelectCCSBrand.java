@@ -234,16 +234,13 @@ public class SelectCCSBrand extends Activity {
                 if(lsv_aim.equals("P_Dv_OutStock_Z_L_NoBill_BeInStock")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_L_NoBill_BeInStock")||lsv_aim.equals("P_Dv_OutStock_Z_L_Bill_BeInStock_NoDetail")){
                     //分店镜架无单有入库发货
 //                    intent=new Intent(mContext, P_Dv_OutStock_Z_L_NoBill_BeInStock.class);
-                    String brandcode= (String) item.get("BrandCode");
-                    String PeiBillNo="";
-                    if (lsv_aim.equals("P_Dv_OutStock_Z_L_Bill_BeInStock_NoDetail")){
-                        PeiBillNo=purchecklno;
-                    }
-                    BrandCode= (String) item.get("BrandCode");
-                    BrandName= (String) item.get("BrandName");
-                    BrandingCode=(String) item.get("BrandingCode");
+                    intent.putExtra("BrandCode",(String) item.get("BrandCode"));
+                    intent.putExtra("BrandName",(String) item.get("BrandName"));
+                    intent.putExtra("BrandingCode", (String) item.get("BrandingCode"));
+                    intent.putExtra("AgentCode", (String) item.get("AgentCode"));
+                    setResult(RESULT_OK, intent);
+                    finish();
 
-                    GetScsCustStoreRelate(TraderSysId,StoreSysId,brandcode,PeiBillNo);
                 }else if (lsv_aim.equals("P_Dv_CCSBarcodeStatusWrite")){
                     //CCS换货补标
                     intent=new Intent(mContext, P_Dv_CCSBarcodeStatusWrite.class);
@@ -257,12 +254,15 @@ public class SelectCCSBrand extends Activity {
                     intent.putExtra("BrandingCode", (String) item.get("BrandingCode"));
                     intent.putExtra("BrandCode", (String) item.get("BrandCode"));
                     intent.putExtra("BrandName", (String) item.get("BrandName"));
+                    intent.putExtra("AgentCode", (String) item.get("AgentCode"));
+
                     setResult(RESULT_OK, intent);
                     finish();
                 }else{
                     intent.putExtra("BrandingCode", (String) item.get("BrandingCode"));
                     intent.putExtra("BrandCode", (String) item.get("BrandCode"));
                     intent.putExtra("BrandName", (String) item.get("BrandName"));
+                    intent.putExtra("AgentCode", (String) item.get("AgentCode"));
                     setResult(RESULT_OK, intent);
                     finish();
                 }
@@ -294,50 +294,50 @@ public class SelectCCSBrand extends Activity {
         sendCode.start();
     }
 
-    //判断门店是否已经绑定CCS客户或者CCS门店
-    private void GetScsCustStoreRelate(final String tCustSysCode, final String tStoreSysCode, final String tBrandCode, final String tBillNo) {
-        MyProgressDialog.show(this, "正在获取数据...", true, false);
-        Thread sendCode = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    List<Map<String, Object>> data = accWeb.GetScsCustStoreRelate(tCustSysCode,tStoreSysCode,tBrandCode,tBillNo);
-
-//                    Log.d("main","GetScsCustStoreRelate-"+data.toString());
-                    if (data.size()>0) {
-                        IsBindCCS = (Boolean) data.get(0).get("NeedBind");
-                        IsBindCCScust = (Boolean) data.get(0).get("CustBind");
-                        IsBindCCSstore = (Boolean) data.get(0).get("StoreBind");
-                        IsSendToStore = (Boolean) data.get(0).get("IsSendToStore");
-
-                        BrandingCode= (String) data.get(0).get("BrandingCode");
-                        AgentCode= (String) data.get(0).get("AgentCode");
-                        BrandingCustCode= (String) data.get(0).get("BrandingCustCode");
-                        BrandingStoreCode=(String) data.get(0).get("BrandingStoreCode");
-
-                        TraderSysId=(String) data.get(0).get("CustSysCode");
-                        StoreSysId=(String) data.get(0).get("StoreSysCode");
-
-                        TraderAlias_name=(String) data.get(0).get("TraderAlias");
-                        Storealias_name=(String) data.get(0).get("StoreAlias");
-
-                        CCSCustomerName=(String) data.get(0).get("CustomerName");
-                        CCSStoreName=(String) data.get(0).get("StoreName");
-
-                    }
-//                    Log.d("main","IsBindCCS-"+IsBindCCS);
-//                    Log.d("main","IsBindCCScust-"+IsBindCCScust);
-//                    Log.d("main","IsBindCCSstore-"+IsBindCCSstore);
-
-                    ShowMessage.ShowMsg(hand, ShowMessage.HandScanSuccess, "success");
-                } catch (Exception e) {
-                    ShowMessage.ShowMsg(hand, "下载出错" + e.getMessage());
-                }
-            }
-        });
-        sendCode.start();
-    }
+//    //判断门店是否已经绑定CCS客户或者CCS门店
+//    private void GetScsCustStoreRelate(final String tCustSysCode, final String tStoreSysCode, final String tBrandCode, final String tBillNo) {
+//        MyProgressDialog.show(this, "正在获取数据...", true, false);
+//        Thread sendCode = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//
+//                    List<Map<String, Object>> data = accWeb.GetScsCustStoreRelate(tCustSysCode,tStoreSysCode,tBrandCode,tBillNo);
+//
+////                    Log.d("main","GetScsCustStoreRelate-"+data.toString());
+//                    if (data.size()>0) {
+//                        IsBindCCS = (Boolean) data.get(0).get("NeedBind");
+//                        IsBindCCScust = (Boolean) data.get(0).get("CustBind");
+//                        IsBindCCSstore = (Boolean) data.get(0).get("StoreBind");
+//                        IsSendToStore = (Boolean) data.get(0).get("IsSendToStore");
+//
+//                        BrandingCode= (String) data.get(0).get("BrandingCode");
+//                        AgentCode= (String) data.get(0).get("AgentCode");
+//                        BrandingCustCode= (String) data.get(0).get("BrandingCustCode");
+//                        BrandingStoreCode=(String) data.get(0).get("BrandingStoreCode");
+//
+//                        TraderSysId=(String) data.get(0).get("CustSysCode");
+//                        StoreSysId=(String) data.get(0).get("StoreSysCode");
+//
+//                        TraderAlias_name=(String) data.get(0).get("TraderAlias");
+//                        Storealias_name=(String) data.get(0).get("StoreAlias");
+//
+//                        CCSCustomerName=(String) data.get(0).get("CustomerName");
+//                        CCSStoreName=(String) data.get(0).get("StoreName");
+//
+//                    }
+////                    Log.d("main","IsBindCCS-"+IsBindCCS);
+////                    Log.d("main","IsBindCCScust-"+IsBindCCScust);
+////                    Log.d("main","IsBindCCSstore-"+IsBindCCSstore);
+//
+//                    ShowMessage.ShowMsg(hand, ShowMessage.HandScanSuccess, "success");
+//                } catch (Exception e) {
+//                    ShowMessage.ShowMsg(hand, "下载出错" + e.getMessage());
+//                }
+//            }
+//        });
+//        sendCode.start();
+//    }
 
 //
 //    private void ShowScanOrderList(){
@@ -871,7 +871,7 @@ public class SelectCCSBrand extends Activity {
                         }
                     }else{
                         //获取CCS客户
-                        ShowCCSCustDialog();
+//                        ShowCCSCustDialog();
                     }
                     break;
                 case 3:
@@ -1524,7 +1524,7 @@ public class SelectCCSBrand extends Activity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ScsCustBindToCcs(CCScustId);
+//                        ScsCustBindToCcs(CCScustId);
                     }
                 });
         normalDialog.setNegativeButton("关闭",
@@ -1538,22 +1538,22 @@ public class SelectCCSBrand extends Activity {
         normalDialog.show();
     }
 
-    // SCS客户和CCS客户绑定
-    private void ScsCustBindToCcs(final String tCcsCustCode) {
-        MyProgressDialog.show(this, "正在绑定客户数据...", false, false);
-        Thread sendCode = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String result = accWeb.ScsCustBindToCcs(TraderSysId,tCcsCustCode,BrandingCode,AgentCode);
-                    ShowMessage.ShowMsg(hand, 3, "success");
-                } catch (Exception e) {
-                    ShowMessage.ShowMsg(hand, "绑定客户出错" + e.getMessage());
-                }
-            }
-        });
-        sendCode.start();
-    }
+//    // SCS客户和CCS客户绑定
+//    private void ScsCustBindToCcs(final String tCcsCustCode) {
+//        MyProgressDialog.show(this, "正在绑定客户数据...", false, false);
+//        Thread sendCode = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    String result = accWeb.ScsCustBindToCcs(TraderSysId,tCcsCustCode,BrandingCode,AgentCode);
+//                    ShowMessage.ShowMsg(hand, 3, "success");
+//                } catch (Exception e) {
+//                    ShowMessage.ShowMsg(hand, "绑定客户出错" + e.getMessage());
+//                }
+//            }
+//        });
+//        sendCode.start();
+//    }
 
     // SCS新客户同步CCS并绑定
     private void ScsNewCustBindToCcs(final String tTraderAlias) {
@@ -1725,7 +1725,7 @@ public class SelectCCSBrand extends Activity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ScsStoreBindToCcs(CCScustId,CCSstoreId);
+//                        ScsStoreBindToCcs(CCScustId,CCSstoreId);
                     }
                 });
         normalDialog.setNegativeButton("关闭",
@@ -1761,22 +1761,22 @@ public class SelectCCSBrand extends Activity {
         sendCode.start();
     }
 
-    // SCS门店和CCS门店绑定
-    private void ScsStoreBindToCcs(final String tCcsCustCode,final String tCcsStoreCode) {
-        MyProgressDialog.show(this, "正在绑定门店数据...", false, false);
-        Thread sendCode = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String result = accWeb.ScsStoreBindToCcs(TraderSysId,StoreSysId,tCcsCustCode,tCcsStoreCode,BrandingCode,AgentCode);
-                    ShowMessage.ShowMsg(hand, 5, "success");
-                } catch (Exception e) {
-                    ShowMessage.ShowMsg(hand, "绑定门店出错" + e.getMessage());
-                }
-            }
-        });
-        sendCode.start();
-    }
+//    // SCS门店和CCS门店绑定
+//    private void ScsStoreBindToCcs(final String tCcsCustCode,final String tCcsStoreCode) {
+//        MyProgressDialog.show(this, "正在绑定门店数据...", false, false);
+//        Thread sendCode = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    String result = accWeb.ScsStoreBindToCcs(TraderSysId,StoreSysId,tCcsCustCode,tCcsStoreCode,BrandingCode,AgentCode);
+//                    ShowMessage.ShowMsg(hand, 5, "success");
+//                } catch (Exception e) {
+//                    ShowMessage.ShowMsg(hand, "绑定门店出错" + e.getMessage());
+//                }
+//            }
+//        });
+//        sendCode.start();
+//    }
 
     // SCS新门店同步CCS并绑定
     private void ScsNewStoreBindToCcs(final String tAlias) {

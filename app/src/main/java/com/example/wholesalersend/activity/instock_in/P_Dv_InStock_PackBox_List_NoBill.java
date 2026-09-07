@@ -268,6 +268,7 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
         et_barcode.setOnKeyListener(new EtBarcodeOnKeyListener());
 
         tv_packing_number=findViewById(R.id.tv_packing_number);
+        BoxNoNum=sysUserInfo.getInStockBoxNoNum();
         tv_packing_number.setText(BoxNoNum);
 
         btn_set_packing_number=findViewById(R.id.btn_set_packing_number);
@@ -486,24 +487,24 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
 
                     // post参数
                     multipart.addFormField("Barcode", tBarcode);//条码
-                    multipart.addFormField("BoxNo", BoxNoCode);
-                    multipart.addFormField("PackingNum",String.valueOf(BoxNoNum));
+                    multipart.addFormField("BoxNo", BoxNoCode);//盒标码
+                    multipart.addFormField("PackingNum",String.valueOf(BoxNoNum));//装盒数量
                     multipart.addFormField("SoCompId",Supplierid);//供应商编码
                     multipart.addFormField("StockId",StockId);//仓库系统编码
                     multipart.addFormField("GoodsId",GoodsId);//产品系统编码
-                    multipart.addFormField("OaSuserId",sysUserInfo.getUserCode());
-                    multipart.addFormField("ScanSn",String.valueOf(nSize));
+                    multipart.addFormField("OaSuserId",sysUserInfo.getUserCode());//登录用户代号
+                    multipart.addFormField("ScanSn",String.valueOf(nSize));//扫描序号
                     multipart.addFormField("ScanBillNo",scanBillno);//扫描单号
 
                     Map<String, String> requestdata=new HashMap<>();
                     requestdata.put("Barcode", tBarcode);//条码
-                    requestdata.put("BoxNo", BoxNoCode);
-                    requestdata.put("PackingNum",String.valueOf(BoxNoNum));
+                    requestdata.put("BoxNo", BoxNoCode);//盒标码
+                    requestdata.put("PackingNum",String.valueOf(BoxNoNum));//装盒数量
                     requestdata.put("SoCompId",Supplierid);//供应商编码
                     requestdata.put("StockId",StockId);//仓库系统编码
                     requestdata.put("GoodsId",GoodsId);//产品系统编码
-                    requestdata.put("OaSuserId",sysUserInfo.getUserCode());
-                    requestdata.put("ScanSn",String.valueOf(nSize));
+                    requestdata.put("OaSuserId",sysUserInfo.getUserCode());//登录用户代号
+                    requestdata.put("ScanSn",String.valueOf(nSize));//扫描序号
                     requestdata.put("ScanBillNo",scanBillno);//扫描单号
 //                    Log.d("main", requestdata.toString());
                     // 返回信息
@@ -729,6 +730,8 @@ public class P_Dv_InStock_PackBox_List_NoBill extends Activity  {
 
                     int tSacnNum=Integer.parseInt(BoxActNum);//当前盒已扫码数量
                     int tSetnum=Integer.parseInt(BoxNoNum);//设置的装盒数量
+
+                    sysUserInfo.setInStockBoxNoNum(BoxNoNum);
 
                     if (tSacnNum==tSetnum){
                         //判断修改的数量，如果等于已扫码的数量，就要有询问提示，马上打标出来，上传数据，清除本地数量

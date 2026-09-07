@@ -25,9 +25,14 @@ import com.example.wholesalersend.utils.MyProgressDialog;
 import com.example.wholesalersend.utils.ShowMessage;
 import com.example.wholesalersend.utils.SomeUtils;
 import com.example.wholesalersend.utils.SysUserInfo;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,9 +55,7 @@ public class QueryScanLensDetail extends Activity {
     List<Map<String, Object>> slist, searchList;
 
     private String lsv_searchSql = "", lsv_etStr = "";
-
     private String mBillNo = "";
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +66,6 @@ public class QueryScanLensDetail extends Activity {
         sysUserInfo = new SysUserInfo(this);
         mBillNo = getIntent().getStringExtra("mBillNo");
         listview = (ListView) findViewById(R.id.listView1);
-
         tv_total = (TextView) findViewById(R.id.tv_total);
 //		et_search=(EditText) findViewById(R.id.et_search);
 //		et_search.addTextChangedListener(new EditTextChnangeListener());
@@ -78,21 +80,40 @@ public class QueryScanLensDetail extends Activity {
         @Override
         public void run() {
             try {
-
-//                if (mBillNo == null || mBillNo.isEmpty()) {
-//                    slist = SqliteDataHelper.getHelper(getApplicationContext())
-//                            .QueryDbList(
-//                                    "select goodsid,modelm,colors,sum(curcount) as curcount from newscandate GROUP BY goodsid",
-//                                    null);
-//                } else {
-                    slist = accWeb.GetDowLoadLensScanBarcode(sysUserInfo.getLoginid(), mBillNo);
-//                slist = accWeb.GetDowLoadBilldetail("163125128103241181193187", "18682075683S18838316614195263");
-//                Log.d("maindetail",slist.toString());
+//                slist = accWeb.GetDowLoadLensScanBarcode(sysUserInfo.getLoginid(), mBillNo);
+//                if (slist.size() == 0) {
+//                    ShowMessage.ShowMsg(hand,"当前没有扫描数据");
+//                    MyProgressDialog.close();
+//                    return;
 //                }
+//                Log.d("main",slist.toString());
+//                ShowMessage.ShowMsg(hand, ShowMessage.HandScanSuccess, "success");
 
+                ArrayList<HashMap<Object, Object>> para = new ArrayList<HashMap<Object, Object>>();
+                HashMap<Object, Object> requestParams = new HashMap<Object, Object>();
+                requestParams.put("ScanBillNo", mBillNo);//扫描单号
+                para.add(requestParams);
+                Gson gson=new Gson();
+                String  result =accWeb.GetAPIStringInterface("AndroidDv/GetBillScanDetail", para);
+                JSONArray listjson =new JSONArray(result);
+                slist = new ArrayList<Map<String, Object>>();
+                Map<String, Object> maps;
+                for (int i = 0; i < listjson.length(); i++) {
+                    JSONObject jsonObject2 = (JSONObject) listjson.opt(i);
+                    maps = new HashMap<String, Object>();
+//                    maps.put("GoodsSysCode", jsonObject2.getString("GoodsSysCode"));
+                    maps.put("GoodsCode", jsonObject2.getString("goodsCode"));
+                    maps.put("RefractiveIndex", jsonObject2.getString("refractiveIndex"));
+                    maps.put("Diopter", jsonObject2.getString("diopter"));
+                    maps.put("Astigmatism", jsonObject2.getString("astigmatism"));
+                    maps.put("Num", jsonObject2.getString("num"));
+                    maps.put("Scandate", jsonObject2.getString("scanDate"));
+                    maps.put("BrandName", jsonObject2.getString("brandName"));
+
+                    slist.add(maps);
+                }
                 if (slist.size() == 0) {
-                    ShowMessage.ShowMsg(hand,
-                            "当前没有扫描数据");
+                    ShowMessage.ShowMsg(hand,"当前没有扫描数据");
                     MyProgressDialog.close();
                     return;
                 }
@@ -129,10 +150,8 @@ public class QueryScanLensDetail extends Activity {
     private void initListView(List<Map<String, Object>> mList) {
         //把集合数据先排序
 //        Collections.sort(mList, new SortListMapComparator("modelm"));
-
         SimpleAdapter adapter = new SimpleAdapter(QueryScanLensDetail.this, mList,
                 R.layout.list_scan_lens_detail, new String[]{"BrandName","GoodsCode", "RefractiveIndex", "Diopter", "Astigmatism", "Num"},
-
                 new int[]{R.id.txt_brand,R.id.txt_list1, R.id.txt_refractive,R.id.txt_list2, R.id.txt_list3, R.id.txt_list4});
         listview.setAdapter(adapter);
         tv_total.setText("（共 " + mList.size() + " 条）");

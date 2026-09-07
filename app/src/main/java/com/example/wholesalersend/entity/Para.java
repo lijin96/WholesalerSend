@@ -28,6 +28,7 @@ public class Para {
     private String GoodsOrderType;//满赠还是满正
 
     private Boolean SyncCcsCode;//是否同步状态到ccs
+    private String DeliveryId;//上游单号
 
 
     public String getBarcode() {
@@ -133,6 +134,14 @@ public class Para {
         GoodsOrderType = goodsOrderType;
     }
 
+    public String getDeliveryId() {
+        return DeliveryId;
+    }
+
+    public void setDeliveryId(String deliveryId) {
+        DeliveryId = deliveryId;
+    }
+
     public Para() {
         super();
     }
@@ -178,7 +187,7 @@ public class Para {
         js.put("StoreId", getStoreId());
         js.put("FirstDelivery", getFirstDelivery());
         js.put("GoodsOrderType", getGoodsOrderType());
-
+        js.put("DeliveryId", getDeliveryId());
         return js.toString();
 
     }

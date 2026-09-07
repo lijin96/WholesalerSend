@@ -259,6 +259,7 @@ public class SelectCCScustomer extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ListView listView = (ListView) adapterView;
                 Map<String, Object> item = (Map<String, Object>) listView.getItemAtPosition(i);
+//                Log.d("main-", item.toString());
                 CCSCustId=item.get("CutCode").toString();
                 CCScustName=item.get("CustName").toString();
                 showBingNormalDialog(item.get("CustName").toString(),item.get("CutCode").toString());
@@ -301,10 +302,13 @@ public class SelectCCScustomer extends Activity {
             @Override
             public void run() {
                 try {
-                    String result = accWeb.ScsCustBindToCcs(TraderSysId,tCcsCustCode,Brandcode,AgentCode);
+                    //绑定客户的时候门店是空
+                    String result = accWeb.ScsCustBindToCcs(TraderSysId,"",tCcsCustCode,"",Brandcode,AgentCode);
+//                    String result = accWeb.ScsCustBindToCcs(TraderSysId,tCcsCustCode,Brandcode,AgentCode);
+//                    Log.d("main-",result);
                     ShowMessage.ShowMsg(hand, 1, "success");
                 } catch (Exception e) {
-                    ShowMessage.ShowMsg(hand, "绑定出错" + e.getMessage());
+                    ShowMessage.ShowMsg(hand, "ScsCustBindToCcs-绑定出错" + e.getMessage());
                 }
             }
         });
@@ -429,6 +433,7 @@ public class SelectCCScustomer extends Activity {
         sendCode.start();
     }
 
+
     // 同步SCS数据到CCS并绑定
     private void ScsNewSyncToCcs(final String tCustJson, final String tStoreJson) {
         MyProgressDialog.show(this, "正在同步数据...", true, false);
@@ -436,10 +441,11 @@ public class SelectCCScustomer extends Activity {
             @Override
             public void run() {
                 try {
-                    String result = accWeb.ScsNewSyncToCcs(Brandcode,AgentCode,tCustJson,tStoreJson);
+                    //同步客户的时候，门店系统代号不要传
+                    String result = accWeb.ScsNewSyncToCcs(Brandcode,AgentCode,CustSysCode,"", tCustJson,"");
                     ShowMessage.ShowMsg(hand, 8, "success");
                 } catch (Exception e) {
-                    ShowMessage.ShowMsg(hand, "同步数据出错" + e.getMessage());
+                    ShowMessage.ShowMsg(hand, "ScsNewSyncToCcs-同步数据出错" + e.getMessage());
                 }
             }
         });

@@ -403,6 +403,14 @@ public class MenuListActivity extends Activity {
         }else if ("050110".equals(menucode)){
             intent = new Intent(mContext, SunLensReplaceLabCode.class);
             intent.putExtra("aim", "SunLensReplaceLabCode");
+        }else if("050113".equals(menucode)){
+            //镜片有单无入库分店发货
+            intent = new Intent(mContext, SelectPeiBill.class);
+            intent.putExtra("aim", "P_Dv_OutStock_Lens_Z_L_Bill_NoInStock");
+        }else if("050114".equals(menucode)){
+            //镜片无单无入库分店发货
+            intent = new Intent(mContext, SelectCompanyStoreInfor.class);
+            intent.putExtra("aim", "P_Dv_OutStock_Lens_Z_L_NoBill_NoInStock");
         }
 
 //        else if ("050106".equals(menucode)){
@@ -542,10 +550,19 @@ public class MenuListActivity extends Activity {
             intent = new Intent(mContext, SelectCompanyRetailer.class);
             intent.putExtra("aim", "P_Dv_ReturnedPurchase_L_D_Z_Lens");
         }
+        else if ("070119".equals(menucode)){
+            //无单镜片调拨
+            intent = new Intent(mContext, SelectOutStock.class);
+            intent.putExtra("aim", "P_Dv_InStock_Z_Lens_ChangeStock_NoBill");
+        }
         else if ("070201".equals(menucode)){
             //CCS换货补扫
             intent = new Intent(mContext, SelectStock.class);
             intent.putExtra("aim", "P_Dv_CCSBarcodeStatusWrite");
+        }else if ("070120".equals(menucode)){
+            //镜架跨店退货
+            intent = new Intent(mContext, SelectCompanyStoreInfor.class);
+            intent.putExtra("aim", "ReturnedPurchase_D_L_NoBill_SameCust");
         }
 
         if (intent != null) {

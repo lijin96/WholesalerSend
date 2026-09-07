@@ -46,7 +46,7 @@ public class SelectLensBillProduct extends Activity {
     private Thread downloadDetail;
     private SysUserInfo sysUserInfo;
 
-//    private EditText et_search;
+    //    private EditText et_search;
     private TextView tv_title, tv_total;
     private ListView listview;
 
@@ -86,14 +86,14 @@ public class SelectLensBillProduct extends Activity {
         searchList = new ArrayList<Map<String, Object>>();
 
 //        if (sysUserInfo.getIsDownload()) {
-            try {
-                SqliteDataHelper.getHelper(getApplicationContext()).execSQL("delete from newtpeinomx");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            MyProgressDialog.show(this, "正在下载单据明细……", true, false);
-            downloadDetail = new Thread(new DownloadPeiDetailRunnable());
-            downloadDetail.start();
+        try {
+            SqliteDataHelper.getHelper(getApplicationContext()).execSQL("delete from newtpeinomx");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        MyProgressDialog.show(this, "正在下载单据明细……", true, false);
+        downloadDetail = new Thread(new DownloadPeiDetailRunnable());
+        downloadDetail.start();
 //            sysUserInfo.setIsDownload(false);
 //        } else {
 //            dataList.addAll(SqliteDataHelper.getHelper(getApplicationContext()).QueryDbList("select * from newtpeinomx", null));
@@ -144,13 +144,24 @@ public class SelectLensBillProduct extends Activity {
             ListView listView = (ListView) parent;
 
             item = (Map<String, Object>) listView.getItemAtPosition(position);
-            Intent intent = new Intent();
-            intent.putExtra("goodsid", (String) item.get("goodsid"));
-            intent.putExtra("modelm", (String) item.get("modelm"));
-            intent.putExtra("colors", (String) item.get("colors"));
-            intent.putExtra("noscanqty", (String) item.get("noscanqty"));//数量
-            intent.putExtra("amount", (String) item.get("amount"));//数量
-            setResult(RESULT_OK, intent);
+//            Intent intent = new Intent();
+//            intent.putExtra("goodsid", (String) item.get("goodsid"));
+//            intent.putExtra("modelm", (String) item.get("modelm"));
+//            intent.putExtra("colors", (String) item.get("colors"));
+//            intent.putExtra("noscanqty", (String) item.get("noscanqty"));//数量
+//            intent.putExtra("amount", (String) item.get("amount"));//数量
+//            setResult(RESULT_OK, intent);
+//            finish();
+            if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_D_Bill_NoInStock")||lsv_aim.equals("P_Dv_OutStock_Lens_Z_L_Bill_NoInStock")){
+                Intent intent = new Intent();
+                intent.putExtra("goodsid", (String) item.get("GoodsCode"));
+                intent.putExtra("Astigmatism", (String) item.get("Astigmatism"));
+                intent.putExtra("Diopter", (String) item.get("Diopter"));
+                intent.putExtra("refractive", (String) item.get("RefractiveIndex"));//折射率
+                intent.putExtra("NoSendGoodQty", (String) item.get("NoSendGoodQty"));//数量
+                setResult(RESULT_OK, intent);
+                finish();
+            }
             finish();
         }
     }
@@ -174,7 +185,7 @@ public class SelectLensBillProduct extends Activity {
 
                 //镜片有单有入库分店发货单据下载
 //                if (lsv_aim.equals("P_Dv_OutStock_Lens_Z_L_Bill_BeInStock")) {
-                    dataList = accWeb.GetScsSaleOrderLensDetail(orderno);
+                dataList = accWeb.GetScsSaleOrderLensDetail(orderno);
 //                }
                 if (dataList.size() == 0) {
                     ShowMessage.ShowMsg(hand, "当前没有数据下载");
