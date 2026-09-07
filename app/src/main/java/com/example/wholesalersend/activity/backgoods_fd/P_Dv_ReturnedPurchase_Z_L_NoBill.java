@@ -791,7 +791,7 @@ public class P_Dv_ReturnedPurchase_Z_L_NoBill extends Activity {
                     map.put("BillNo", mBillNo);//单号
                     map.put("BrandCode", BrandCode);//品牌代号
 
-                    Log.d("main--", gson.toJson(map));
+//                    Log.d("main--", gson.toJson(map));
 
                     if (Scan_aim.equals("P_Dv_ReturnedPurchase_Z_L_NoBill")){
 //                        result = accWeb.P_Dv_Scan("P_Dv_ReturnedPurchase_D_L_NoBill", para.toNoBillJson());
